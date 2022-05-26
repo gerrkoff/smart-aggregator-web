@@ -42,7 +42,6 @@ export async function insertChats(db, value = null) {
   const chats = await getData(db, 'chats');
   const fragment = document.createDocumentFragment();
   const filteredChats = value ? filterChatsByDescription(chats, value) : chats;
-  console.log(chats)
 
   filteredChats.forEach((chat) => fragment.append(createChatTemplate(chat)));
 
