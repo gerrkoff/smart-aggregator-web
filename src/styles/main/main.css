@@ -1,0 +1,27 @@
+@import 'chats/chats.css';
+@import 'messages/messages.css';
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    overflow: auto;
+}
+
+.chats, .messages, .blank {
+    background-color: #f5f5ff;
+    border-radius: 10px;
+    border: 2px solid #D4D4D4;
+}
+
+.messages, .blank {
+    width: calc(((100%/4) * 3) / 2);
+}
+
+.chats__title, .messages__title {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #949BA6;
+}

@@ -1,0 +1,53 @@
+.messages {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.messages__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #D4D4D4;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.message:hover {
+    background-color: #BCCCDC;
+    border: 2px solid #627D98;
+}
+
+.message__img {
+    width: 100%;
+    min-height: 50px;
+    max-height: 200px;
+    border: 2px solid #949BA6;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.message__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message__text {
+    margin: 10px 0;
+}
+
+.message__data {
+    text-align: end;
+}
