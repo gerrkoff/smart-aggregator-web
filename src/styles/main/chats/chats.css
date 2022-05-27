@@ -34,11 +34,10 @@
     align-items: center;
     gap: 10px;
     width: 100%;
-    min-height: 50px;
+    height: 100px;
     padding: 10px;
     border-radius: 10px;
     border: 2px solid #D4D4D4;
-    overflow: hidden;
     cursor: pointer;
     transition: all .3s ease-in-out;
 }
@@ -76,7 +75,12 @@
     overflow-x: hidden;
 }
 
-.chat__description {
+.chat__title {
     display: block;
-    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.chat__description {
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

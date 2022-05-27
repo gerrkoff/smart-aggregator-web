@@ -1,6 +1,6 @@
-import { Chat, Message } from './components';
-import { CHATS_CONTAINER, MESSAGES_CONTAINER, db } from './config';
-import { getData, getMessageLastTime, toDateFormat } from './utils';
+import { Chat, Message } from '../components';
+import { CHATS_CONTAINER, MESSAGES_CONTAINER, db } from '../config';
+import { getData, getMessageLastTime, toDateFormat } from '../utils';
 
 let CHATS;
 
@@ -11,6 +11,8 @@ const handleClickOnChat = async (e) => {
   e.currentTarget.classList.add('active');
 
   await insertMessages(db, id);
+
+  MESSAGES_CONTAINER.scrollTop = 0;
 }
 
 
@@ -24,7 +26,9 @@ const createChatTemplate = (chat) => {
 
 
 const filterChatsByDescription = (chats, value) => {
-  return chats.filter((chat) => chat.Description.toLowerCase() === value.toLowerCase())
+  const regex = value;
+  return chats.filter((chat) => chat.Description.toLowerCase().match(regex))
+  ж
 }
 
 
@@ -45,6 +49,7 @@ export async function insertChats(db, value = null) {
 
   filteredChats.forEach((chat) => fragment.append(createChatTemplate(chat)));
 
+  CHATS_CONTAINER.innerHTML = '';
   CHATS_CONTAINER.append(fragment);
   CHATS = CHATS_CONTAINER.querySelectorAll('.chat')
 }

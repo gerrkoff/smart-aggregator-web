@@ -1,7 +1,7 @@
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from './config';
-import { insertChats } from './contentController';
-import './inputController';
+import { insertChats } from './controllers/contentController';
+import './controllers/inputController';
 
 import '../styles/styles.css';
 

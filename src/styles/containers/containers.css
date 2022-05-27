@@ -1,5 +1,5 @@
 .container {
-    max-width: 1280px;
+    max-width: 1920px;
     height: 100vh;
     margin: 0 auto;
     overflow: hidden;
@@ -10,5 +10,5 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 10px 20px;
 }

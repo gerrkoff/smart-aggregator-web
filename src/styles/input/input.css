@@ -10,3 +10,24 @@
     border-radius: 10px;
     border: 2px solid #D4D4D4;
 }
+
+.input__button {
+    height: 40px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #FFF;
+    background-color: #627D98;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.input__button:active {
+    background-color: #1F2939;
+}
+
+.input__button:hover {
+    color: #000;
+    background-color: transparent;
+    border: 2px solid #627D98;
+}

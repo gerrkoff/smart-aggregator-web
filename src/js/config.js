@@ -23,3 +23,4 @@ export const db = getFirestore(app);
 export const CHATS_CONTAINER = document.getElementById('chats');
 export const MESSAGES_CONTAINER = document.getElementById('messages');
 export const INPUT = document.getElementById('input');
+export const INPUT_BUTTON = document.querySelector('.input__button');
