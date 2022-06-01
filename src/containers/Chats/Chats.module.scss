@@ -17,6 +17,14 @@
   border: 1px solid #D4D4D4;
   overflow: hidden;
 
+  & [data-chat] {
+    cursor: initial;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   & [description] {
     font-size: 14px;
     white-space: initial;
