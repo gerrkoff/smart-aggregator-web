@@ -1,9 +1,10 @@
-import { CHATS_CONTAINER, db, INPUT, INPUT_BUTTON, MESSAGES_CONTAINER } from '../config';
+import { CHATS_CONTAINER, COMMENTS_CONTAINER, db, INPUT, INPUT_BUTTON, MESSAGES_CONTAINER } from '../config';
 import { insertChats } from './contentController';
 
 const clearContainers = () => {
   CHATS_CONTAINER.textContent = '';
   MESSAGES_CONTAINER.textContent = '';
+  COMMENTS_CONTAINER.textContent = '';
 }
 
 const setDefaultContainers = async () => {
