@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "src/js/index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "build": "webpack"
   },
   "browserslist": "> 0.25%",
@@ -21,6 +21,8 @@
     "html-webpack-plugin": "5.5.0",
     "loader": "2.1.1",
     "mini-css-extract-plugin": "2.6.0",
+    "sass": "1.50.1",
+    "sass-loader": "12.6.0",
     "postcss": "8.4.14",
     "postcss-loader": "7.0.0",
     "webpack": "5.72.0",

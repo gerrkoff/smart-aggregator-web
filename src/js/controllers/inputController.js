@@ -20,7 +20,9 @@ const handleSearch = async () => {
   }
 }
 
-INPUT.addEventListener('input', clearContainers);
-INPUT.addEventListener('change', setDefaultContainers);
-INPUT.addEventListener('blur', setDefaultContainers);
-INPUT_BUTTON.addEventListener('click', handleSearch);
+export const addInputListeners = () => {
+  INPUT.addEventListener('input', clearContainers);
+  INPUT.addEventListener('change', setDefaultContainers);
+  INPUT.addEventListener('blur', setDefaultContainers);
+  INPUT_BUTTON.addEventListener('click', handleSearch);
+}

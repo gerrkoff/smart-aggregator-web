@@ -1,0 +1,10 @@
+@import '../../styles/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 10px;
+  flex-shrink: 0;
+  background-color: #f5f5ff;
+}

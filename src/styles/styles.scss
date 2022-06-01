@@ -1,0 +1,24 @@
+@import 'null.scss';
+@import 'mixins.scss';
+@import 'fonts.scss';
+@import 'colors.scss';
+
+@import 'containers/containers.scss';
+@import 'main/main.scss';
+
+$fontFamily: 'Lab Grotesque', sans-serif;
+
+body {
+    font-family: $fontFamily;
+    color: $main-text;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 155, 166, .6);
+    border-radius: 10px;
+}

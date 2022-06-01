@@ -1,0 +1,33 @@
+@import '../../styles/main/main';
+
+.chats {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px;
+  overflow: hidden;
+  border-radius: 10px 0 0 10px;
+}
+
+.chats__info {
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #D4D4D4;
+  overflow: hidden;
+
+  & [description] {
+    font-size: 14px;
+    white-space: initial;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+  }
+}
+
+.chats__layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+}

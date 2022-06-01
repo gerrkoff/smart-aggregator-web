@@ -1,0 +1,7 @@
+@import 'mixins';
+
+@include font("Lab Grotesque", "LabGrotesque-Thin", "200", "normal");
+@include font("Lab Grotesque", "LabGrotesque-Light", "300", "normal");
+@include font("Lab Grotesque", "LabGrotesque-Regular", "400", "normal");
+@include font("Lab Grotesque", "LabGrotesque-Medium", "500", "normal");
+@include font("Lab Grotesque", "LabGrotesque-Bold", "600", "normal");

@@ -15,3 +15,10 @@ export const toDateFormat = (editTime, createTime) => {
   const day = new Date(data).toLocaleDateString();
   return `${ time } ${ day }`
 }
+
+export const componentToNode = (component) => {
+  const template = document.createElement('template');
+  template.innerHTML = component;
+
+  return template.content.firstElementChild;
+}

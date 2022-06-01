@@ -12,7 +12,7 @@ module.exports = {
     filename: 'index.[hash:5].js',
   },
   resolve: {
-    extensions: ['.html', '.js', '.css'],
+    extensions: ['.html', '.js', '.css', '.scss'],
   },
   devServer: {
     static: {
@@ -31,7 +31,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'Chats Demo',
-      template: './src/index.html',
+      template: './static/index.html',
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -45,12 +45,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.(s*)css$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
+          'sass-loader',
         ],
+      },
+      {
+        test: /\.(woff2)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]'
+        }
       },
     ],
   },
