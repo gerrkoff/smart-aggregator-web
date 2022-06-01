@@ -6,6 +6,7 @@ import { MessageFull } from '../../components/MessageFull/MessageFull';
 let CHATS;
 let CHATS_NODES;
 let MESSAGES;
+let LAST_MESSAGE;
 
 const handleClickOnChat = async (e) => {
   const id = e.currentTarget.dataset.id;
@@ -51,20 +52,21 @@ const filterMessagesById = (messages, id) => {
 
 const sortMessagesByTime = (messages) => {
   const messagesWithDate = {};
+  const sortedMessages = messages.sort((a, b) => getMessageLastTime(b) - getMessageLastTime(a))
 
-  messages
-    .sort((a, b) => getMessageLastTime(b) - getMessageLastTime(a))
-    .forEach((message) => {
-      const data = getMessageLastTime(message);
-      const day = new Date(data).toLocaleDateString();
+  sortedMessages.forEach((message) => {
+    const data = getMessageLastTime(message);
+    const day = new Date(data).toLocaleDateString();
 
-      if (messagesWithDate[day]) {
-        messagesWithDate[day].push(message);
-      } else {
-        messagesWithDate[day] = [];
-        messagesWithDate[day].push(message);
-      }
-    })
+    if (messagesWithDate[day]) {
+      messagesWithDate[day].push(message);
+    } else {
+      messagesWithDate[day] = [];
+      messagesWithDate[day].push(message);
+    }
+  })
+
+  LAST_MESSAGE = sortedMessages[0];
 
   return messagesWithDate;
 }
@@ -95,6 +97,7 @@ export async function insertMessages(db, id) {
     })
 
   MESSAGES_CONTAINER.innerHTML = result.reduceRight((arr, res) => res.concat(arr)).join('');
+  COMMENTS_CONTAINER.innerHTML = MessageFull(LAST_MESSAGE);
 
   const messagesComponents = MESSAGES_CONTAINER.querySelectorAll('[data-id]');
   messagesComponents.forEach((mes) => mes.addEventListener('click', addToCommentsContainer))
