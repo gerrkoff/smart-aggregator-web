@@ -1,16 +1,16 @@
 import styles from './MessageFull.module.scss';
 import { toDateFormat } from '../../js/utils';
 
-export const MessageFull = ({ Text, Link, CreateTime, EditTime, PhotoUrl, VideoThumbUrl }) => {
+export const MessageFull = ({ Text, Link, CreateTime, EditTime, PhotoUrl, VideoFileName }) => {
   return `
     <div class=${ styles.message }>
       ${ PhotoUrl ? `<div class=${ styles.message__img }><img src=${ PhotoUrl } alt='placeholder'></div>` : '' }
-      ${ VideoThumbUrl ? `<div class=${ styles.message__video }><video src=${ VideoThumbUrl } loop controls></div>` : '' }
+      ${ VideoFileName ? `<div class=${ styles.message__video }><video src=${ VideoFileName } loop controls></div>` : '' }
       <div class=${ styles.message__info }>
         <p class=${ styles.message__text }>
           ${ Text }
         </p>
-        ${ Link ? `<a href='${ Link }' target='_blank'>Ссылка на сообщение</a>` : '' }
+        ${ Link ? `<a href='${ Link }' class=${styles.link} target='_blank'>Ссылка на сообщение</a>` : '' }
         <div class=${ styles.message__reactions }>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                 <title>Reaction</title>

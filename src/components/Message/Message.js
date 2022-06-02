@@ -10,7 +10,7 @@ export const Message = (text, img, data, link, id) => {
             ${text}
           </p>
         </div>
-        ${link ? `<a href='${ link }' target='_blank'>Ссылка на сообщение</a>` : ''}
+        ${link ? `<a href='${ link }' class=${styles.link} target='_blank'>Ссылка на сообщение</a>` : ''}
         <span class=${styles.message__data}>
           ${data}
         </span>
