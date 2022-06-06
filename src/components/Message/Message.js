@@ -1,16 +1,19 @@
 import styles from './Message.module.scss';
+import { toDateFormat } from '../../js/utils';
 
-export const Message = (text, img, data, link, id) => {
+export const Message = ({Text, PhotoUrl, EditTime, CreateTime, Link, MessageId}) => {
+  const data = toDateFormat(EditTime, CreateTime);
+
   return `
-    <div class=${styles.message} data-id=${id}>
+    <div class=${styles.message} data-id=${MessageId}>
       <div class=${styles.message__info}>
         <div class=${styles.text__wrapper}>
-          ${img ? `<img src=${img} alt='preview'>` : ''}
+          ${PhotoUrl ? `<img src=${PhotoUrl} alt='preview'>` : ''}
           <p class=${styles.message__text}>
-            ${text}
+            ${Text}
           </p>
         </div>
-        ${link ? `<a href='${ link }' class=${styles.link} target='_blank'>Ссылка на сообщение</a>` : ''}
+        ${Link ? `<a href='${ Link }' class=${styles.link} target='_blank'>Ссылка на сообщение</a>` : ''}
         <span class=${styles.message__data}>
           ${data}
         </span>

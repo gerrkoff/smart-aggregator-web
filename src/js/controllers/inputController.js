@@ -1,5 +1,5 @@
 import { CHATS_CONTAINER, COMMENTS_CONTAINER, db, INPUT, INPUT_BUTTON, MESSAGES_CONTAINER } from '../config';
-import { insertChats } from './contentController';
+import { insertChats } from './chatController';
 
 const clearContainers = () => {
   CHATS_CONTAINER.textContent = '';

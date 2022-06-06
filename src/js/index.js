@@ -1,9 +1,9 @@
 import { Header, InputContainer, Chats, Messages, Comments } from '../containers';
 import { collection, addDoc } from 'firebase/firestore';
-import { db, searchComponents } from './config';
-import { insertChats } from './controllers/contentController';
-import { componentToNode } from './utils';
+import { insertChats } from './controllers/chatController';
 import { addInputListeners } from './controllers/inputController';
+import { db, searchComponents } from './config';
+import { componentToNode } from './utils';
 
 import '../styles/styles.scss';
 
