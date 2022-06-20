@@ -1,18 +1,24 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.js',
+  entry: './src/index.tsx',
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'build'),
     filename: 'index.[hash:5].js',
   },
   resolve: {
-    extensions: ['.html', '.js', '.css', '.scss'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: './tsconfig.paths.json',
+      }),
+    ],
   },
   devServer: {
     static: {
@@ -30,34 +36,43 @@ module.exports = {
       filename: 'styles.[hash:5].css',
     }),
     new HtmlWebpackPlugin({
-      title: 'Chats Demo',
+      title: 'Smart Aggregator',
       template: './static/index.html',
+      favicon: './static/favicon.ico',
+      inject: 'body',
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve('src', 'assets'),
-          to: path.resolve('build', 'assets')
-        }
-      ],
-    })
   ],
   module: {
     rules: [
       {
-        test: /\.(s*)css$/i,
+        test: /\.tsx?$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, 'tsconfig.json'),
+            },
+          },
         ],
+        exclude: /(node_modules)/,
+      },
+      {
+        test: /\.(s*)css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpg|svg|webp|ico|xml|json)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
       },
       {
         test: /\.(woff2)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name][ext]'
-        }
+          filename: 'fonts/[name][ext]',
+        },
       },
     ],
   },

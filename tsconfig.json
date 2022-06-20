@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/",
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "esModuleInterop": true
+  },
+  "extends": "./tsconfig.paths.json",
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
