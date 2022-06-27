@@ -1,4 +1,7 @@
+@import '../../styles/colors';
+
 .input {
+  position: relative;
   display: flex;
   align-items: center;
   align-content: stretch;
@@ -6,4 +9,16 @@
   width: 40%;
   min-width: 300px;
   padding: 10px 0;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  color: $input-border;
+
+  &:hover {
+    color: red;
+  }
 }

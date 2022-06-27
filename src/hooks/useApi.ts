@@ -1,28 +1,21 @@
-import { useEffect, useState } from 'react';
-import { baseAPI } from '@api/baseAPI';
-import firebase from 'firebase/compat';
-import DocumentData = firebase.firestore.DocumentData;
+import { fetchMessages } from '@store/messages';
+import { fetchChats } from '@store/chats';
+import { useAppDispatch } from '@store/hooks';
 
-type TChats = {}[] | null | Promise<DocumentData[]>;
-type TMessages = {}[] | null | Promise<DocumentData[]>;
 
 export const useApi = () => {
-  const [chats, setChats] = useState<TChats>(null);
-  const [messages, setMessages] = useState<TMessages>(null);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    baseAPI.getChats()
-      .then((data) => {
-        setChats(data)
-      });
-    baseAPI.getMessages()
-      .then((data) => {
-        setMessages(data)
-      });
-  }, [])
+  const dispatchMessages = () => {
+    dispatch(fetchMessages());
+  }
+
+  const dispatchChats = () => {
+    dispatch(fetchChats());
+  }
 
   return {
-    messages,
-    chats
+    dispatchChats,
+    dispatchMessages
   };
 }

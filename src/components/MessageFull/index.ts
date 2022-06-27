@@ -1,0 +1,1 @@
+export { MessageFull } from './MessageFull';

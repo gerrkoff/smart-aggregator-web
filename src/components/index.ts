@@ -1,5 +1,6 @@
 export { Chat } from './Chat';
-export * from './Message';
-export { Button } from './Button';
+export { MessageFull } from './MessageFull';
+export { Message } from './Message';
 export { Input } from './Input';
 export { DateLabel } from './Date';
+export { SearchError } from './SearchError';

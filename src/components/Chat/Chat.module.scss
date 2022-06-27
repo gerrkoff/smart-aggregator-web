@@ -23,6 +23,8 @@
 }
 
 .chat__logo {
+  position: sticky;
+  top: 0;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -49,6 +51,17 @@
   font-size: 14px;
   margin-bottom: 10px;
   font-weight: 700;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.chat__link {
+  display: none;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .chat__description {
