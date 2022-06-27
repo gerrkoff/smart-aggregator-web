@@ -16,8 +16,6 @@ export const Search = () => {
 
   const debouncedDispatchInput = useDebouncedCallback((valueInput) => {
     dispatch(searchSlice.actions.setInput({ input: valueInput.toLowerCase() }));
-    // dispatch(activeChatSlice.actions.setChatId({ chatId: 0 }));
-    // dispatch(activeMessageSlice.actions.setMessageId({ messageId: 0 }))
   }, 300)
 
   const handleSearch = (e) => {
