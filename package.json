@@ -40,6 +40,7 @@
     "eslint-plugin-react": "7.27.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "file-loader": "6.2.0",
+    "firebase-tools": "^11.0.1",
     "html-webpack-plugin": "5.5.0",
     "loader": "2.1.1",
     "mini-css-extract-plugin": "2.6.0",
@@ -53,7 +54,9 @@
     "use-debounce": "^8.0.1",
     "webpack": "5.73.0",
     "webpack-cli": "4.10.0",
-    "webpack-dev-server": "4.9.2"
+    "webpack-dev-server": "4.9.2",
+    "postcss": "8.4.14",
+    "postcss-loader": "7.0.0"
   },
   "dependencies": {
     "classnames": "2.3.1",
