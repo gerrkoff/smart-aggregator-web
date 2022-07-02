@@ -56,7 +56,7 @@ export const Chats = () => {
     }
 
     if (input) {
-      dataForSort = data?.filter((chat) => chat.Description.toLowerCase().match(input));
+      dataForSort = data?.filter((chat) => chat.Description.toLowerCase().includes(input));
     }
 
     if (status === SEARCH_STATUS.error) {
