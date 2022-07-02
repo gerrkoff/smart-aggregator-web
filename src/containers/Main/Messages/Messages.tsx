@@ -25,6 +25,8 @@ export const Messages = () => {
       dispatch(activeMessageSlice.actions.setMessageId({ messageId: 0 }))
     } else if (dataForSort.length > 0 && chatId) {
       dispatch(activeMessageSlice.actions.setMessageId({ messageId: dataForSort[0].MessageId }))
+    } else if (dataForSort.length <= 0 && chatId) {
+      dispatch(activeMessageSlice.actions.setMessageId({ messageId: 0 }))
     }
   }, [chatId, input])
 

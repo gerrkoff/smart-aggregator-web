@@ -25,6 +25,8 @@ export const Chats = () => {
     } else if (dataForSort.length > 0 && input) {
       dispatch(searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.success }))
       dispatch(activeChatSlice.actions.setChatId({ chatId: dataForSort[0].ChatId }))
+    } else if (!input) {
+      dispatch(searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.default }))
     }
   }, [input])
 
