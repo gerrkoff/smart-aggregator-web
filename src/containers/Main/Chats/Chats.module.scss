@@ -1,0 +1,55 @@
+@import '../Main.module';
+@import '../../../styles/colors';
+
+.chats {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px;
+  overflow: hidden;
+  border-radius: 10px 0 0 10px;
+}
+
+.info__wrapper {
+  min-height: 120px;
+  margin-top: 10px;
+  padding: 10px 5px;
+  border-radius: 10px;
+  border: 1px solid #D4D4D4;
+}
+
+.chats__info {
+  height: 100%;
+  overflow-y: auto;
+  word-break: break-word;
+
+  & [data-chat] {
+    cursor: initial;
+    height: initial;
+    align-items: normal;
+    background-color: transparent !important;
+    color: #000;
+    padding: 0;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  & [data-description] {
+    font-size: 14px;
+    white-space: initial;
+    -webkit-line-clamp: initial;
+    -webkit-box-orient: initial;
+  }
+
+  & [data-link] {
+    display: block !important;
+  }
+}
+
+.chats__layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+}

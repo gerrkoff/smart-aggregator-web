@@ -1,15 +1,25 @@
+@import '../../styles/colors';
+
 .message {
   display: flex;
   flex-direction: column;
   width: 95%;
-  background-color: #FFF;
+  background-color: $message;
   border-radius: 10px;
   cursor: pointer;
   transition: all .3s ease-in-out;
-}
 
-.message:hover {
-  background-color: #eee;
+  &.active {
+    background-color: $message-active;
+
+    &:hover {
+      background-color: $message-active-hover;
+    }
+  }
+
+  &:hover {
+    background-color: $message-hover;
+  }
 }
 
 .message__info {
@@ -34,6 +44,7 @@
   & img {
     width: 40px;
     height: 40px;
+    object-fit: contain;
   }
 
 }
@@ -51,9 +62,14 @@
 .link {
   display: block;
   margin-right: auto;
+  color: $accent-blue;
 }
 
 .message__data {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  flex-wrap: wrap;
   text-align: end;
-  color: #4fae4e;
+  color: $message-date;
 }

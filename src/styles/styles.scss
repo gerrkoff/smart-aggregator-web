@@ -3,14 +3,25 @@
 @import 'fonts.scss';
 @import 'colors.scss';
 
-@import 'containers/containers.scss';
-@import 'main/main.scss';
-
 $fontFamily: 'Lab Grotesque', sans-serif;
 
 body {
     font-family: $fontFamily;
     color: $main-text;
+}
+
+.container {
+    max-width: 1920px;
+    height: 100vh;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 ::-webkit-scrollbar {

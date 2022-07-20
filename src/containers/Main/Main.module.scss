@@ -1,0 +1,11 @@
+.main {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 25% calc(((100% / 4) * 3) / 2) calc(((100% / 4) * 3) / 2);
+  width: 100%;
+  overflow: auto;
+}
+
+.chats, .messages, .comments {
+  border: 1px solid #D4D4D4;
+}
