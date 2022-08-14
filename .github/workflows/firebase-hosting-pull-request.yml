@@ -15,11 +15,11 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SMART_AGGREGATOR_350521 }}'
           projectId: smart-aggregator-350521
-          expires: 90d
+          expires: 30d
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SMART_AGGREGATOR_350521 }}'
           projectId: smart-aggregator-350521
-          expires: 180d
+          expires: 30d
           channelId: stage
