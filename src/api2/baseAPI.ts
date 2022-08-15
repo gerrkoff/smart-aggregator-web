@@ -8,6 +8,21 @@ class BaseAPI {
     const response = await fetch(`${url}/misc/buildinfo`);
     return response.json();
   };
+
+  getChats = async (): Promise<unknown> => {
+    const response = await fetch(`${url}/chat`);
+    return response.json();
+  };
+
+  getFeed = async (): Promise<unknown> => {
+    const response = await fetch(`${url}/message/feed`);
+    return response.json();
+  };
+
+  getMessages = async (chatId: number): Promise<unknown> => {
+    const response = await fetch(`${url}/message?chatId=${chatId}`);
+    return response.json();
+  };
 }
 
 export const baseAPI = new BaseAPI();
