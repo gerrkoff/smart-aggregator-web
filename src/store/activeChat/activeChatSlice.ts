@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type TActiveChatState = {
-  chatId: number | string;
+  chatId: number;
 };
 
 const initialState: TActiveChatState = {

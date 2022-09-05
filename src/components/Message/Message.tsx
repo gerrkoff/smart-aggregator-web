@@ -16,25 +16,24 @@ const LinkElement = ({ link }) => (<a href={link} className={styles.link} target
 const Image = ({ src }) => (<img src={src} alt='preview'/>);
 
 export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
-  const { Text, PhotoUrl, EditTime, CreateTime, Link, MessageId, VideoThumbUrl, ChatId } = message;
+  const { text, editTime, createTime, link, id, media } = message;
   const { messageId } = useActiveMessageSelector();
 
-  const date = toDateFormat(EditTime, CreateTime);
-  const image = PhotoUrl || VideoThumbUrl ? <Image src={PhotoUrl || VideoThumbUrl}/> : null;
-  const link = Link ? <LinkElement link={Link}/> : null;
+  const date = toDateFormat(editTime, createTime);
+  // const image = PhotoUrl || VideoThumbUrl ? <Image src={PhotoUrl || VideoThumbUrl}/> : null;
+  const linkComponent = link ? <LinkElement link={link}/> : null;
 
   return (
-    <div className={cn(styles.message, String(messageId) === String(MessageId) ? styles.active : '')}
-         data-id={MessageId}
-         data-chat-id={ChatId}
+    <div className={cn(styles.message, String(messageId) === String(id) ? styles.active : '')}
+         data-id={id}
          onClick={onMessageClick}>
       <div className={styles.message__info}>
         <div className={styles.text__wrapper}>
-          {image}
-          <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: Text }}/>
+          {/*{image}*/}
+          <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: text }}/>
         </div>
         <span className={styles.message__data}>
-          {link}
+          {linkComponent}
           {date}
         </span>
       </div>

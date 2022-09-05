@@ -1,5 +1,5 @@
 export function getMessageLastTime(msg) {
-  return msg.EditTime ?? msg.CreateTime;
+  return Date.parse(msg.editTime) || Date.parse(msg.createTime);
 }
 
 export const toDateFormat = (editTime, createTime) => {

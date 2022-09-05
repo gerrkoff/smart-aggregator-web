@@ -5,7 +5,7 @@ export const fetchMessages = createAsyncThunk(
   'messages/fetchMessages',
   async (_, { rejectWithValue }) => {
     return await baseAPI
-      .getMessages()
+      .getFeed()
       .then((data: []) => {
         return data
       })

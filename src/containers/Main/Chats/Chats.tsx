@@ -5,9 +5,12 @@ import { useAppDispatch } from '@store/hooks';
 import { searchSlice, useSearchSelector } from '@store/search';
 import { activeChatSlice, useActiveChatSelector } from '@store/activeChat';
 import { activeMessageSlice } from '@store/activeMessage';
-import { SEARCH_STATUS, TChat } from '@types';
+import { RequestStatus, SEARCH_STATUS, TChat } from '@types';
+import { chatMessagesSlice } from '@store/chatMessages/chatMessagesSlice';
+import { baseAPI } from '@api/baseAPI';
 
 import styles from './Chats.module.scss';
+import { getMessageLastTime } from '@utils/utils';
 
 export const Chats = () => {
   let dataForSort;
@@ -32,21 +35,27 @@ export const Chats = () => {
 
   const searchForChat = (): TChat => {
     // @ts-ignore
-    return data?.filter((chat: TChat) => String(chat.ChatId) === String(chatId))[0];
+    return data?.filter((chat: TChat) => String(chat.id) === String(chatId))[0];
   }
 
-  const handleClickOnChat = (e) => {
+  const handleClickOnChat = async (e) => {
     const id = e.currentTarget.dataset.id;
     dispatch(activeChatSlice.actions.setChatId({ chatId: id }))
+
+    await baseAPI
+      .getMessages(id)
+      .then((data) => {
+        dispatch(chatMessagesSlice.actions.setMessages({ chatMessagesData: data, requestStatus: RequestStatus.SUCCESS }))
+      })
   }
 
   const sortData = (dataForSort) => {
     return dataForSort
-      ?.sort((a: TChat, b: TChat) => Number(b.CreateTime) - Number(a.CreateTime))
+      ?.sort((a: TChat, b: TChat) => getMessageLastTime(b) -getMessageLastTime(a))
       ?.map((chat) => {
         return <Chat chat={chat}
                      onChatClick={handleClickOnChat}
-                     key={chat.ChatId}/>
+                     key={chat.id}/>
       })
   }
 
@@ -56,7 +65,7 @@ export const Chats = () => {
     }
 
     if (input) {
-      dataForSort = data?.filter((chat) => chat.Description.toLowerCase().includes(input));
+      dataForSort = data?.filter((chat) => chat.description.toLowerCase().includes(input));
     }
 
     if (status === SEARCH_STATUS.error) {

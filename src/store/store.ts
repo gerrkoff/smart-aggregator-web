@@ -2,6 +2,7 @@ import thunkMiddleware from 'redux-thunk';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { messagesSlice } from '@store/messages';
 import { chatsSlice } from '@store/chats';
+import { chatMessagesSlice } from '@store/chatMessages/chatMessagesSlice';
 import { activeChatSlice } from '@store/activeChat/activeChatSlice';
 import { activeMessageSlice } from '@store/activeMessage';
 import { searchSlice } from '@store/search';
@@ -9,6 +10,7 @@ import { searchSlice } from '@store/search';
 const reducer = combineReducers({
   messages: messagesSlice.reducer,
   chats: chatsSlice.reducer,
+  chatMessages: chatMessagesSlice.reducer,
   activeChat: activeChatSlice.reducer,
   activeMessage: activeMessageSlice.reducer,
   search: searchSlice.reducer,

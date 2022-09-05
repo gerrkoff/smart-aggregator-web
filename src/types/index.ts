@@ -6,25 +6,22 @@ export enum RequestStatus {
 }
 
 export type TChat = {
-  ChatId: number;
+  id: number;
   Username: string;
-  Title: string;
-  Description: string;
-  Link: string;
-  LogoUrl: string;
+  title: string;
+  description: string;
+  link: string;
+  logoUrl: string;
   CreateTime: string;
 }
 
 export type TMessage = {
-  ChatId: number;
-  MessageId: number;
-  Text: string;
-  CreateTime: string;
-  EditTime?: string;
-  Link: string;
-  PhotoUrl: string;
-  VideoFileName: string;
-  VideoThumbUrl: string;
+  id: number;
+  text: string;
+  createTime: string;
+  editTime?: string;
+  link: string;
+  media: [];
 }
 
 export const SEARCH_STATUS = {

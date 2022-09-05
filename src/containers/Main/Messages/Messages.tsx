@@ -9,12 +9,14 @@ import { useSearchSelector } from '@store/search';
 import { SEARCH_STATUS, TMessage } from '@types';
 
 import styles from './Messages.module.scss';
+import { useChatMessagesSelector } from '@store/chatMessages';
 
 export const Messages = () => {
   let dataForSort;
 
   const dispatch = useAppDispatch();
   const { data } = useMessagesSelector();
+  const { chatMessagesData } = useChatMessagesSelector();
   const { chatId } = useActiveChatSelector();
   const { input, status } = useSearchSelector();
 
@@ -32,9 +34,9 @@ export const Messages = () => {
 
   const handleClickOnMessage = (e) => {
     const id = e.currentTarget.dataset.id;
-    const chatId = e.currentTarget.dataset.chatId;
+    // const chatId = e.currentTarget.dataset.chatId;
     dispatch(activeMessageSlice.actions.setMessageId({ messageId: id }))
-    dispatch(activeChatSlice.actions.setChatId({ chatId: chatId }))
+    // dispatch(activeChatSlice.actions.setChatId({ chatId: chatId }))
   }
 
   const sortData = (dataForSort) => {
@@ -43,19 +45,22 @@ export const Messages = () => {
       ?.map((message) => {
         return <Message message={message}
                         onMessageClick={handleClickOnMessage}
-                        key={`${message.CreateTime}-${message.MessageId}`}/>
+                        key={`${message.createTime}-${message.id}`}/>
       })
   }
 
 
   const dataToMessageElements = () => {
-    if (data) {
+    // @ts-ignore
+    if (chatMessagesData.length > 0) {
+      dataForSort = [...chatMessagesData];
+    } else if (data) {
       dataForSort = [...data];
     }
 
-    if (chatId) {
-      dataForSort = data?.filter((message: TMessage) => String(message.ChatId) === String(chatId));
-    }
+    // if (chatId) {
+    //   dataForSort = data?.filter((message: TMessage) => String(message.id) === String(chatId));
+    // }
 
     if (status === SEARCH_STATUS.error) {
       return <SearchError/>
