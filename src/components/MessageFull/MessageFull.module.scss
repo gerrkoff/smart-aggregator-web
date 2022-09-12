@@ -13,16 +13,52 @@
 .message__media {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  background-color: rgba(0,0,0, .1);
+  background-color: rgba(0, 0, 0, .1);
 }
 
 .message__img, .message__video {
+  position: relative;
+  max-width: 100%;
+
   & img {
     height: 250px;
-    object-fit: contain;
+    width: 100%;
+    object-fit: cover;
   }
+}
+
+.message__img {
+  width: 50%;
+}
+
+.message__video {
+  width: 100%;
+}
+
+.message__video:hover {
+  &:before {
+    opacity: 1;
+  }
+}
+
+.message__video:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 15px solid transparent;
+  border-left: 20px solid white;
+  border-radius: 3px;
+  transition: opacity .3s ease-in-out;
+  opacity: .5;
 }
 
 .message__info {

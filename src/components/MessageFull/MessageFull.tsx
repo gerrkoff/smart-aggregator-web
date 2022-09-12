@@ -17,13 +17,18 @@ export const MessageFull = ({ message }) => {
   const linkComponent = link ? <LinkElement link={link}/> : null;
 
   const mediaComponents = () => {
-    return media.map((item) => {
+    const videoContainer = []
+    const mediaElements = media.map((item) => {
       const { photoUrl, videoThumbUrl } = item
-      const image = photoUrl ? <Image src={photoUrl}/> : null;
-      const video = videoThumbUrl ? <Video href={link} src={videoThumbUrl}/> : null;
+      const image = photoUrl ? <Image src={photoUrl} key={photoUrl}/> : null;
+      const video = videoThumbUrl ? <Video href={link} src={videoThumbUrl} key={videoThumbUrl}/> : null;
+      // @ts-ignore
+      videoContainer.push(video)
 
-      return [image, video]
+      return image
     })
+
+    return [...mediaElements, ...videoContainer]
   }
 
   return (

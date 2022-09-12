@@ -26,7 +26,7 @@ export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
     return media
       .map((item) => {
         const { photoUrl, videoThumbUrl } = item
-        return photoUrl || videoThumbUrl ? <Image src={photoUrl || videoThumbUrl}/> : null;
+        return photoUrl || videoThumbUrl ? <Image src={photoUrl || videoThumbUrl} key={photoUrl || videoThumbUrl}/> : null;
       })
       .slice(0, 3)
   }
