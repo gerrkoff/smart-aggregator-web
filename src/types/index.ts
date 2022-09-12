@@ -5,6 +5,12 @@ export enum RequestStatus {
   ERROR = 'ERROR',
 }
 
+type TMedia = {
+  photoUrl: string,
+  videoFileName: string | null,
+  videoThumbUrl: string | null
+}
+
 export type TChat = {
   id: number;
   Username: string;
@@ -21,7 +27,7 @@ export type TMessage = {
   createTime: string;
   editTime?: string;
   link: string;
-  media: [];
+  media: TMedia[];
 }
 
 export const SEARCH_STATUS = {

@@ -20,8 +20,16 @@ export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
   const { messageId } = useActiveMessageSelector();
 
   const date = toDateFormat(editTime, createTime);
-  // const image = PhotoUrl || VideoThumbUrl ? <Image src={PhotoUrl || VideoThumbUrl}/> : null;
   const linkComponent = link ? <LinkElement link={link}/> : null;
+
+  const mediaComponents = () => {
+    return media
+      .map((item) => {
+        const { photoUrl, videoThumbUrl } = item
+        return photoUrl || videoThumbUrl ? <Image src={photoUrl || videoThumbUrl}/> : null;
+      })
+      .slice(0, 3)
+  }
 
   return (
     <div className={cn(styles.message, String(messageId) === String(id) ? styles.active : '')}
@@ -29,7 +37,7 @@ export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
          onClick={onMessageClick}>
       <div className={styles.message__info}>
         <div className={styles.text__wrapper}>
-          {/*{image}*/}
+          {mediaComponents()}
           <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: text }}/>
         </div>
         <span className={styles.message__data}>
