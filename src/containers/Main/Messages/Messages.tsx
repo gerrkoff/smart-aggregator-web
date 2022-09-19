@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { Message, SearchError } from '@components';
-import { getMessageLastTime } from '@utils/utils';
 import { useMessagesSelector } from '@store/messages';
-import { activeChatSlice, useActiveChatSelector } from '@store/activeChat';
+import { useActiveChatSelector } from '@store/activeChat';
 import { activeMessageSlice } from '@store/activeMessage';
 import { useAppDispatch } from '@store/hooks';
 import { useSearchSelector } from '@store/search';
@@ -34,14 +33,12 @@ export const Messages = () => {
 
   const handleClickOnMessage = (e) => {
     const id = e.currentTarget.dataset.id;
-    // const chatId = e.currentTarget.dataset.chatId;
     dispatch(activeMessageSlice.actions.setMessageId({ messageId: id }))
-    // dispatch(activeChatSlice.actions.setChatId({ chatId: chatId }))
   }
 
   const sortData = (dataForSort) => {
     return dataForSort
-      ?.sort((a: TMessage, b: TMessage) => getMessageLastTime(b) - getMessageLastTime(a))
+      ?.sort((a: TMessage, b: TMessage) => Date.parse(b.createTime) - Date.parse(a.createTime))
       ?.map((message) => {
         return <Message message={message}
                         onMessageClick={handleClickOnMessage}
@@ -57,10 +54,6 @@ export const Messages = () => {
     } else if (data) {
       dataForSort = [...data];
     }
-
-    // if (chatId) {
-    //   dataForSort = data?.filter((message: TMessage) => String(message.id) === String(chatId));
-    // }
 
     if (status === SEARCH_STATUS.error) {
       return <SearchError/>

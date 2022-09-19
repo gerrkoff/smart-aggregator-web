@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Chat, SearchError } from '@components';
 import { useChatsSelector } from '@store/chats/chatsSelector';
 import { useAppDispatch } from '@store/hooks';
+import { getChatLastTime } from '@utils/utils';
 import { searchSlice, useSearchSelector } from '@store/search';
 import { activeChatSlice, useActiveChatSelector } from '@store/activeChat';
 import { activeMessageSlice } from '@store/activeMessage';
@@ -10,7 +11,6 @@ import { chatMessagesSlice } from '@store/chatMessages/chatMessagesSlice';
 import { baseAPI } from '@api/baseAPI';
 
 import styles from './Chats.module.scss';
-import { getChatLastTime, getMessageLastTime } from '@utils/utils';
 
 export const Chats = () => {
   let dataForSort;

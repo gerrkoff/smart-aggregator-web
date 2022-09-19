@@ -16,10 +16,10 @@ const LinkElement = ({ link }) => (<a href={link} className={styles.link} target
 const Image = ({ src }) => (<img src={src} alt='preview'/>);
 
 export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
-  const { text, editTime, createTime, link, id, media } = message;
+  const { text, createTime, link, id, media } = message;
   const { messageId } = useActiveMessageSelector();
 
-  const date = toDateFormat(editTime, createTime);
+  const date = toDateFormat(createTime);
   const linkComponent = link ? <LinkElement link={link}/> : null;
 
   const mediaComponents = () => {

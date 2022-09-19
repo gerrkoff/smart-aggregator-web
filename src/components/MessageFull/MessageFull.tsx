@@ -44,7 +44,7 @@ export const MessageFull = ({ message }) => {
         </div>
         <span className={styles.message__data}>
           {linkComponent}
-          {toDateFormat(editTime, createTime)}
+          {toDateFormat(createTime)}
         </span>
       </div>
     </div>
