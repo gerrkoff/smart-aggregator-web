@@ -1,19 +1,28 @@
-import { db } from '@api/config';
-import { collection, getDocs } from 'firebase/firestore';
+const url =
+  window.location.host === 'tlgm.grkf.ru'
+    ? 'https://grkf.ru/tlgm/prod/api'
+    : 'https://grkf.ru/tlgm/stage/api';
 
 class BaseAPI {
-  getChats = async () => {
-    return await this.getData(db, 'chats');
-  }
+  getBuildInfo = async (): Promise<unknown> => {
+    const response = await fetch(`${url}/misc/buildinfo`);
+    return response.json();
+  };
 
-  getMessages = async () => {
-    return await this.getData(db, 'messages');
-  }
+  getChats = async (): Promise<unknown> => {
+    const response = await fetch(`${url}/chat`);
+    return response.json();
+  };
 
-  getData = async (db, name) => {
-    const querySnapshot = await getDocs(collection(db, name));
-    return querySnapshot.docs.map((x) => x.data());
-  }
+  getFeed = async (): Promise<unknown> => {
+    const response = await fetch(`${url}/message/feed`);
+    return response.json();
+  };
+
+  getMessages = async (chatId: number): Promise<unknown> => {
+    const response = await fetch(`${url}/message?chatId=${chatId}`);
+    return response.json();
+  };
 }
 
 export const baseAPI = new BaseAPI();

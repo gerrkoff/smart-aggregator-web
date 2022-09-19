@@ -8,30 +8,30 @@ import styles from './Chat.module.scss';
 
 type TChatElement = {
   chat: TChat,
-  onChatClick?: (e: any) => void | undefined,
+  onChatClick?: (e: any) => any,
 }
 
-const LinkElement = ({ src }) => (<a href={src} className={styles.chat__link} data-link>Ссылка на канал</a>)
+const LinkElement = ({ src }) => (<a href={src} className={styles.chat__link} data-link target="_blank">Ссылка на канал</a>)
 
 export const Chat: FC<TChatElement> = ({ chat, onChatClick }) => {
-  const { LogoUrl, Title, Description, ChatId, Link } = chat;
+  const { logoUrl, title, description, id, link } = chat;
   const { chatId } = useActiveChatSelector();
 
-  const image = LogoUrl ? LogoUrl : Avatar;
-  const link = String(chatId) === String(ChatId) ? <LinkElement src={Link}/> : null;
+  const imageComponent = logoUrl ? logoUrl : Avatar;
+  const linkComponent = String(chatId) === String(id) && link ? <LinkElement src={link}/> : null;
 
   return (
-    <div className={cn(styles.chat, String(chatId) === String(ChatId) ? styles.active : '')}
-         data-id={ChatId}
+    <div className={cn(styles.chat, String(chatId) === String(id) ? styles.active : '')}
+         data-id={id}
          data-chat
          onClick={onChatClick}>
       <div className={styles.chat__logo}>
-        <img src={image} alt='placeholder'/>
+        <img src={imageComponent} alt='placeholder'/>
       </div>
       <div className={styles.chat__text_wrapper}>
-        <span className={styles.chat__title}>{Title}</span>
-        {link}
-        <p className={styles.chat__description} data-description>{Description}</p>
+        <span className={styles.chat__title}>{title}</span>
+        {linkComponent}
+        <p className={styles.chat__description} data-description>{description}</p>
       </div>
     </div>
   )

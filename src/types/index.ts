@@ -5,26 +5,30 @@ export enum RequestStatus {
   ERROR = 'ERROR',
 }
 
+type TMedia = {
+  photoUrl: string,
+  videoFileName: string | null,
+  videoThumbUrl: string | null
+}
+
 export type TChat = {
-  ChatId: number;
-  Username: string;
-  Title: string;
-  Description: string;
-  Link: string;
-  LogoUrl: string;
-  CreateTime: string;
+  id: number;
+  username: string;
+  title: string;
+  description: string;
+  link: string;
+  logoUrl: string;
+  createTime: string;
+  lastActivityTime?: string;
 }
 
 export type TMessage = {
-  ChatId: number;
-  MessageId: number;
-  Text: string;
-  CreateTime: string;
-  EditTime?: string;
-  Link: string;
-  PhotoUrl: string;
-  VideoFileName: string;
-  VideoThumbUrl: string;
+  id: number;
+  text: string;
+  createTime: string;
+  editTime: string;
+  link: string;
+  media: TMedia[];
 }
 
 export const SEARCH_STATUS = {

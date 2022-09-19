@@ -13,7 +13,7 @@ export const Comments = () => {
     let fullMessage;
 
     if (messageId) {
-      fullMessage = data?.filter((message) => String(message.MessageId) === String(messageId))[0];
+      fullMessage = data?.filter((message) => String(message.id) === String(messageId))[0];
     }
 
     return fullMessage ? <MessageFull message={fullMessage}/> : null;
