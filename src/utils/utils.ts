@@ -2,6 +2,10 @@ export function getMessageLastTime(msg) {
   return Date.parse(msg.editTime) || Date.parse(msg.createTime);
 }
 
+export function getChatLastTime(chat) {
+  return Date.parse(chat.lastActivityTime) || Date.parse(chat.createTime);
+}
+
 export const toDateFormat = (editTime, createTime) => {
   const data = editTime ? editTime : createTime
   const time = new Date(data).toLocaleTimeString();

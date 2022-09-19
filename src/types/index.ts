@@ -13,19 +13,20 @@ type TMedia = {
 
 export type TChat = {
   id: number;
-  Username: string;
+  username: string;
   title: string;
   description: string;
   link: string;
   logoUrl: string;
-  CreateTime: string;
+  createTime: string;
+  lastActivityTime?: string;
 }
 
 export type TMessage = {
   id: number;
   text: string;
   createTime: string;
-  editTime?: string;
+  editTime: string;
   link: string;
   media: TMedia[];
 }

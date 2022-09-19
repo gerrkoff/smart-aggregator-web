@@ -10,7 +10,7 @@ import { chatMessagesSlice } from '@store/chatMessages/chatMessagesSlice';
 import { baseAPI } from '@api/baseAPI';
 
 import styles from './Chats.module.scss';
-import { getMessageLastTime } from '@utils/utils';
+import { getChatLastTime, getMessageLastTime } from '@utils/utils';
 
 export const Chats = () => {
   let dataForSort;
@@ -51,7 +51,7 @@ export const Chats = () => {
 
   const sortData = (dataForSort) => {
     return dataForSort
-      ?.sort((a: TChat, b: TChat) => getMessageLastTime(b) -getMessageLastTime(a))
+      ?.sort((a: TChat, b: TChat) => getChatLastTime(b) - getChatLastTime(a))
       ?.map((chat) => {
         return <Chat chat={chat}
                      onChatClick={handleClickOnChat}

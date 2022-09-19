@@ -11,14 +11,14 @@ type TChatElement = {
   onChatClick?: (e: any) => any,
 }
 
-const LinkElement = ({ src }) => (<a href={src} className={styles.chat__link} data-link>Ссылка на канал</a>)
+const LinkElement = ({ src }) => (<a href={src} className={styles.chat__link} data-link target="_blank">Ссылка на канал</a>)
 
 export const Chat: FC<TChatElement> = ({ chat, onChatClick }) => {
   const { logoUrl, title, description, id, link } = chat;
   const { chatId } = useActiveChatSelector();
 
   const imageComponent = logoUrl ? logoUrl : Avatar;
-  const linkComponent = String(chatId) === String(id) ? <LinkElement src={link}/> : null;
+  const linkComponent = String(chatId) === String(id) && link ? <LinkElement src={link}/> : null;
 
   return (
     <div className={cn(styles.chat, String(chatId) === String(id) ? styles.active : '')}
