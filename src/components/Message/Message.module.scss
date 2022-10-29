@@ -24,7 +24,7 @@
 
 .message__info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   padding: 10px;
   font-size: 14px;
@@ -34,19 +34,22 @@
       text-decoration: underline;
     }
   }
+
+  & img {
+    max-width: 100px;
+    max-height: 100px;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .text__wrapper {
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 10px;
-
-  & img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-  }
-
 }
 
 .message__text {
@@ -66,10 +69,8 @@
 }
 
 .message__data {
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  flex-wrap: wrap;
+  display: block;
+  margin-left: auto;
   text-align: end;
   color: $message-date;
 }

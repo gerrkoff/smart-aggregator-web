@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineSmile, AiOutlineSend } from 'react-icons/ai';
+import { FadeInDownSpan } from '@/animations/components';
 import { toDateFormat } from '@utils/utils';
 
 import styles from './MessageFull.module.scss';
@@ -9,9 +10,10 @@ const Image = ({ src }) => (<div className={styles.message__img}><img src={src} 
 const Video = ({ href, src }) => (
   <a href={href} target='_blank' className={styles.message__video}><img src={src} alt='placeholder'/></a>);
 
-const LinkElement = ({ link }) => (<a href={link} className={styles.link} target='_blank'>Ссылка на сообщение</a>);
+const LinkElement = ({ link }) => (<a href={link} className={styles.link} target='_blank'>Ссылка на источник</a>);
 
 export const MessageFull = ({ message }) => {
+  const [isCopyVisible, setIsCopyVisible] = useState(false)
   const { text, link, createTime, editTime, media } = message;
 
   const linkComponent = link ? <LinkElement link={link}/> : null;
@@ -31,8 +33,17 @@ export const MessageFull = ({ message }) => {
     return [...mediaElements, ...videoContainer]
   }
 
+  const handleCopy = () => {
+    setIsCopyVisible(true)
+
+    setTimeout(() => {
+      setIsCopyVisible(false)
+    }, 1500)
+  }
+
   return (
     <div className={styles.message}>
+      <FadeInDownSpan className={styles.copy} style={{display: `${isCopyVisible ? 'inline' : 'none'}`}}>Ссылка скопирована</FadeInDownSpan>
       <div className={styles.message__media}>
         {mediaComponents()}
       </div>
@@ -40,7 +51,7 @@ export const MessageFull = ({ message }) => {
         <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: text }}/>
         <div className={styles.message__reactions}>
           <AiOutlineSmile/>
-          <AiOutlineSend/>
+          <AiOutlineSend onClick={handleCopy}/>
         </div>
         <span className={styles.message__data}>
           {linkComponent}

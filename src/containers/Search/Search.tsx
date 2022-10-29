@@ -8,6 +8,7 @@ import { activeMessageSlice } from '@store/activeMessage';
 import { searchSlice } from '@store/search';
 import { RequestStatus, SEARCH_STATUS } from '@types';
 import { chatMessagesSlice } from '@store/chatMessages';
+import cn from 'classnames';
 
 import styles from './Search.module.scss';
 
@@ -36,7 +37,7 @@ export const Search = () => {
   }
 
   return (
-    <div className={styles.input}>
+    <div className={styles.search}>
       <Input placeholder='Поиск' id='input' value={value} onChange={handleSearch}/>
       <AiOutlineCloseCircle className={styles.close} onClick={clearSearch}/>
     </div>

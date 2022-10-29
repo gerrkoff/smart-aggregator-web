@@ -18,17 +18,16 @@ const Image = ({ src }) => (<img src={src} alt='preview'/>);
 export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
   const { text, createTime, link, id, media } = message;
   const { messageId } = useActiveMessageSelector();
-
   const date = toDateFormat(createTime);
-  const linkComponent = link ? <LinkElement link={link}/> : null;
 
-  const mediaComponents = () => {
-    return media
-      .map((item) => {
-        const { photoUrl, videoThumbUrl } = item
-        return photoUrl || videoThumbUrl ? <Image src={photoUrl || videoThumbUrl} key={photoUrl || videoThumbUrl}/> : null;
-      })
-      .slice(0, 3)
+  const mediaComponent = () => {
+    if (media.length > 0) {
+      const item = media[0]
+      const { photoUrl, videoThumbUrl } = item
+      return photoUrl || videoThumbUrl ?
+        <Image src={photoUrl || videoThumbUrl} key={photoUrl || videoThumbUrl}/> : null;
+    }
+    return null
   }
 
   return (
@@ -36,14 +35,11 @@ export const Message: FC<TMessageElement> = ({ message, onMessageClick }) => {
          data-id={id}
          onClick={onMessageClick}>
       <div className={styles.message__info}>
+        {mediaComponent()}
         <div className={styles.text__wrapper}>
-          {mediaComponents()}
-          <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: text }}/>
+          <p className={styles.message__text} dangerouslySetInnerHTML={{ __html: text.replace('<br />', '') }}/>
+          <span className={styles.message__data}>{date}</span>
         </div>
-        <span className={styles.message__data}>
-          {linkComponent}
-          {date}
-        </span>
       </div>
     </div>
   )

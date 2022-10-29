@@ -1,6 +1,6 @@
 @import '../../styles/colors';
 
-.input {
+.search {
   position: relative;
   display: flex;
   align-items: center;
@@ -8,12 +8,12 @@
   gap: 10px;
   width: 40%;
   min-width: 300px;
-  padding: 10px 0;
+  padding: 10px;
 }
 
 .close {
   position: absolute;
-  right: 10px;
+  right: 20px;
   cursor: pointer;
   transition: all .3s ease-in-out;
   color: $input-border;

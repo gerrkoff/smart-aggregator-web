@@ -3,11 +3,24 @@
 .message {
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 95%;
   background-color: #FFF;
   border-radius: 10px;
   border: 1px solid #eee;
   transition: all .3s ease-in-out;
+}
+
+.copy {
+  position: absolute;
+  padding: 5px 10px;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: rgba(65, 159, 217, .8);
+  color: #FFF;
+  z-index: 10;
 }
 
 .message__media {
@@ -90,6 +103,15 @@
     height: 20px;
     fill: $secondary-text;
     cursor: pointer;
+    transition: fill .3s ease;
+
+    &:hover {
+      fill: #A1CD86;
+    }
+  }
+
+  & svg:last-child {
+    fill: $accent-blue;
 
     &:hover {
       fill: #A1CD86;
