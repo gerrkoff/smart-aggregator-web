@@ -13,11 +13,11 @@ export const App = () => {
 };
 
 const AppWrapper = () => {
-  const { dispatchChats, dispatchMessages } = useApi();
+  const { dispatchGroups, dispatchFeed } = useApi();
 
   useEffect(() => {
-    dispatchChats();
-    dispatchMessages();
+    dispatchGroups();
+    dispatchFeed();
   }, [])
 
   return (

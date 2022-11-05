@@ -2,6 +2,7 @@
 @import '../Main.module';
 
 .comments {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -17,4 +18,16 @@
   gap: 10px;
   height: 100%;
   overflow-y: auto;
+}
+
+.copy {
+  position: absolute;
+  padding: 5px 10px;
+  top: 20px;
+  right: 20px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: rgba(65, 159, 217, .8);
+  color: #FFF;
+  z-index: 10;
 }

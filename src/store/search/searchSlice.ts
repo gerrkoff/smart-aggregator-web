@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SEARCH_STATUS } from '@types';
 
 export type TInputState = {
-  input: string;
+  search: string;
   status: string;
 };
 
 const initialState: TInputState = {
-  input: '',
+  search: '',
   status: SEARCH_STATUS.default
 };
 
@@ -20,8 +20,8 @@ export const searchSlice = createSlice({
         state[key] = action.payload[key];
       });
     },
-    setInput: (state, action) => {
-      state.input = action.payload.input;
+    setSearch: (state, action) => {
+      state.search = action.payload.search;
     },
     setInputStatus: (state, action) => {
       state.status = action.payload.status;

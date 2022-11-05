@@ -9,7 +9,7 @@ class BaseAPI {
     return response.json();
   };
 
-  getChats = async (): Promise<unknown> => {
+  getGroups = async (): Promise<unknown> => {
     const response = await fetch(`${url}/chat`);
     return response.json();
   };
@@ -19,7 +19,7 @@ class BaseAPI {
     return response.json();
   };
 
-  getMessages = async (chatId: number): Promise<unknown> => {
+  getPosts = async (chatId: number): Promise<unknown> => {
     const response = await fetch(`${url}/message?chatId=${chatId}`);
     return response.json();
   };

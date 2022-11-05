@@ -1,21 +1,21 @@
-import { fetchMessages } from '@store/messages';
-import { fetchChats } from '@store/chats';
+import { fetchFeed } from '@store/feed';
+import { fetchGroups } from '@store/groups';
 import { useAppDispatch } from '@store/hooks';
 
 
 export const useApi = () => {
   const dispatch = useAppDispatch();
 
-  const dispatchMessages = () => {
-    dispatch(fetchMessages());
+  const dispatchFeed = () => {
+    dispatch(fetchFeed());
   }
 
-  const dispatchChats = () => {
-    dispatch(fetchChats());
+  const dispatchGroups = () => {
+    dispatch(fetchGroups());
   }
 
   return {
-    dispatchChats,
-    dispatchMessages
+    dispatchGroups,
+    dispatchFeed
   };
 }

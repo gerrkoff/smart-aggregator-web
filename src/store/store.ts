@@ -1,18 +1,18 @@
 import thunkMiddleware from 'redux-thunk';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { messagesSlice } from '@store/messages';
-import { chatsSlice } from '@store/chats';
-import { chatMessagesSlice } from '@store/chatMessages/chatMessagesSlice';
-import { activeChatSlice } from '@store/activeChat/activeChatSlice';
-import { activeMessageSlice } from '@store/activeMessage';
+import { feedSlice } from '@store/feed';
+import { groupsSlice } from '@store/groups';
+import { postsSlice } from '@store/posts/postsSlice';
+import { activePostSlice } from '@store/activePost';
+import { activeGroupSlice } from '@store/activeGroup';
 import { searchSlice } from '@store/search';
 
 const reducer = combineReducers({
-  messages: messagesSlice.reducer,
-  chats: chatsSlice.reducer,
-  chatMessages: chatMessagesSlice.reducer,
-  activeChat: activeChatSlice.reducer,
-  activeMessage: activeMessageSlice.reducer,
+  feed: feedSlice.reducer,
+  groups: groupsSlice.reducer,
+  posts: postsSlice.reducer,
+  activePost: activePostSlice.reducer,
+  activeGroup: activeGroupSlice.reducer,
   search: searchSlice.reducer,
 });
 
