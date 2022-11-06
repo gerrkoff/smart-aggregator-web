@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { toDateFormat } from '@utils/utils';
 import { TPost } from '@types';
@@ -11,9 +11,9 @@ type TPostElement = {
   handleClick?: (e: any) => void | undefined,
 }
 
-const Image = ({ src }) => (<img src={src} alt='preview'/>);
+const Image = ({ src }) => (<img src={src} width={100} height={100} loading="lazy"/>);
 
-export const Post: FC<TPostElement> = ({ post, handleClick }) => {
+export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
   const [active, setActive] = useState(false);
   const { text, createTime, messageId, media } = post;
   const { postId } = useActivePostSelector();
@@ -45,4 +45,4 @@ export const Post: FC<TPostElement> = ({ post, handleClick }) => {
       </div>
     </div>
   )
-}
+})

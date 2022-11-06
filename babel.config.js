@@ -5,11 +5,7 @@ module.exports = {
     '@babel/preset-typescript',
   ],
   plugins: [
-    [
-      '@babel/plugin-transform-runtime',
-      {
-        regenerator: true,
-      },
-    ],
+    ['@babel/plugin-transform-runtime', { regenerator: true }],
+    ["styled-components", { "ssr": true }]
   ],
 };

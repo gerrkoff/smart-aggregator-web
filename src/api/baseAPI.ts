@@ -1,7 +1,9 @@
-const url =
-  window.location.host === 'tlgm.grkf.ru'
-    ? 'https://grkf.ru/tlgm/prod/api'
-    : 'https://grkf.ru/tlgm/stage/api';
+// const url =
+//   window.location.host === 'tlgm.grkf.ru'
+//     ? 'https://grkf.ru/tlgm/prod/api'
+//     : 'https://grkf.ru/tlgm/stage/api';
+
+const url = 'https://grkf.ru/tlgm/stage/api'
 
 class BaseAPI {
   getBuildInfo = async (): Promise<unknown> => {

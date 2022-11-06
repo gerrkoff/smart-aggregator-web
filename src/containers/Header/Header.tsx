@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Logo from '@assets/logo.png';
 
 import styles from './Header.module.scss';
@@ -26,7 +27,7 @@ export const Header = () => {
     <div className={styles.header}>
       <div className={styles.header_wrapper}>
         <a className={styles.header_logo} href={LOGO_HREF}>
-          <img src={Logo} alt='Logo'/>
+          <Image src={Logo} alt='Logo'/>
         </a>
         <div className={styles.header_links}>
           {HEADER_LINKS.map((link) => <a className={styles.link} href={link.href} target='_blank' key={link.name}>{link.name}</a>)}

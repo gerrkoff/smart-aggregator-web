@@ -3,9 +3,9 @@
     "outDir": "./build/",
     "noImplicitAny": false,
     "strictNullChecks": true,
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
-    "jsx": "react",
+    "jsx": "preserve",
     "allowJs": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -13,7 +13,14 @@
       "dom",
       "esnext"
     ],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "extends": "./tsconfig.paths.json",
   "include": [

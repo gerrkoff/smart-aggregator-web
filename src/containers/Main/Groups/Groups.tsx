@@ -1,46 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Group, GroupPreview } from '@components';
 import { getGroupLastTime } from '@utils/utils';
 import { activeGroupSlice } from '@store/activeGroup';
+import { postsSlice, usePostsSelector } from '@store/posts';
 import { useAppDispatch } from '@store/hooks';
-import { TGroup } from '@types';
+import { RequestStatus, TGroup } from '@types';
 
 import styles from './Groups.module.scss';
 
-const DataToGroups = ({ data, handleGroupClick }) => {
-  const [groups, setGroups] = useState(data)
+export const Groups = ({ data }) => {
+  const [groups, setGroups] = useState(data);
+  const [disabled, setDisabled] = useState(false);
+  const { requestStatus } = usePostsSelector();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const sortedGroups = sortGroups([...data])
-    setGroups(sortedGroups);
+    setGroups(sortedGroups)
   }, [data])
+
+  useEffect(() => {
+    if (requestStatus === RequestStatus.SUCCESS) {
+      setDisabled(false)
+    }
+  }, [requestStatus])
 
   const sortGroups = (array) => {
     return array.sort((a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a))
   }
 
-  return (
-    <>{groups.map(group => <Group group={group} handleClick={handleGroupClick} key={group.id}/>)}</>
-  )
-}
+  const groupsToComponents = useCallback((array) => {
+    return array.map(group => <Group group={group} handleClick={handleGroupClick} key={group.id}/>)
+  }, [groups])
 
-export const Groups = ({ data }) => {
-  const [groups, setGroups] = useState(data);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setGroups(data)
-  }, [data])
+  const groupsComponents = () => {
+    return groupsToComponents(groups)
+  }
 
   const handleGroupClick = (e) => {
-    const id = e.currentTarget.dataset.groupId;
-    dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }))
+    if (!disabled) {
+      const id = e.currentTarget.dataset.groupId;
+      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }))
+      dispatch(postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }));
+      setDisabled(true)
+    }
   }
 
   return (
     <div className={styles.groups}>
       <div className={styles.groups__layout}>
-        <DataToGroups data={groups} handleGroupClick={handleGroupClick}/>
+        {groupsComponents()}
       </div>
       <div className={styles.info__wrapper}>
         <div className={styles.groups__preview}>

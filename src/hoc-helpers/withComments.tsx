@@ -4,7 +4,7 @@ import { useActiveGroupSelector } from '@store/activeGroup';
 
 export const withComments = (Component) => {
   return (dataApi) => {
-    const [data, setData] = useState(dataApi);
+    const [data, setData] = useState(null);
     const { postId } = useActivePostSelector();
     const { groupId } = useActiveGroupSelector();
 

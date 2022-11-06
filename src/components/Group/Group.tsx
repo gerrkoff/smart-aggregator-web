@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState } from 'react';
 import { useActiveGroupSelector } from '@store/activeGroup';
 import Avatar from '@assets/avatar.jpg';
 import { TGroup } from '@types';
@@ -11,13 +11,19 @@ type TGroupElement = {
   handleClick?: (e: any) => any,
 }
 
-const Body = ({ group, active }) => {
+type TBodyElement = {
+  group: TGroup,
+  active: boolean,
+  handleClick?: (e: any) => any,
+}
+
+const Body: FC<TBodyElement> = memo(({ group, active }) => {
   const { title, description, logoUrl, link } = group;
 
   const LinkElement = ({ src }) => (
     <a href={src} className={styles.group__link} target="_blank">Ссылка на канал</a>
   )
-  const Image = () => <img src={logoUrl ? logoUrl : Avatar} alt='placeholder'/>;
+  const Image = () => <img src={logoUrl ? logoUrl : Avatar} alt='placeholder' loading="lazy"/>;
   const Link = () => active && link ? <LinkElement src={link}/> : null;
 
   return (
@@ -32,7 +38,7 @@ const Body = ({ group, active }) => {
       </div>
     </>
   )
-}
+})
 
 export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
   const [active, setActive] = useState(false);

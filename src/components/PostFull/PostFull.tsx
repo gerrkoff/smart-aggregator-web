@@ -4,10 +4,10 @@ import { toDateFormat } from '@utils/utils';
 
 import styles from './PostFull.module.scss';
 
-const Image = ({ src }) => (<div className={styles.post__img}><img src={src} alt='placeholder'/></div>);
+const Image = ({ src }) => (<div className={styles.post__img}><img src={src} alt='image'/></div>);
 
 const Video = ({ href, src }) => (
-  <a href={href} target='_blank' className={styles.post__video}><img src={src} alt='placeholder'/></a>);
+  <a href={href} target='_blank' className={styles.post__video}><img src={src} alt='video'/></a>);
 
 const LinkElement = ({ link }) => (<a href={link} className={styles.link} target='_blank'>Ссылка на источник</a>);
 

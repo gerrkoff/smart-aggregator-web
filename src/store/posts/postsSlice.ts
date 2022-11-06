@@ -24,6 +24,9 @@ export const postsSlice = createSlice({
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
-    }
+    },
+    setStatus: (state, action) => {
+      state.requestStatus = action.payload.requestStatus
+    },
   }
 });

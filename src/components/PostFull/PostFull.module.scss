@@ -82,7 +82,7 @@
 
 .post__reactions {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 10px;
   margin: 10px 0;
 
@@ -116,8 +116,8 @@
 .post__data {
   display: flex;
   flex-direction: row;
-  align-items: end;
+  align-items: flex-end;
   flex-wrap: wrap;
-  text-align: end;
+  text-align: flex-end;
   color: $message-date;
 }

@@ -1,43 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { Post } from '@components';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Loading, Post } from '@components';
 import { activePostSlice } from '@store/activePost';
 import { useAppDispatch } from '@store/hooks';
-import { TPost } from '@types';
+import { RequestStatus, TPost } from '@types';
+import { usePostsSelector } from '@store/posts';
 
 import styles from './Posts.module.scss';
 
-const DataToPosts = ({ data, handlePostClick }) => {
-  const [posts, setPosts] = useState([...data]);
-
-  useEffect(() => {
-    const sortedPosts = sortPosts([...data])
-    setPosts(sortedPosts)
-  }, [data])
-
-  const sortPosts = (array) => {
-    return array.sort((a: TPost, b: TPost) => Date.parse(b.createTime) - Date.parse(a.createTime));
-  }
-
-  return (<>{posts.map(post => <Post post={post} handleClick={handlePostClick} key={post.id}/>)}</>)
-}
-
 export const Posts = ({ data }) => {
   const [posts, setPosts] = useState(data);
+  const [loading, setLoading] = useState(false);
+  const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setPosts(data)
+    const sortedData = sortPosts([...data]);
+    setPosts(sortedData)
   }, [data])
+
+  useEffect(() => {
+    if (requestStatus === RequestStatus.SUCCESS || requestStatus === RequestStatus.INIT) {
+      setLoading(false)
+    } else {
+      setLoading(true)
+    }
+    return () => {
+      setPosts([])
+    }
+  }, [requestStatus])
 
   const handlePostClick = (e) => {
     const id = e.currentTarget.dataset.postId;
     dispatch(activePostSlice.actions.setPostId({ postId: id }))
   }
 
+  const sortPosts = (array) => {
+    return array.sort((a: TPost, b: TPost) => Date.parse(b.createTime) - Date.parse(a.createTime));
+  }
+
+  const postsToComponents = (array) => {
+    return array.map(post => <Post post={post} handleClick={handlePostClick} key={post.id}/>)
+  }
+
+  const postsComponents = useCallback(() => postsToComponents(posts), [posts])
+
   return (
     <div className={styles.posts}>
       <div className={styles.posts__layout} id='posts'>
-        {posts.length > 0 ? <DataToPosts data={posts} handlePostClick={handlePostClick}/> : null}
+        {loading ? <Loading /> : postsComponents()}
       </div>
     </div>
   )
