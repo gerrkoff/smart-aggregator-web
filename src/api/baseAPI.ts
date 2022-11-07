@@ -1,4 +1,5 @@
 const url =
+  window.location.host === 'echochat.press' ||
   window.location.host === 'tlgm.grkf.ru'
     ? 'https://grkf.ru/tlgm/prod/api'
     : 'https://grkf.ru/tlgm/stage/api';
