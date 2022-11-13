@@ -25,7 +25,7 @@ module.exports = {
       directory: path.join(__dirname, 'build'),
     },
     compress: true,
-    port: 5000,
+    port: 3000,
     open: true,
     historyApiFallback: true,
     hot: true,
