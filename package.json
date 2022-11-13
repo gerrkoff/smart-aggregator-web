@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "webpack",
+    "build": "next build",
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "lint-ci": "eslint src/**/*.{ts,tsx}"
   },
