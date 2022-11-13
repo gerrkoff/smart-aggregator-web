@@ -1,0 +1,5 @@
+.idea
+.next
+.firebase
+node_modules
+build
