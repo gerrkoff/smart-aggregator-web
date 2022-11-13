@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack",
-    "lint": "eslint . --fix"
+    "lint": "eslint src/**/*.{ts,tsx} --fix",
+    "lint-ci": "eslint src/**/*.{ts,tsx}"
   },
   "browserslist": [
     "> 0.25%",
