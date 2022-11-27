@@ -4,6 +4,7 @@ import { activePostSlice } from '@store/activePost';
 import { useAppDispatch } from '@store/hooks';
 import { RequestStatus, TPost } from '@types';
 import { usePostsSelector } from '@store/posts';
+import { activeGroupSlice } from '@store/activeGroup';
 
 import styles from './Posts.module.scss';
 
@@ -30,8 +31,11 @@ export const Posts = ({ data }) => {
   }, [requestStatus])
 
   const handlePostClick = (e) => {
-    const id = e.currentTarget.dataset.postId;
-    dispatch(activePostSlice.actions.setPostId({ postId: id }))
+    const postId = e.currentTarget.dataset.postId;
+    const groupId = e.currentTarget.dataset.groupId;
+    dispatch(activePostSlice.actions.setPostId({ postId }))
+    dispatch(activePostSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }))
+    dispatch(activeGroupSlice.actions.setGroupId({ groupId }))
   }
 
   const sortPosts = (array) => {
@@ -39,7 +43,11 @@ export const Posts = ({ data }) => {
   }
 
   const postsToComponents = (array) => {
-    return array.map(post => <Post post={post} handleClick={handlePostClick} key={post.id}/>)
+    return array.map(post => {
+      if (post.media.length > 0 || post.text) {
+        return <Post post={post} handleClick={handlePostClick} key={post.id}/>
+      }
+    })
   }
 
   const postsComponents = useCallback(() => postsToComponents(posts), [posts])

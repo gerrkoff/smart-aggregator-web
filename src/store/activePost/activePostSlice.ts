@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RequestStatus } from '@types';
 
 export type TActivePost = {
   postId: number | string;
+  requestStatus: RequestStatus;
 };
 
 const initialState: TActivePost = {
   postId: 0,
+  requestStatus: RequestStatus.INIT,
 };
 
 export const activePostSlice = createSlice({
@@ -19,6 +22,9 @@ export const activePostSlice = createSlice({
     },
     setPostId: (state, action) => {
       state.postId = action.payload.postId;
+    },
+    setStatus: (state, action) => {
+      state.requestStatus = action.payload.requestStatus
     },
   }
 });

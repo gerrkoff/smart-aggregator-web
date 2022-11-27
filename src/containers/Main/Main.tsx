@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Groups, Posts, Comments } from '@containers/Main';
 import { withSearch, withPost, withComments } from '@/hoc-helpers';
 

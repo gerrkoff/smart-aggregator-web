@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
-import { useActiveGroupSelector } from '@store/activeGroup';
+import { usePostsSelector } from '@store/posts';
+import { RequestStatus } from '@types';
 
 export const withComments = (Component) => {
   return (dataApi) => {
     const [data, setData] = useState(null);
     const { postId } = useActivePostSelector();
-    const { groupId } = useActiveGroupSelector();
+    const { posts, requestStatus } = usePostsSelector();
 
     useEffect(() => {
-      const post = findPost();
-      setData(post)
+      if (requestStatus === RequestStatus.SUCCESS) {
+        findPost()
+      }
+      if (requestStatus === RequestStatus.INIT) {
+        findPostInFeed()
+      }
     }, [postId])
 
     useEffect(() => {
       setData(null)
-    }, [groupId])
+    }, [requestStatus])
 
     const findPost = () => {
-      return dataApi?.find((post) => String(post.messageId) === String(postId));
+      const post = posts?.find((post) => String(post.messageId) === String(postId));
+      // @ts-ignore
+      setData(post)
+    }
+
+    const findPostInFeed = () => {
+      const post = dataApi?.find((post) => String(post.messageId) === String(postId));
+      setData(post)
     }
 
     return <Component data={data}/>
