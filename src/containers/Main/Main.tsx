@@ -1,14 +1,19 @@
 import React from 'react';
-import { Chats, Messages, Comments } from '@containers/Main';
+import { Groups, Posts, Comments } from '@containers/Main';
+import { withSearch, withPost, withComments } from '@/hoc-helpers';
 
 import styles from './Main.module.scss';
 
-export const Main = () => {
+const GroupsContainer = ({ data }) => withSearch(Groups)(data);
+const PostsContainer = ({ data }) => withPost(Posts)(data);
+const CommentsContainer = ({ data }) => withComments(Comments)(data);
+
+export const Main = ({groups, feed}) => {
   return (
     <div className={styles.main}>
-      <Chats />
-      <Messages />
-      <Comments/>
+      <GroupsContainer data={groups}/>
+      <PostsContainer data={feed}/>
+      <CommentsContainer data={feed}/>
     </div>
   )
 }

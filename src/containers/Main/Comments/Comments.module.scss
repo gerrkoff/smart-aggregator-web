@@ -1,12 +1,14 @@
+@import '../../../styles/colors';
 @import '../Main.module';
 
 .comments {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 10px;
   overflow: hidden;
-  border-radius: 0 10px 10px 0;
-  background: linear-gradient(270deg, #ACE1C5 0%, #A1CD86 100%);
+  border-radius: 0 10px 0 0;
+  background: $green-background;
 }
 
 .comments__layout {
@@ -16,4 +18,24 @@
   gap: 10px;
   height: 100%;
   overflow-y: auto;
+}
+
+.copy {
+  position: absolute;
+  padding: 5px 10px;
+  top: 20px;
+  right: 20px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: rgba(65, 159, 217, .8);
+  color: #FFF;
+  z-index: 10;
+}
+
+.show {
+  display: inline;
+}
+
+.hide {
+  display: none;
 }

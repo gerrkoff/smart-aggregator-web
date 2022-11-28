@@ -11,7 +11,7 @@ type TMedia = {
   videoThumbUrl: string | null
 }
 
-export type TChat = {
+export type TGroup = {
   id: number;
   username: string;
   title: string;
@@ -22,8 +22,9 @@ export type TChat = {
   lastActivityTime?: string;
 }
 
-export type TMessage = {
-  id: number;
+export type TPost = {
+  chatId: string;
+  messageId: number;
   text: string;
   createTime: string;
   editTime: string;

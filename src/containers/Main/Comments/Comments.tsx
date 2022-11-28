@@ -1,28 +1,36 @@
-import React from 'react';
-import { useActiveMessageSelector } from '@store/activeMessage';
-import { useMessagesSelector } from '@store/messages';
-import { MessageFull } from '@components';
+import React, { useEffect, useState } from 'react';
+import { FadeInDownSpan } from '@/animations/components';
+import { PostFull } from '@components';
+import cn from 'classnames';
 
 import styles from './Comments.module.scss';
 
-export const Comments = () => {
-  const { data } = useMessagesSelector();
-  const { messageId } = useActiveMessageSelector();
+export const Comments = ({ data }) => {
+  const [isCopyVisible, setIsCopyVisible] = useState(false)
+  const [post, setPost] = useState(null);
 
-  const dataToFullMessageElement = () => {
-    let fullMessage;
-
-    if (messageId) {
-      fullMessage = data?.filter((message) => String(message.id) === String(messageId))[0];
+  useEffect(() => {
+    setPost(data)
+    return () => {
+      setPost(null)
     }
+  }, [data])
 
-    return fullMessage ? <MessageFull message={fullMessage}/> : null;
+  const handleCopy = () => {
+    setIsCopyVisible(true)
+
+    setTimeout(() => {
+      setIsCopyVisible(false)
+    }, 1500)
   }
 
   return (
     <div className={styles.comments}>
       <div className={styles.comments__layout} id='comments'>
-        {dataToFullMessageElement()}
+        <FadeInDownSpan className={cn(styles.copy, isCopyVisible ? styles.show : styles.hide)}>
+          Ссылка скопирована
+        </FadeInDownSpan>
+        {post ? <PostFull post={post} handleCopy={handleCopy}/> : null}
       </div>
     </div>
   )

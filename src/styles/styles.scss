@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-    max-width: 1920px;
+    width: 100%;
     height: 100vh;
     margin: 0 auto;
     overflow: hidden;
@@ -22,6 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+a {
+    color: $accent-blue;
 }
 
 ::-webkit-scrollbar {

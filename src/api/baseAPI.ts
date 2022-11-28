@@ -1,8 +1,9 @@
-const url =
-  window.location.host === 'echochat.press' ||
-  window.location.host === 'tlgm.grkf.ru'
-    ? 'https://grkf.ru/tlgm/prod/api'
-    : 'https://grkf.ru/tlgm/stage/api';
+// const url =
+//   window.location.host === 'tlgm.grkf.ru'
+//     ? 'https://grkf.ru/tlgm/prod/api'
+//     : 'https://grkf.ru/tlgm/stage/api';
+
+const url = 'https://grkf.ru/tlgm/stage/api'
 
 class BaseAPI {
   getBuildInfo = async (): Promise<unknown> => {
@@ -10,7 +11,7 @@ class BaseAPI {
     return response.json();
   };
 
-  getChats = async (): Promise<unknown> => {
+  getGroups = async (): Promise<unknown> => {
     const response = await fetch(`${url}/chat`);
     return response.json();
   };
@@ -20,7 +21,7 @@ class BaseAPI {
     return response.json();
   };
 
-  getMessages = async (chatId: number): Promise<unknown> => {
+  getPosts = async (chatId: number): Promise<unknown> => {
     const response = await fetch(`${url}/message?chatId=${chatId}`);
     return response.json();
   };

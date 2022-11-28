@@ -1,1 +1,0 @@
-export { fetchChats } from './fetchChats';

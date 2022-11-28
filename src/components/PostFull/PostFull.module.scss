@@ -1,0 +1,127 @@
+@import '../../styles/colors';
+
+.post {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  background-color: #FFF;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  transition: all .3s ease-in-out;
+}
+
+.post__media {
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+  //flex-wrap: wrap;
+  display: grid;
+  //grid-template-columns: 1fr 1fr;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.post__img, .post__video {
+  position: relative;
+  width: 100%;
+
+  & img {
+    max-height: 250px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border: .5px solid rgba(0, 0, 0, .1)
+  }
+}
+
+//.post__img {
+//  width: 50%;
+//}
+//
+//.post__video {
+//  width: 100%;
+//}
+
+.post__video:hover {
+  &:before {
+    opacity: 1;
+  }
+}
+
+.post__video:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 15px solid transparent;
+  border-left: 20px solid white;
+  border-radius: 3px;
+  transition: opacity .3s ease-in-out;
+  opacity: .5;
+}
+
+.post__info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 14px;
+
+  & a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.post__text {
+  margin: 10px 0;
+  word-break: break-word;
+}
+
+.post__reactions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 10px 0;
+
+  & svg {
+    width: 20px;
+    height: 20px;
+    fill: $secondary-text;
+    cursor: pointer;
+    transition: fill .3s ease;
+
+    &:hover {
+      fill: #A1CD86;
+    }
+  }
+
+  & svg:last-child {
+    fill: $accent-blue;
+
+    &:hover {
+      fill: #A1CD86;
+    }
+  }
+}
+
+.link {
+  display: block;
+  margin-right: auto;
+  color: $accent-blue;
+}
+
+.post__data {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  text-align: flex-end;
+  color: $message-date;
+}

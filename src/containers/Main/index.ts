@@ -1,4 +1,4 @@
 export { Main } from './Main';
-export { Chats } from './Chats';
-export { Messages } from './Messages';
+export { Groups } from './Groups';
+export { Posts } from './Posts';
 export { Comments } from './Comments';

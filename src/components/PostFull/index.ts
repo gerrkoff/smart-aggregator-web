@@ -1,0 +1,1 @@
+export { PostFull } from './PostFull';
