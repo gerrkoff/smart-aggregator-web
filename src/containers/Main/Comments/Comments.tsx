@@ -11,6 +11,9 @@ export const Comments = ({ data }) => {
 
   useEffect(() => {
     setPost(data)
+    return () => {
+      setPost(null)
+    }
   }, [data])
 
   const handleCopy = () => {

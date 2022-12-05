@@ -5,13 +5,13 @@ export function getGroupLastTime(chat) {
 export const toDateFormat = (data) => {
   const time = new Date(data).toLocaleTimeString();
   const day = new Date(data).toLocaleDateString();
-  return `${ time } ${ day }`
+  return `${time} ${day}`
 }
 
 export const debounce = (callback, ms) => {
   let isCooldown = false;
 
-  return function() {
+  return function () {
     if (isCooldown) {
       return;
     }

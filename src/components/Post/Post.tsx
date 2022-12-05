@@ -15,7 +15,7 @@ const Image = ({ src }) => (<img src={src} width={100} height={100} loading="laz
 
 export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
   const [active, setActive] = useState(false);
-  const { text, createTime, messageId, media } = post;
+  const { text, createTime, messageId, chatId, media } = post;
   const { postId } = useActivePostSelector();
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
   return (
     <div className={cn(styles.post, active ? styles.active : '')}
          data-post-id={messageId}
+         data-group-id={chatId}
          onClick={handleClick}>
       <div className={styles.post__info}>
         {mediaComponent()}
