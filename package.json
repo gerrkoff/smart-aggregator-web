@@ -4,8 +4,8 @@
   "description": "Smart Aggregator",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server",
-    "build": "webpack",
+    "dev": "next dev",
+    "build": "next build",
     "lint": "eslint src/**/*.{ts,tsx} --fix",
     "lint-ci": "eslint src/**/*.{ts,tsx}"
   },
