@@ -12,15 +12,6 @@ export const withPost = (Component) => {
     const { requestStatus } = usePostsSelector();
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-      if (requestStatus === RequestStatus.REQUEST) {
-        setTimeout(() => loadPosts(), 500);
-      }
-      if (requestStatus === RequestStatus.INIT) {
-        setData(dataApi);
-      }
-    }, [dataApi, requestStatus]);
-
     const loadPosts = async () => {
       await baseAPI.getPosts(groupId).then((res) => {
         dispatch(
@@ -32,6 +23,15 @@ export const withPost = (Component) => {
         setData(res);
       });
     };
+
+    useEffect(() => {
+      if (requestStatus === RequestStatus.REQUEST) {
+        setTimeout(() => loadPosts(), 500);
+      }
+      if (requestStatus === RequestStatus.INIT) {
+        setData(dataApi);
+      }
+    }, [dataApi, requestStatus]);
 
     return <Component data={data} />;
   };

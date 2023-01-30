@@ -9,6 +9,17 @@ export const withComments = (Component) => {
     const { postId } = useActivePostSelector();
     const { posts, requestStatus } = usePostsSelector();
 
+    const findPost = () => {
+      const post = posts?.find((p) => String(p.messageId) === String(postId));
+      // @ts-ignore
+      setData(post);
+    };
+
+    const findPostInFeed = () => {
+      const post = dataApi?.find((p) => String(p.messageId) === String(postId));
+      setData(post);
+    };
+
     useEffect(() => {
       if (requestStatus === RequestStatus.SUCCESS) {
         findPost();
@@ -21,21 +32,6 @@ export const withComments = (Component) => {
     useEffect(() => {
       setData(null);
     }, [requestStatus]);
-
-    const findPost = () => {
-      const post = posts?.find(
-        (post) => String(post.messageId) === String(postId),
-      );
-      // @ts-ignore
-      setData(post);
-    };
-
-    const findPostInFeed = () => {
-      const post = dataApi?.find(
-        (post) => String(post.messageId) === String(postId),
-      );
-      setData(post);
-    };
 
     return <Component data={data} />;
   };

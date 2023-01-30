@@ -11,13 +11,15 @@ export const toDateFormat = (data) => {
 export const debounce = (callback, ms) => {
   let isCooldown = false;
 
-  return function f() {
+  return (...rest) => {
     if (isCooldown) {
       return;
     }
 
-    callback.apply(this, arguments);
+    callback.apply(this, rest);
     isCooldown = true;
-    setTimeout(() => (isCooldown = false), ms);
+    setTimeout(() => {
+      isCooldown = false;
+    }, ms);
   };
 };
