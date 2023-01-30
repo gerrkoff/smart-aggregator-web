@@ -1,5 +1,10 @@
-export function getGroupLastTime(chat) {
-  return Date.parse(chat?.lastActivityTime) || Date.parse(chat?.createTime);
+import { TGroup } from '@/types';
+
+export function getGroupLastTime(chat: TGroup) {
+  return (
+    Date.parse(chat?.lastActivityTime ?? '') ||
+    Date.parse(chat?.createTime ?? '')
+  );
 }
 
 export const toDateFormat = (data) => {

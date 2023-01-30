@@ -16,47 +16,57 @@ export const Posts = ({ data }) => {
 
   useEffect(() => {
     const sortedData = sortPosts([...data]);
-    setPosts(sortedData)
-  }, [data])
+    setPosts(sortedData);
+  }, [data]);
 
   useEffect(() => {
-    if (requestStatus === RequestStatus.SUCCESS || requestStatus === RequestStatus.INIT) {
-      setLoading(false)
+    if (
+      requestStatus === RequestStatus.SUCCESS ||
+      requestStatus === RequestStatus.INIT
+    ) {
+      setLoading(false);
     } else {
-      setLoading(true)
+      setLoading(true);
     }
     return () => {
-      setPosts([])
-    }
-  }, [requestStatus])
+      setPosts([]);
+    };
+  }, [requestStatus]);
 
   const handlePostClick = (e) => {
-    const postId = e.currentTarget.dataset.postId;
-    const groupId = e.currentTarget.dataset.groupId;
-    dispatch(activePostSlice.actions.setPostId({ postId }))
-    dispatch(activePostSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }))
-    dispatch(activeGroupSlice.actions.setGroupId({ groupId }))
-  }
+    const { postId } = e.currentTarget.dataset;
+    const { groupId } = e.currentTarget.dataset;
+    dispatch(activePostSlice.actions.setPostId({ postId }));
+    dispatch(
+      activePostSlice.actions.setStatus({
+        requestStatus: RequestStatus.REQUEST,
+      }),
+    );
+    dispatch(activeGroupSlice.actions.setGroupId({ groupId }));
+  };
 
   const sortPosts = (array) => {
-    return array.sort((a: TPost, b: TPost) => Date.parse(b.createTime) - Date.parse(a.createTime));
-  }
+    return array.sort(
+      (a: TPost, b: TPost) =>
+        Date.parse(b.createTime) - Date.parse(a.createTime),
+    );
+  };
 
   const postsToComponents = (array) => {
-    return array.map(post => {
+    return array.map((post) => {
       if (post.media.length > 0 || post.text) {
-        return <Post post={post} handleClick={handlePostClick} key={post.id}/>
+        return <Post post={post} handleClick={handlePostClick} key={post.id} />;
       }
-    })
-  }
+    });
+  };
 
-  const postsComponents = useCallback(() => postsToComponents(posts), [posts])
+  const postsComponents = useCallback(() => postsToComponents(posts), [posts]);
 
   return (
     <div className={styles.posts}>
-      <div className={styles.posts__layout} id='posts'>
+      <div className={styles.posts__layout} id="posts">
         {loading ? <Loading /> : postsComponents()}
       </div>
     </div>
-  )
-}
+  );
+};

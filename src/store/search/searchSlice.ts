@@ -8,7 +8,7 @@ export type TInputState = {
 
 const initialState: TInputState = {
   search: '',
-  status: SEARCH_STATUS.default
+  status: SEARCH_STATUS.default,
 };
 
 export const searchSlice = createSlice({
@@ -25,6 +25,6 @@ export const searchSlice = createSlice({
     },
     setInputStatus: (state, action) => {
       state.status = action.payload.status;
-    }
-  }
+    },
+  },
 });

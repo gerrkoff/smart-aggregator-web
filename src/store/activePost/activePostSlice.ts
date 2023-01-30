@@ -24,7 +24,7 @@ export const activePostSlice = createSlice({
       state.postId = action.payload.postId;
     },
     setStatus: (state, action) => {
-      state.requestStatus = action.payload.requestStatus
+      state.requestStatus = action.payload.requestStatus;
     },
-  }
+  },
 });

@@ -25,7 +25,7 @@ export const groupsSlice = createSlice({
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGroups.pending, (state) => {

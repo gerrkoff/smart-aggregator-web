@@ -7,7 +7,7 @@ export const fetchGroups = createAsyncThunk(
     return await baseAPI
       .getGroups()
       .then((data: []) => {
-        return data
+        return data;
       })
       .catch((err) => rejectWithValue(err.response.data));
   },

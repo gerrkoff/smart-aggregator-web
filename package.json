@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack",
-    "lint": "eslint src/**/*.{ts,tsx} --fix",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint-ci": "eslint src/**/*.{ts,tsx}"
   },
   "browserslist": [

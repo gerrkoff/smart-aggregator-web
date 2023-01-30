@@ -7,7 +7,7 @@ export const fetchFeed = createAsyncThunk(
     return await baseAPI
       .getFeed()
       .then((data: []) => {
-        return data
+        return data;
       })
       .catch((err) => rejectWithValue(err.response.data));
   },

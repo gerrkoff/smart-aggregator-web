@@ -25,7 +25,7 @@ export const feedSlice = createSlice({
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFeed.pending, (state) => {

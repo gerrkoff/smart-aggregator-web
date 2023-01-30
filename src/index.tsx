@@ -12,7 +12,7 @@ import 'styles/styles.scss';
 const App = () => {
   return (
     <Provider store={store}>
-      <AppWrapper/>
+      <AppWrapper />
     </Provider>
   );
 };
@@ -25,17 +25,17 @@ const AppWrapper = () => {
   useEffect(() => {
     dispatchGroups();
     dispatchFeed();
-  }, [])
+  }, []);
 
   return (
-    <div className='container'>
-      <div className='wrapper'>
-        <Header/>
-        <Search/>
-        <Main groups={groups} feed={feed}/>
+    <div className="container">
+      <div className="wrapper">
+        <Header />
+        <Search />
+        <Main groups={groups} feed={feed} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

@@ -60,6 +60,8 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'react/destructuring-assignment': 'off',
+    'react/function-component-definition': 'off',
+    'jsx-a11y/alt-text': 'warn',
   },
   settings: {
     'import/resolver': {
