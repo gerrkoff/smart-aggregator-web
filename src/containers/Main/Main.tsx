@@ -8,12 +8,12 @@ const GroupsContainer = ({ data }) => withSearch(Groups)(data);
 const PostsContainer = ({ data }) => withPost(Posts)(data);
 const CommentsContainer = ({ data }) => withComments(Comments)(data);
 
-export const Main = ({groups, feed}) => {
+export const Main = ({ groups, feed }) => {
   return (
     <div className={styles.main}>
-      <GroupsContainer data={groups}/>
-      <PostsContainer data={feed}/>
-      <CommentsContainer data={feed}/>
+      <GroupsContainer data={groups} />
+      <PostsContainer data={feed} />
+      <CommentsContainer data={feed} />
     </div>
-  )
-}
+  );
+};

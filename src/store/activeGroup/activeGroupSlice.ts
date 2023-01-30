@@ -19,6 +19,6 @@ export const activeGroupSlice = createSlice({
     },
     setGroupId: (state, action) => {
       state.groupId = action.payload.groupId;
-    }
-  }
+    },
+  },
 });

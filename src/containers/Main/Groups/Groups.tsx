@@ -14,48 +14,55 @@ export const Groups = ({ data }) => {
   const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
 
+  const sortGroups = (array) => {
+    return array.sort(
+      (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
+    );
+  };
+
   useEffect(() => {
-    const sortedGroups = sortGroups([...data])
-    setGroups(sortedGroups)
-  }, [data])
+    const sortedGroups = sortGroups([...data]);
+    setGroups(sortedGroups);
+  }, [data]);
 
   useEffect(() => {
     if (requestStatus === RequestStatus.SUCCESS) {
-      setDisabled(false)
+      setDisabled(false);
     }
-  }, [requestStatus])
-
-  const sortGroups = (array) => {
-    return array.sort((a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a))
-  }
-
-  const groupsToComponents = useCallback((array) => {
-    return array.map(group => <Group group={group} handleClick={handleGroupClick} key={group.id}/>)
-  }, [groups])
-
-  const groupsComponents = () => {
-    return groupsToComponents(groups)
-  }
+  }, [requestStatus]);
 
   const handleGroupClick = (e) => {
     if (!disabled) {
       const id = e.currentTarget.dataset.groupId;
-      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }))
-      dispatch(postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }));
-      setDisabled(true)
+      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }));
+      dispatch(
+        postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }),
+      );
+      setDisabled(true);
     }
-  }
+  };
+
+  const groupsToComponents = useCallback(
+    (array) => {
+      return array.map((group) => (
+        <Group group={group} handleClick={handleGroupClick} key={group.id} />
+      ));
+    },
+    [groups],
+  );
+
+  const groupsComponents = () => {
+    return groupsToComponents(groups);
+  };
 
   return (
     <div className={styles.groups}>
-      <div className={styles.groups__layout}>
-        {groupsComponents()}
-      </div>
+      <div className={styles.groups__layout}>{groupsComponents()}</div>
       <div className={styles.info__wrapper}>
         <div className={styles.groups__preview}>
-          <GroupPreview data={groups}/>
+          <GroupPreview data={groups} />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

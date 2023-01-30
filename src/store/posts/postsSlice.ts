@@ -26,7 +26,7 @@ export const postsSlice = createSlice({
       });
     },
     setStatus: (state, action) => {
-      state.requestStatus = action.payload.requestStatus
+      state.requestStatus = action.payload.requestStatus;
     },
-  }
+  },
 });

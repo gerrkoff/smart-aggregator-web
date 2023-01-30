@@ -4,47 +4,65 @@ import { toDateFormat } from '@utils/utils';
 
 import styles from './PostFull.module.scss';
 
-const Image = ({ src }) => (<div className={styles.post__img}><img src={src} alt='image'/></div>);
+const Image = ({ src }) => (
+  <div className={styles.post__img}>
+    <img src={src} />
+  </div>
+);
 
 const Video = ({ href, src }) => (
-  <a href={href} target='_blank' className={styles.post__video}><img src={src} alt='video'/></a>);
+  <a
+    href={href}
+    target="_blank"
+    className={styles.post__video}
+    rel="noreferrer"
+  >
+    <img src={src} alt="video" />
+  </a>
+);
 
-const LinkElement = ({ link }) => (<a href={link} className={styles.link} target='_blank'>Ссылка на источник</a>);
+const LinkElement = ({ link }) => (
+  <a href={link} className={styles.link} target="_blank" rel="noreferrer">
+    Ссылка на источник
+  </a>
+);
 
-export const PostFull = ({ post, handleCopy}) => {
+export const PostFull = ({ post, handleCopy }) => {
   const { text, link, createTime, media } = post;
 
-  const linkComponent = link ? <LinkElement link={link}/> : null;
+  const linkComponent = link ? <LinkElement link={link} /> : null;
 
   const mediaComponents = () => {
     if (Array.isArray(media)) {
-      const videoContainer = []
+      const videoContainer: Array<JSX.Element | null> = [];
       const mediaElements = media?.map((item) => {
-        const { photoUrl, videoThumbUrl } = item
-        const image = photoUrl ? <Image src={photoUrl} key={photoUrl}/> : null;
-        const video = videoThumbUrl ? <Video href={link} src={videoThumbUrl} key={videoThumbUrl}/> : null;
-        // @ts-ignore
-        videoContainer.push(video)
+        const { photoUrl, videoThumbUrl } = item;
+        const image = photoUrl ? <Image src={photoUrl} key={photoUrl} /> : null;
+        const video = videoThumbUrl ? (
+          <Video href={link} src={videoThumbUrl} key={videoThumbUrl} />
+        ) : null;
+        videoContainer.push(video);
 
-        return image
-      })
+        return image;
+      });
 
-      return [...mediaElements, ...videoContainer]
+      return [...mediaElements, ...videoContainer];
     }
 
-    return null
-  }
+    return null;
+  };
 
   return (
     <div className={styles.post}>
-      <div className={styles.post__media}>
-        {mediaComponents()}
-      </div>
+      <div className={styles.post__media}>{mediaComponents()}</div>
       <div className={styles.post__info}>
-        <p className={styles.post__text} dangerouslySetInnerHTML={{ __html: text }}/>
+        <p
+          className={styles.post__text}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
         <div className={styles.post__reactions}>
-          <AiOutlineSmile/>
-          <AiOutlineSend onClick={handleCopy}/>
+          <AiOutlineSmile />
+          <AiOutlineSend onClick={handleCopy} />
         </div>
         <span className={styles.post__data}>
           {linkComponent}

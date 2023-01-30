@@ -9,14 +9,6 @@ import { useGroupsSelector } from '@store/groups';
 
 import 'styles/styles.scss';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <AppWrapper/>
-    </Provider>
-  );
-};
-
 const AppWrapper = () => {
   const { dispatchGroups, dispatchFeed } = useApi();
   const { feed } = useFeedSelector();
@@ -25,17 +17,25 @@ const AppWrapper = () => {
   useEffect(() => {
     dispatchGroups();
     dispatchFeed();
-  }, [])
+  }, []);
 
   return (
-    <div className='container'>
-      <div className='wrapper'>
-        <Header/>
-        <Search/>
-        <Main groups={groups} feed={feed}/>
+    <div className="container">
+      <div className="wrapper">
+        <Header />
+        <Search />
+        <Main groups={groups} feed={feed} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppWrapper />
+    </Provider>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
