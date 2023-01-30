@@ -11,7 +11,7 @@ export const toDateFormat = (data) => {
 export const debounce = (callback, ms) => {
   let isCooldown = false;
 
-  return function () {
+  return function f() {
     if (isCooldown) {
       return;
     }

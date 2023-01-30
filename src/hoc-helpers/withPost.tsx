@@ -6,7 +6,7 @@ import { postsSlice, usePostsSelector } from '@store/posts';
 import { RequestStatus } from '@types';
 
 export const withPost = (Component) => {
-  return function (dataApi) {
+  return function WithPost(dataApi) {
     const [data, setData] = useState(dataApi);
     const { groupId } = useActiveGroupSelector();
     const { requestStatus } = usePostsSelector();

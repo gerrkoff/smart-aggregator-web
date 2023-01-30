@@ -5,7 +5,7 @@ import { activeGroupSlice } from '@store/activeGroup';
 import { SEARCH_STATUS } from '@types';
 
 export const withSearch = (Component) => {
-  return function (dataApi) {
+  return function WithSearch(dataApi) {
     const [data, setData] = useState(dataApi);
     const { search } = useSearchSelector();
     const dispatch = useAppDispatch();

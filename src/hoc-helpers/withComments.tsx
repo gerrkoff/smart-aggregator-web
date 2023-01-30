@@ -4,7 +4,7 @@ import { usePostsSelector } from '@store/posts';
 import { RequestStatus } from '@types';
 
 export const withComments = (Component) => {
-  return function (dataApi) {
+  return function WithComments(dataApi) {
     const [data, setData] = useState(null);
     const { postId } = useActivePostSelector();
     const { posts, requestStatus } = usePostsSelector();
