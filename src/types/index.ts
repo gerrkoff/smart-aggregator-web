@@ -6,10 +6,10 @@ export enum RequestStatus {
 }
 
 type TMedia = {
-  photoUrl: string,
-  videoFileName: string | null,
-  videoThumbUrl: string | null
-}
+  photoUrl: string;
+  videoFileName: string | null;
+  videoThumbUrl: string | null;
+};
 
 export type TGroup = {
   id: number;
@@ -20,7 +20,7 @@ export type TGroup = {
   logoUrl: string;
   createTime: string;
   lastActivityTime?: string;
-}
+};
 
 export type TPost = {
   chatId: string;
@@ -30,10 +30,10 @@ export type TPost = {
   editTime: string;
   link: string;
   media: TMedia[];
-}
+};
 
 export const SEARCH_STATUS = {
   default: 'DEFAULT',
   success: 'SUCCESS',
   error: 'ERROR',
-}
+};

@@ -4,35 +4,39 @@ import { usePostsSelector } from '@store/posts';
 import { RequestStatus } from '@types';
 
 export const withComments = (Component) => {
-  return (dataApi) => {
+  return function (dataApi) {
     const [data, setData] = useState(null);
     const { postId } = useActivePostSelector();
     const { posts, requestStatus } = usePostsSelector();
 
     useEffect(() => {
       if (requestStatus === RequestStatus.SUCCESS) {
-        findPost()
+        findPost();
       }
       if (requestStatus === RequestStatus.INIT) {
-        findPostInFeed()
+        findPostInFeed();
       }
-    }, [postId])
+    }, [postId]);
 
     useEffect(() => {
-      setData(null)
-    }, [requestStatus])
+      setData(null);
+    }, [requestStatus]);
 
     const findPost = () => {
-      const post = posts?.find((post) => String(post.messageId) === String(postId));
+      const post = posts?.find(
+        (post) => String(post.messageId) === String(postId),
+      );
       // @ts-ignore
-      setData(post)
-    }
+      setData(post);
+    };
 
     const findPostInFeed = () => {
-      const post = dataApi?.find((post) => String(post.messageId) === String(postId));
-      setData(post)
-    }
+      const post = dataApi?.find(
+        (post) => String(post.messageId) === String(postId),
+      );
+      setData(post);
+    };
 
-    return <Component data={data}/>
-  }
-}
+    return <Component data={data} />;
+  };
+};
