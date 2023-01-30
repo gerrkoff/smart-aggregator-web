@@ -16,4 +16,9 @@ module.exports = {
     'import/no-cycle': 'off',
     'no-underscore-dangle': 'off',
   },
+  settings: {
+    "import/resolver": {
+      typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+    },
+  },
 };
