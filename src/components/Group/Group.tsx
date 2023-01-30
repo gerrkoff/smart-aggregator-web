@@ -20,29 +20,23 @@ type TBodyElement = {
 const Body: FC<TBodyElement> = memo(({ group, active }) => {
   const { title, description, logoUrl, link } = group;
 
-  const LinkElement = ({ src }) => (
-    <a
-      href={src}
-      className={styles.group__link}
-      target="_blank"
-      rel="noreferrer"
-    >
-      Ссылка на канал
-    </a>
-  );
-  const Image = () => (
-    <img src={logoUrl || Avatar} alt="placeholder" loading="lazy" />
-  );
-  const Link = () => (active && link ? <LinkElement src={link} /> : null);
-
   return (
     <>
       <div className={styles.group__logo}>
-        <Image />
+        <img src={logoUrl || Avatar} alt="placeholder" loading="lazy" />
       </div>
       <div className={styles.group__text_wrapper}>
         <span className={styles.group__title}>{title}</span>
-        <Link />
+        {active && link ? (
+          <a
+            href={link}
+            className={styles.group__link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ссылка на канал
+          </a>
+        ) : null}
         <p className={cn(styles.group__description)}>{description}</p>
       </div>
     </>

@@ -8,9 +8,7 @@ export const GroupPreview = ({ data }) => {
   const { groupId } = useActiveGroupSelector();
 
   useEffect(() => {
-    const group = data.find(
-      (group: TGroup) => String(group.id) === String(groupId),
-    );
+    const group = data.find((x: TGroup) => String(x.id) === String(groupId));
     setActiveGroup(group);
   }, [groupId]);
 

@@ -9,14 +9,6 @@ import { useGroupsSelector } from '@store/groups';
 
 import 'styles/styles.scss';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <AppWrapper />
-    </Provider>
-  );
-};
-
 const AppWrapper = () => {
   const { dispatchGroups, dispatchFeed } = useApi();
   const { feed } = useFeedSelector();
@@ -35,6 +27,14 @@ const AppWrapper = () => {
         <Main groups={groups} feed={feed} />
       </div>
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppWrapper />
+    </Provider>
   );
 };
 

@@ -14,6 +14,12 @@ export const Groups = ({ data }) => {
   const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
 
+  const sortGroups = (array) => {
+    return array.sort(
+      (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
+    );
+  };
+
   useEffect(() => {
     const sortedGroups = sortGroups([...data]);
     setGroups(sortedGroups);
@@ -25,10 +31,15 @@ export const Groups = ({ data }) => {
     }
   }, [requestStatus]);
 
-  const sortGroups = (array) => {
-    return array.sort(
-      (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
-    );
+  const handleGroupClick = (e) => {
+    if (!disabled) {
+      const id = e.currentTarget.dataset.groupId;
+      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }));
+      dispatch(
+        postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }),
+      );
+      setDisabled(true);
+    }
   };
 
   const groupsToComponents = useCallback(
@@ -42,17 +53,6 @@ export const Groups = ({ data }) => {
 
   const groupsComponents = () => {
     return groupsToComponents(groups);
-  };
-
-  const handleGroupClick = (e) => {
-    if (!disabled) {
-      const id = e.currentTarget.dataset.groupId;
-      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }));
-      dispatch(
-        postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }),
-      );
-      setDisabled(true);
-    }
   };
 
   return (

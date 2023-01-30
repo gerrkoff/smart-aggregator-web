@@ -14,6 +14,13 @@ export const Posts = ({ data }) => {
   const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
 
+  const sortPosts = (array) => {
+    return array.sort(
+      (a: TPost, b: TPost) =>
+        Date.parse(b.createTime) - Date.parse(a.createTime),
+    );
+  };
+
   useEffect(() => {
     const sortedData = sortPosts([...data]);
     setPosts(sortedData);
@@ -45,18 +52,12 @@ export const Posts = ({ data }) => {
     dispatch(activeGroupSlice.actions.setGroupId({ groupId }));
   };
 
-  const sortPosts = (array) => {
-    return array.sort(
-      (a: TPost, b: TPost) =>
-        Date.parse(b.createTime) - Date.parse(a.createTime),
-    );
-  };
-
   const postsToComponents = (array) => {
     return array.map((post) => {
       if (post.media.length > 0 || post.text) {
         return <Post post={post} handleClick={handlePostClick} key={post.id} />;
       }
+      return undefined;
     });
   };
 

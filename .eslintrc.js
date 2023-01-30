@@ -62,6 +62,12 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/function-component-definition': 'off',
     'jsx-a11y/alt-text': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'no-param-reassign': 'off',
+    'jsx-a11y/no-static-element-interactions': 'warn',
+    'react/require-default-props': 'off',
+    // TODO: change to 'error' and fix
+    'react/prop-types': 'warn',
   },
   settings: {
     'import/resolver': {

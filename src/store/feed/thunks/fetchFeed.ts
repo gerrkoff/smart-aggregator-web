@@ -3,8 +3,8 @@ import { baseAPI } from '@api/baseAPI';
 
 export const fetchFeed = createAsyncThunk(
   'messages/fetchMessages',
-  async (_, { rejectWithValue }) => {
-    return await baseAPI
+  (_, { rejectWithValue }) => {
+    return baseAPI
       .getFeed()
       .then((data: []) => {
         return data;
