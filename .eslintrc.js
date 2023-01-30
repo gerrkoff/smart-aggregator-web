@@ -21,6 +21,11 @@ module.exports = {
       ts: 'never',
       tsx: 'never',
     }],
+    'react/jsx-filename-extension': [1, {
+      'extensions': ['.jsx', '.tsx']
+    }],
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'error',
   },
   settings: {
     "import/resolver": {
