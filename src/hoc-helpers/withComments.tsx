@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { usePostsSelector } from '@store/posts';
-import { RequestStatus } from '@types';
+import { RequestStatus, TPost } from '@types';
 
 export const withComments = (Component) => {
   return function WithComments(dataApi) {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<TPost | null>(null);
     const { postId } = useActivePostSelector();
     const { posts, requestStatus } = usePostsSelector();
 
     const findPost = () => {
-      const post = posts?.find((p) => String(p.messageId) === String(postId));
-      // @ts-ignore
+      const post =
+        posts?.find((p) => String(p.messageId) === String(postId)) ?? null;
       setData(post);
     };
 

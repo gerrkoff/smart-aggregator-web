@@ -9,6 +9,28 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+      ],
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+      rules: {
+        '@typescript-eslint/no-floating-promises': 'off',
+        // TODO: change to 'error' and fix
+        '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/no-unsafe-argument': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
+        '@typescript-eslint/no-unsafe-call': 'warn',
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-return': 'warn',
+      },
+    },
+  ],
   rules: {
     'prettier/prettier': 'error',
     'max-len': ['error', { code: 125 }],

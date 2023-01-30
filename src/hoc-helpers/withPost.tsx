@@ -26,7 +26,9 @@ export const withPost = (Component) => {
 
     useEffect(() => {
       if (requestStatus === RequestStatus.REQUEST) {
-        setTimeout(() => loadPosts(), 500);
+        setTimeout(() => {
+          loadPosts();
+        }, 500);
       }
       if (requestStatus === RequestStatus.INIT) {
         setData(dataApi);
