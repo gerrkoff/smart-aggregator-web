@@ -5,8 +5,13 @@
   width: 100%;
   overflow: auto;
   padding: 0 10px;
+  transition: all .3s ease;
 }
 
 .chats, .messages, .comments {
    border: 1px solid #D4D4D4;
+}
+
+.wide {
+  grid-template-columns: 84px calc((100% - 84px) / 2) calc((100% - 84px) / 2);
 }

@@ -34,14 +34,17 @@ export const PostFull = ({ post, handleCopy }) => {
 
   const mediaComponents = () => {
     if (Array.isArray(media)) {
-      const videoContainer: Array<JSX.Element | null> = [];
+      const videoContainer: JSX.Element[] = [];
       const mediaElements = media?.map((item) => {
         const { photoUrl, videoThumbUrl } = item;
         const image = photoUrl ? <Image src={photoUrl} key={photoUrl} /> : null;
         const video = videoThumbUrl ? (
           <Video href={link} src={videoThumbUrl} key={videoThumbUrl} />
         ) : null;
-        videoContainer.push(video);
+
+        if (video) {
+          videoContainer.push(video);
+        }
 
         return image;
       });
