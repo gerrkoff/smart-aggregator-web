@@ -37,7 +37,7 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
             Ссылка на канал
           </a>
         ) : null}
-        <p className={cn(styles.group__description)} dangerouslySetInnerHTML={{ __html: description.replace('<br />', '') }}/>
+        <p className={cn(styles.group__description)} dangerouslySetInnerHTML={{ __html: description }}/>
         {/*<p className={cn(styles.group__description)}>{description}</p>*/}
       </div>
     </>

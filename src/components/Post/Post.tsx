@@ -50,7 +50,7 @@ export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
         <div className={styles.text__wrapper}>
           <p
             className={styles.post__text}
-            dangerouslySetInnerHTML={{ __html: text.replace('<br />', '') }}
+            dangerouslySetInnerHTML={{ __html: text }}
           />
           <span className={styles.post__data}>{toDateFormat(createTime)}</span>
         </div>
