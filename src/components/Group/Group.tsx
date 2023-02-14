@@ -3,6 +3,7 @@ import { useActiveGroupSelector } from '@store/activeGroup';
 import Avatar from '@assets/avatar.jpg';
 import { TGroup } from '@types';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 import styles from './Group.module.scss';
 
@@ -57,12 +58,13 @@ export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
   }, [groupId]);
 
   return (
-    <div
+    <Link  
+      to="/"
       className={cn(styles.group, active ? styles.active : '')}
       data-group-id={id}
       onClick={handleClick}
     >
       <Body group={group} active={active} />
-    </div>
+    </Link>
   );
 };

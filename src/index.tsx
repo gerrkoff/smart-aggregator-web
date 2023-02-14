@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Header, Search, Main } from '@containers';
 import { store } from '@store/store';
 import { useApi } from '@hooks/useApi';
 import { useFeedSelector } from '@store/feed';
 import { useGroupsSelector } from '@store/groups';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import 'styles/styles.scss';
 
-const AppWrapper = () => {
+const Home = () => {
   const { dispatchGroups, dispatchFeed } = useApi();
   const { feed } = useFeedSelector();
   const { groups } = useGroupsSelector();
@@ -19,23 +21,30 @@ const AppWrapper = () => {
     dispatchFeed();
   }, []);
 
-  return (
-    <div className="container">
-      <div className="wrapper">
-        <Header />
-        <Search />
-        <Main groups={groups} feed={feed} />
-      </div>
-    </div>
-  );
+  return <Main groups={groups} feed={feed} />;
 };
 
 const App = () => {
   return (
     <Provider store={store}>
-      <AppWrapper />
+      <BrowserRouter>
+        <div className="container">
+          <div className="wrapper">
+            <Header />
+            <Search />
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+        </div>
+      </BrowserRouter>
     </Provider>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
