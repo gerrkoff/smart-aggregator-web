@@ -1,28 +1,13 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { Header, Search, Main } from '@containers';
+import { Header, Search } from '@containers';
 import { store } from '@store/store';
-import { useApi } from '@hooks/useApi';
-import { useFeedSelector } from '@store/feed';
-import { useGroupsSelector } from '@store/groups';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HomePage } from './pages/Home';
 
 import 'styles/styles.scss';
-
-const Home = () => {
-  const { dispatchGroups, dispatchFeed } = useApi();
-  const { feed } = useFeedSelector();
-  const { groups } = useGroupsSelector();
-
-  useEffect(() => {
-    dispatchGroups();
-    dispatchFeed();
-  }, []);
-
-  return <Main groups={groups} feed={feed} />;
-};
+import { ChatPage } from './pages/ChatPage';
 
 const App = () => {
   return (
@@ -33,7 +18,9 @@ const App = () => {
             <Header />
             <Search />
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/:chatId" element={<HomePage />} />
+              <Route path="/:chatId/:feedId" element={<HomePage />} />
             </Routes>
           </div>
         </div>

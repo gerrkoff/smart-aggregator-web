@@ -59,7 +59,7 @@ export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
 
   return (
     <Link  
-      to="/"
+      to={`/${group.id}`}
       className={cn(styles.group, active ? styles.active : '')}
       data-group-id={id}
       onClick={handleClick}
