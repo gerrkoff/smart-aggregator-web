@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Header, Search } from '@containers';
 import { store } from '@store/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/Home';
-
 import 'styles/styles.scss';
-import { ChatPage } from './pages/ChatPage';
 
 const App = () => {
   return (

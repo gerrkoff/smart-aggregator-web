@@ -7,8 +7,10 @@ import { searchSlice } from '@store/search';
 
 import { SEARCH_STATUS } from '@types';
 import styles from './Search.module.scss';
+import { AppStore } from '@/store/pullstate';
 
 export const Search = () => {
+  const {filter} = AppStore.useState(state => state);
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
 
@@ -19,6 +21,7 @@ export const Search = () => {
   }, 300);
 
   const handleSearch = (e) => {
+    AppStore.update(s => {s.filter = e.target.value})
     setValue(e.target.value);
     debouncedDispatchInput(e.target.value);
   };
@@ -26,6 +29,7 @@ export const Search = () => {
   const clearSearch = () => {
     if (value !== '') {
       setValue('');
+      AppStore.update(s => {s.filter = ''})
       dispatch(searchSlice.actions.setSearch({ search: '' }));
       dispatch(
         searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.default }),

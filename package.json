@@ -66,6 +66,7 @@
     "firebase": "9.8.1",
     "less": "^4.1.3",
     "masonry-layout": "^4.2.2",
+    "pullstate": "^1.25.0",
     "react": "^18.2.0",
     "react-animations": "^1.0.0",
     "react-dom": "^18.2.0",
