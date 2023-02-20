@@ -1,5 +1,5 @@
-import { TGroup, TPost } from '@/types';
 import { registerInDevtools, Store } from 'pullstate';
+import { TGroup, TPost } from '@/types';
 
 export interface AppProps {
   allChats: TGroup[];

@@ -6,21 +6,21 @@ export enum RequestStatus {
 }
 
 export enum ReactQueryKey {
-  buildInfo ="BUILD_INFO",
+  buildInfo = 'BUILD_INFO',
 
-  chats ="CHATS",
-  chatsQuery ="CHATS_QUERY",
+  chats = 'CHATS',
+  chatsQuery = 'CHATS_QUERY',
 
-  feeds ="FEEDS",
-  feedsQuery ="FEEDS_QUERY",
-  feedsByChatId ="FEEDS_BY_CHAT_ID",
+  feeds = 'FEEDS',
+  feedsQuery = 'FEEDS_QUERY',
+  feedsByChatId = 'FEEDS_BY_CHAT_ID',
 
-  posts ="POSTS",
+  posts = 'POSTS',
 }
 
 export type TBuild = {
-  appVersion: string
-}
+  appVersion: string;
+};
 
 type TMedia = {
   photoUrl: string;

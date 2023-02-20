@@ -1,8 +1,7 @@
+import { Main } from '@containers';
+import React, { useEffect } from 'react';
 import { useApi } from '@/hooks/useApi';
 import { useFeedSelector } from '@/store/feed';
-import { useGroupsSelector } from '@/store/groups';
-import React, { useEffect } from 'react';
-import { Main } from '@containers';
 
 const HomePage = () => {
   const { dispatchGroups, dispatchFeed } = useApi();
