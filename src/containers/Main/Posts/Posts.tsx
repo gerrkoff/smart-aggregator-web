@@ -7,12 +7,29 @@ import { usePostsSelector } from '@store/posts';
 import { activeGroupSlice } from '@store/activeGroup';
 
 import styles from './Posts.module.scss';
+import { AppStore } from '@/store/pullstate';
+import { LoadingItem } from '@/components/Loading/Loadingitem';
 
-export const Posts = ({ data }) => {
-  const [posts, setPosts] = useState(data);
+type PostsProps = {
+  feeds: TPost[];
+  isLoadingFeeds: boolean;
+  isFetchingFeeds: boolean;
+  isLoadingGetPostsByChatId: boolean;
+  isFetchingGetPostsByChatId: boolean;
+};
+
+// TODO: Replace to type declaration
+export type THandlePostClick = {
+  e: React.MouseEvent<HTMLElement>;
+  post: TPost;
+};
+
+export const Posts = ({ feeds, isLoadingFeeds, isFetchingFeeds, isLoadingGetPostsByChatId, isFetchingGetPostsByChatId }: PostsProps) => {
+  const [posts, setPosts] = useState(feeds);
   const [loading, setLoading] = useState(false);
   const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
+  const isLoading = isLoadingFeeds || isFetchingFeeds || isLoadingGetPostsByChatId || isFetchingGetPostsByChatId;
 
   const sortPosts = (array) => {
     return array.sort(
@@ -22,9 +39,9 @@ export const Posts = ({ data }) => {
   };
 
   useEffect(() => {
-    const sortedData = sortPosts([...data]);
+    const sortedData = sortPosts([...feeds]);
     setPosts(sortedData);
-  }, [data]);
+  }, [feeds]);
 
   useEffect(() => {
     if (
@@ -40,7 +57,10 @@ export const Posts = ({ data }) => {
     };
   }, [requestStatus]);
 
-  const handlePostClick = (e) => {
+  const handlePostClick = ({ e, post }: THandlePostClick) => {
+    AppStore.update((store) => {
+      store.selectedFeed = post;
+    });
     const { postId } = e.currentTarget.dataset;
     const { groupId } = e.currentTarget.dataset;
     dispatch(activePostSlice.actions.setPostId({ postId }));
@@ -51,22 +71,15 @@ export const Posts = ({ data }) => {
     );
     dispatch(activeGroupSlice.actions.setGroupId({ groupId }));
   };
-
-  const postsToComponents = (array) => {
-    return array.map((post) => {
-      if (post.media.length > 0 || post.text) {
-        return <Post post={post} handleClick={handlePostClick} key={post.id} />;
-      }
-      return undefined;
-    });
-  };
-
-  const postsComponents = useCallback(() => postsToComponents(posts), [posts]);
-
+  
   return (
     <div className={styles.posts}>
       <div className={styles.posts__layout} id="posts">
-        {loading ? <Loading /> : postsComponents()}
+        {isLoading ? Array.from({length: 3}).map((_,indx)=><LoadingItem key={indx} type="feed"/>) : posts.map((post) => {
+          return (
+            <Post post={post} handleClick={handlePostClick} key={post.id} />
+          );
+        })}
       </div>
     </div>
   );

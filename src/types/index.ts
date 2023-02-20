@@ -5,6 +5,23 @@ export enum RequestStatus {
   ERROR = 'ERROR',
 }
 
+export enum ReactQueryKey {
+  buildInfo ="BUILD_INFO",
+
+  chats ="CHATS",
+  chatsQuery ="CHATS_QUERY",
+
+  feeds ="FEEDS",
+  feedsQuery ="FEEDS_QUERY",
+  feedsByChatId ="FEEDS_BY_CHAT_ID",
+
+  posts ="POSTS",
+}
+
+export type TBuild = {
+  appVersion: string
+}
+
 type TMedia = {
   photoUrl: string;
   videoFileName: string | null;
@@ -23,12 +40,13 @@ export type TGroup = {
 };
 
 export type TPost = {
-  chatId: string;
+  id: number;
   messageId: number;
+  chatId: string;
   text: string;
+  link: string;
   createTime: string;
   editTime: string;
-  link: string;
   media: TMedia[];
 };
 

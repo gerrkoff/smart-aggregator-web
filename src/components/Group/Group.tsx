@@ -6,10 +6,12 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import styles from './Group.module.scss';
+import { THandleGroupClick } from '@/containers/Main/Groups/Groups';
+import { AppStore } from '@/store/pullstate';
 
 type TGroupElement = {
   group: TGroup;
-  handleClick?: (e: any) => any;
+  handleClick?: ({ e, group }: THandleGroupClick) => void;
 };
 
 type TBodyElement = {
@@ -28,13 +30,13 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
       </div>
       <div className={styles.group__text_wrapper}>
         <span className={styles.group__title}>{title}</span>
+        {/* Use another component for preview */}
         {active && link ? (
           <a
             href={link}
             className={styles.group__link}
             target="_blank"
-            rel="noreferrer"
-          >
+            rel="noreferrer">
             Ссылка на канал
           </a>
         ) : null}
@@ -49,22 +51,27 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
 });
 
 export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
-  const [active, setActive] = useState(false);
+  const {selectedChat} = AppStore.useState(store=>store)
   const { id } = group;
   const { groupId } = useActiveGroupSelector();
-
-  useEffect(() => {
-    setActive(String(groupId) === String(id));
-  }, [groupId]);
+  const isActive = selectedChat && selectedChat.id === group.id ? true : false
 
   return (
-    <Link  
+    <Link
       to={`/${group.id}`}
-      className={cn(styles.group, active ? styles.active : '')}
+      className={cn(styles.group, isActive ? styles.active : '')}
+      style={{ pointerEvents: isActive ? 'none' : 'all' }}
       data-group-id={id}
-      onClick={handleClick}
+      onClick={(e) => {
+        // TODO: Add more types
+        if (!handleClick) {
+          null;
+        } else {
+          handleClick({ e, group });
+        }
+      }}
     >
-      <Body group={group} active={active} />
+      <Body group={group} active={isActive} />
     </Link>
   );
 };

@@ -5,10 +5,11 @@ import { TPost } from '@types';
 import cn from 'classnames';
 
 import styles from './Post.module.scss';
+import { THandlePostClick } from '@/containers/Main/Posts/Posts';
 
 type TPostElement = {
   post: TPost;
-  handleClick?: (e: any) => void | undefined;
+  handleClick: ({e, post}: THandlePostClick) => void;
 };
 
 const Image = ({ src }) => (
@@ -43,15 +44,14 @@ export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
       className={cn(styles.post, active ? styles.active : '')}
       data-post-id={messageId}
       data-group-id={chatId}
-      onClick={handleClick}
+      onClick={e=>{handleClick({e, post})}}
     >
       <div className={styles.post__info}>
         {mediaComponent()}
         <div className={styles.text__wrapper}>
           <p
             className={styles.post__text}
-            dangerouslySetInnerHTML={{ __html: text }}
-          />
+            dangerouslySetInnerHTML={{ __html: text }}/>
           <span className={styles.post__data}>{toDateFormat(createTime)}</span>
         </div>
       </div>

@@ -4,8 +4,10 @@ import cn from 'classnames';
 import { FadeInDownSpan } from '@/animations/components';
 
 import styles from './Comments.module.scss';
+import { AppStore } from '@/store/pullstate';
 
 export const Comments = ({ data }) => {
+  const { selectedFeed } = AppStore.useState((store) => store);
   const [isCopyVisible, setIsCopyVisible] = useState(false);
   const [post, setPost] = useState(null);
 
@@ -32,7 +34,7 @@ export const Comments = ({ data }) => {
         >
           Ссылка скопирована
         </FadeInDownSpan>
-        {post ? <PostFull post={post} handleCopy={handleCopy} /> : null}
+        {selectedFeed ? <PostFull post={selectedFeed} handleCopy={handleCopy} /> : null}
       </div>
     </div>
   );

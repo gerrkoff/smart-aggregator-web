@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Group, GroupPreview } from '@components';
 import { getGroupLastTime } from '@utils/utils';
 import { activeGroupSlice } from '@store/activeGroup';
@@ -6,15 +6,25 @@ import { postsSlice, usePostsSelector } from '@store/posts';
 import { useAppDispatch } from '@store/hooks';
 import { RequestStatus, TGroup } from '@types';
 import { activePostSlice, useActivePostSelector } from '@store/activePost';
+import { AppStore } from '@/store/pullstate';
 
 import styles from './Groups.module.scss';
+import { LoadingItem } from '@/components/Loading/Loadingitem';
 
-export const Groups = ({ data }) => {
-  const [groups, setGroups] = useState(data);
+type GroupsProps = {
+  chats: TGroup[];
+  isLoadingChats: boolean;
+  isLoadingChatsQuery: boolean;
+};
+
+export type THandleGroupClick = {
+  e: React.MouseEvent<HTMLElement>;
+  group: TGroup;
+};
+
+export const Groups = ({ chats, isLoadingChats, isLoadingChatsQuery }: GroupsProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
-  const { postId } = useActivePostSelector();
-  const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
 
   const sortGroups = (array) => {
@@ -22,23 +32,13 @@ export const Groups = ({ data }) => {
       (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
     );
   };
+  
+  const handleGroupClick = ({e, group}:THandleGroupClick) => {
+    AppStore.update(s => {
+      s.selectedFeed = null
+      s.selectedChat = group
+    })
 
-  useEffect(() => {
-    const sortedGroups = sortGroups([...data]);
-    setGroups(sortedGroups);
-  }, [data]);
-
-  useEffect(() => {
-    if (requestStatus === RequestStatus.SUCCESS) {
-      setDisabled(false);
-    }
-  }, [requestStatus]);
-
-  useEffect(() => {
-    setIsVisible(!postId);
-  }, [postId]);
-
-  const handleGroupClick = (e) => {
     if (!disabled) {
       const id = e.currentTarget.dataset.groupId;
       dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }));
@@ -50,26 +50,24 @@ export const Groups = ({ data }) => {
     }
   };
 
-  const groupsToComponents = useCallback(
-    (array) => {
-      return array.map((group) => (
-        <Group group={group} handleClick={handleGroupClick} key={group.id} />
-      ));
-    },
-    [groups],
-  );
-
-  const groupsComponents = () => {
-    return groupsToComponents(groups);
-  };
-
   return (
     <div className={styles.groups}>
-      <div className={styles.groups__layout}>{groupsComponents()}</div>
+      <div className={styles.groups__layout}>
+        {/* TODO: Add Error condition */}
+        {isLoadingChats || isLoadingChatsQuery ? Array.from({length: 10}).map((_,indx)=><LoadingItem key={indx} type="chat"/>) : chats.sort((a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a)).map((group) => {
+          return (
+            <Group
+              group={group}
+              handleClick={handleGroupClick}
+              key={group.id}
+            />
+          );
+        })}
+      </div>
       {isVisible ? (
         <div className={styles.info__wrapper}>
           <div className={styles.groups__preview}>
-            <GroupPreview data={groups} />
+            <GroupPreview chats={chats} />
           </div>
         </div>
       ) : null}

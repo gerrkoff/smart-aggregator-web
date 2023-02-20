@@ -10,7 +10,6 @@ import styles from './Search.module.scss';
 import { AppStore } from '@/store/pullstate';
 
 export const Search = () => {
-  const {filter} = AppStore.useState(state => state);
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
 
@@ -21,7 +20,8 @@ export const Search = () => {
   }, 300);
 
   const handleSearch = (e) => {
-    AppStore.update(s => {s.filter = e.target.value})
+    const val = e.target.value.trim().toLowerCase()
+    AppStore.update(s => {s.filter = val})
     setValue(e.target.value);
     debouncedDispatchInput(e.target.value);
   };
