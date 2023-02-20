@@ -32,7 +32,6 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/:chatId" element={<HomePage />} />
-                <Route path="/:chatId/:feedParam" element={<HomePage />} />
               </Routes>
             </div>
           </div>

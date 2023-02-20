@@ -51,10 +51,10 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
 });
 
 export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
-  const {selectedChat} = AppStore.useState(store=>store)
+  const {selectedChat, selectedChatId} = AppStore.useState(store=>store)
   const { id } = group;
   const { groupId } = useActiveGroupSelector();
-  const isActive = selectedChat && selectedChat.id === group.id ? true : false
+  const isActive = selectedChatId === group.id ? true : false
 
   return (
     <Link
@@ -63,7 +63,6 @@ export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
       style={{ pointerEvents: isActive ? 'none' : 'all' }}
       data-group-id={id}
       onClick={(e) => {
-        // TODO: Add more types
         if (!handleClick) {
           null;
         } else {

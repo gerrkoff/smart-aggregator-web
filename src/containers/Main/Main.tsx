@@ -14,16 +14,13 @@ const CommentsContainer = ({ data }) => withComments(Comments)(data);
 
 type TUseParams = {
   chatId: string | undefined;
-  feedParam: string | undefined;
 };
 
-export const Main = ({ groups, feed }) => {
-  const [filterUpdated, setFilterUpdated] = useState<boolean>(false);
-  const { chatId, feedParam } = useParams<TUseParams>();
+export const Main = ({ feed }) => {
+  const { chatId } = useParams<TUseParams>();
   const { filter, selectedFeed } = AppStore.useState((store) => store);
 
   const [wideWindow, setWideWindow] = useState<boolean>(false);
-  const { postId } = useActivePostSelector();
 
   const [chats, setChats] = useState<TGroup[]>([]);
   const [feeds, setFeeds] = useState<TPost[]>([]);
@@ -89,6 +86,12 @@ export const Main = ({ groups, feed }) => {
     queryFn: () => baseAPI.getPosts(chatId),
     onSuccess(data) {
       setFeeds(data);
+      if (data.length > 0) {
+        AppStore.update((state)=>{
+          state.selectedChatId = data[0].chatId
+      })
+      }
+      
     },
     enabled: !!chatId
   });
@@ -99,7 +102,7 @@ export const Main = ({ groups, feed }) => {
 
   useEffect(() => {
     if (chatId) {
-      refetchGetPostsByChatId()
+      refetchGetPostsByChatId();
     }
   }, [chatId]);
 

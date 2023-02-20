@@ -42,7 +42,7 @@ export type TGroup = {
 export type TPost = {
   id: number;
   messageId: number;
-  chatId: string;
+  chatId: number;
   text: string;
   link: string;
   createTime: string;

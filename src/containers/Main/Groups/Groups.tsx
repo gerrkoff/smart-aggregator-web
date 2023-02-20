@@ -37,6 +37,7 @@ export const Groups = ({ chats, isLoadingChats, isLoadingChatsQuery }: GroupsPro
     AppStore.update(s => {
       s.selectedFeed = null
       s.selectedChat = group
+      s.selectedChatId = group.id
     })
 
     if (!disabled) {

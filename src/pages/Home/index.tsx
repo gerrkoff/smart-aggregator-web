@@ -7,14 +7,13 @@ import { Main } from '@containers';
 const HomePage = () => {
   const { dispatchGroups, dispatchFeed } = useApi();
   const { feed } = useFeedSelector();
-  const { groups } = useGroupsSelector();
 
   useEffect(() => {
     dispatchGroups();
     dispatchFeed();
   }, []);
 
-  return <Main groups={groups} feed={feed} />;
+  return <Main feed={feed} />;
 };
 
 export { HomePage };
