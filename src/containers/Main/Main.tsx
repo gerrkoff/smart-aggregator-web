@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Groups, Posts, Comments } from '@containers/Main';
 import { useActivePostSelector } from '@store/activePost';
 import cn from 'classnames';
-import { withComments } from '@/hoc-helpers';
 import { useParams } from 'react-router-dom';
-import styles from './Main.module.scss';
 import { useQuery } from 'react-query';
+import { withComments } from '@/hoc-helpers';
+import styles from './Main.module.scss';
 import { baseAPI } from '@/api/baseAPI';
 import { ReactQueryKey, TGroup, TPost } from '@/types';
 import { AppStore } from '@/store/pullstate';
@@ -51,10 +51,7 @@ export const Main = ({ feed }) => {
     enabled: filter.length > 0,
   });
 
-  const {
-    isLoading: isLoadingFeeds,
-    isFetching: isFetchingFeeds
-  } = useQuery({
+  const { isLoading: isLoadingFeeds, isFetching: isFetchingFeeds } = useQuery({
     queryKey: [ReactQueryKey.feedsQuery],
     queryFn: () => baseAPI.getFeed(),
     onSuccess(data) {
@@ -63,37 +60,33 @@ export const Main = ({ feed }) => {
     enabled: filter.length === 0,
   });
 
-  const {
-    refetch: refetchGetPostsQuery,
-    isLoading: isLoadingFeedsQuery
-  } = useQuery({
-    queryKey: [ReactQueryKey.feedsQuery],
-    queryFn: () => baseAPI.getPostsQuery(`${filter}`),
-    onSuccess(data) {
-      setFeeds(data);
-    },
-    enabled: filter.length > 0,
-  });
+  const { refetch: refetchGetPostsQuery, isLoading: isLoadingFeedsQuery } =
+    useQuery({
+      queryKey: [ReactQueryKey.feedsQuery],
+      queryFn: () => baseAPI.getPostsQuery(`${filter}`),
+      onSuccess(data) {
+        setFeeds(data);
+      },
+      enabled: filter.length > 0,
+    });
 
   const {
     refetch: refetchGetPostsByChatId,
     isLoading: isLoadingGetPostsByChatId,
-    isFetching: isFetchingGetPostsByChatId
+    isFetching: isFetchingGetPostsByChatId,
   } = useQuery({
     queryKey: [ReactQueryKey.feedsByChatId],
-    // @ts-ignore
-    // TODO: Refactor
-    queryFn: () => baseAPI.getPosts(chatId),
+    queryFn: () =>
+      baseAPI.getPosts(chatId ? parseInt(chatId, 10) : -1001051305909),
     onSuccess(data) {
       setFeeds(data);
       if (data.length > 0) {
-        AppStore.update((state)=>{
-          state.selectedChatId = data[0].chatId
-      })
+        AppStore.update((state) => {
+          state.selectedChatId = data[0].chatId;
+        });
       }
-      
     },
-    enabled: !!chatId
+    enabled: !!chatId,
   });
 
   useEffect(() => {
@@ -122,7 +115,13 @@ export const Main = ({ feed }) => {
         isLoadingChatsQuery={isLoadingChatsQuery}
       />
       {/* TODO: Rename to feeds */}
-      <Posts isLoadingFeeds={isLoadingFeeds} isFetchingFeeds={isFetchingFeeds} isFetchingGetPostsByChatId={isFetchingGetPostsByChatId} isLoadingGetPostsByChatId={isLoadingGetPostsByChatId} feeds={feeds} />
+      <Posts
+        isLoadingFeeds={isLoadingFeeds}
+        isFetchingFeeds={isFetchingFeeds}
+        isFetchingGetPostsByChatId={isFetchingGetPostsByChatId}
+        isLoadingGetPostsByChatId={isLoadingGetPostsByChatId}
+        feeds={feeds}
+      />
       <CommentsContainer data={feed} />
     </div>
   );

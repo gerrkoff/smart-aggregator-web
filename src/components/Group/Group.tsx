@@ -36,7 +36,8 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
             href={link}
             className={styles.group__link}
             target="_blank"
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             Ссылка на канал
           </a>
         ) : null}
@@ -51,10 +52,10 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
 });
 
 export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
-  const {selectedChat, selectedChatId} = AppStore.useState(store=>store)
+  const { selectedChat, selectedChatId } = AppStore.useState((store) => store);
   const { id } = group;
   const { groupId } = useActiveGroupSelector();
-  const isActive = selectedChatId === group.id ? true : false
+  const isActive = selectedChatId === group.id;
 
   return (
     <Link
@@ -64,6 +65,7 @@ export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
       data-group-id={id}
       onClick={(e) => {
         if (!handleClick) {
+          // eslint-disable-next-line
           null;
         } else {
           handleClick({ e, group });

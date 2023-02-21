@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Loading, Post } from '@components';
+import React, { useEffect, useState } from 'react';
+import { Post } from '@components';
 import { activePostSlice } from '@store/activePost';
 import { useAppDispatch } from '@store/hooks';
 import { RequestStatus, TPost } from '@types';
@@ -8,7 +8,7 @@ import { activeGroupSlice } from '@store/activeGroup';
 
 import styles from './Posts.module.scss';
 import { AppStore } from '@/store/pullstate';
-import { LoadingItem } from '@/components/Loading/Loadingitem';
+import { LoadingItem } from '@/components/Loading';
 
 type PostsProps = {
   feeds: TPost[];
@@ -24,12 +24,22 @@ export type THandlePostClick = {
   post: TPost;
 };
 
-export const Posts = ({ feeds, isLoadingFeeds, isFetchingFeeds, isLoadingGetPostsByChatId, isFetchingGetPostsByChatId }: PostsProps) => {
+export const Posts = ({
+  feeds,
+  isLoadingFeeds,
+  isFetchingFeeds,
+  isLoadingGetPostsByChatId,
+  isFetchingGetPostsByChatId,
+}: PostsProps) => {
   const [posts, setPosts] = useState(feeds);
   const [loading, setLoading] = useState(false);
   const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
-  const isLoading = isLoadingFeeds || isFetchingFeeds || isLoadingGetPostsByChatId || isFetchingGetPostsByChatId;
+  const isLoading =
+    isLoadingFeeds ||
+    isFetchingFeeds ||
+    isLoadingGetPostsByChatId ||
+    isFetchingGetPostsByChatId;
 
   const sortPosts = (array) => {
     return array.sort(
@@ -71,15 +81,20 @@ export const Posts = ({ feeds, isLoadingFeeds, isFetchingFeeds, isLoadingGetPost
     );
     dispatch(activeGroupSlice.actions.setGroupId({ groupId }));
   };
-  
+
   return (
     <div className={styles.posts}>
       <div className={styles.posts__layout} id="posts">
-        {isLoading ? Array.from({length: 3}).map((_,indx)=><LoadingItem key={indx} type="feed"/>) : posts.map((post) => {
-          return (
-            <Post post={post} handleClick={handlePostClick} key={post.id} />
-          );
-        })}
+        {isLoading
+          ? Array.from({ length: 3 }).map((_, indx) => (
+              // eslint-disable-next-line
+              <LoadingItem key={indx} type="feed" />
+            ))
+          : posts.map((post) => {
+              return (
+                <Post post={post} handleClick={handlePostClick} key={post.id} />
+              );
+            })}
       </div>
     </div>
   );

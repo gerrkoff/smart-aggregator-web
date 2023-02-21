@@ -9,7 +9,7 @@ import { activePostSlice, useActivePostSelector } from '@store/activePost';
 import { AppStore } from '@/store/pullstate';
 
 import styles from './Groups.module.scss';
-import { LoadingItem } from '@/components/Loading/Loadingitem';
+import { LoadingItem } from '@/components/Loading';
 
 type GroupsProps = {
   chats: TGroup[];
@@ -22,7 +22,11 @@ export type THandleGroupClick = {
   group: TGroup;
 };
 
-export const Groups = ({ chats, isLoadingChats, isLoadingChatsQuery }: GroupsProps) => {
+export const Groups = ({
+  chats,
+  isLoadingChats,
+  isLoadingChatsQuery,
+}: GroupsProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
@@ -32,13 +36,13 @@ export const Groups = ({ chats, isLoadingChats, isLoadingChatsQuery }: GroupsPro
       (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
     );
   };
-  
-  const handleGroupClick = ({e, group}:THandleGroupClick) => {
-    AppStore.update(s => {
-      s.selectedFeed = null
-      s.selectedChat = group
-      s.selectedChatId = group.id
-    })
+
+  const handleGroupClick = ({ e, group }: THandleGroupClick) => {
+    AppStore.update((s) => {
+      s.selectedFeed = null;
+      s.selectedChat = group;
+      s.selectedChatId = group.id;
+    });
 
     if (!disabled) {
       const id = e.currentTarget.dataset.groupId;
@@ -55,15 +59,25 @@ export const Groups = ({ chats, isLoadingChats, isLoadingChatsQuery }: GroupsPro
     <div className={styles.groups}>
       <div className={styles.groups__layout}>
         {/* TODO: Add Error condition */}
-        {isLoadingChats || isLoadingChatsQuery ? Array.from({length: 10}).map((_,indx)=><LoadingItem key={indx} type="chat"/>) : chats.sort((a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a)).map((group) => {
-          return (
-            <Group
-              group={group}
-              handleClick={handleGroupClick}
-              key={group.id}
-            />
-          );
-        })}
+        {isLoadingChats || isLoadingChatsQuery
+          ? Array.from({ length: 10 }).map((_, indx) => (
+              // eslint-disable-next-line
+              <LoadingItem key={indx} type="chat" />
+            ))
+          : chats
+              .sort(
+                (a: TGroup, b: TGroup) =>
+                  getGroupLastTime(b) - getGroupLastTime(a),
+              )
+              .map((group) => {
+                return (
+                  <Group
+                    group={group}
+                    handleClick={handleGroupClick}
+                    key={group.id}
+                  />
+                );
+              })}
       </div>
       {isVisible ? (
         <div className={styles.info__wrapper}>

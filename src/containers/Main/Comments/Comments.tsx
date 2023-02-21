@@ -34,7 +34,9 @@ export const Comments = ({ data }) => {
         >
           Ссылка скопирована
         </FadeInDownSpan>
-        {selectedFeed ? <PostFull post={selectedFeed} handleCopy={handleCopy} /> : null}
+        {selectedFeed ? (
+          <PostFull post={selectedFeed} handleCopy={handleCopy} />
+        ) : null}
       </div>
     </div>
   );

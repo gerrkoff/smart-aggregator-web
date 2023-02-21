@@ -5,11 +5,11 @@ import { TGroup } from '@types';
 import { AppStore } from '@/store/pullstate';
 
 type GroupPreview = {
-  chats: TGroup[]
-}
+  chats: TGroup[];
+};
 
 export const GroupPreview = ({ chats }) => {
-  const {selectedChat} = AppStore.useState(store=>store)
+  const { selectedChat } = AppStore.useState((store) => store);
   const [activeGroup, setActiveGroup] = useState();
   const { groupId } = useActiveGroupSelector();
 
