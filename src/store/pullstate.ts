@@ -5,7 +5,6 @@ export interface AppProps {
   allChats: TGroup[];
   queryChats: TGroup[];
   selectedChat: TGroup | null;
-  selectedChatId: number | null;
 
   allFeeds: TPost[];
   queryFeeds: TPost[];
@@ -18,7 +17,6 @@ export const AppStore = new Store<AppProps>({
   allChats: [],
   queryChats: [],
   selectedChat: null,
-  selectedChatId: null,
 
   allFeeds: [],
   queryFeeds: [],

@@ -82,11 +82,6 @@ export const Main = ({ feed }) => {
       baseAPI.getPosts(chatId ? parseInt(chatId, 10) : -1001051305909),
     onSuccess(data) {
       setFeeds(data);
-      if (data.length > 0) {
-        AppStore.update((state) => {
-          state.selectedChatId = data[0].chatId;
-        });
-      }
     },
     enabled: !!chatId,
   });

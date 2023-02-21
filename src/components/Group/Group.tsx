@@ -52,10 +52,10 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
 });
 
 export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
-  const { selectedChat, selectedChatId } = AppStore.useState((store) => store);
+  const { selectedChat } = AppStore.useState((store) => store);
   const { id } = group;
   const { groupId } = useActiveGroupSelector();
-  const isActive = selectedChatId === group.id;
+  const isActive = selectedChat?.id === group.id;
 
   return (
     <Link
