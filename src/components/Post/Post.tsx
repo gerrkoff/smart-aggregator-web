@@ -1,11 +1,13 @@
+import { Link, useParams } from 'react-router-dom';
 import React, { FC, memo, useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { toDateFormat } from '@utils/utils';
-import { TPost } from '@types';
+import { TPost, TUseParams } from '@types';
 import cn from 'classnames';
 
 import styles from './Post.module.scss';
 import { THandlePostClick } from '@/containers/Main/Posts/Posts';
+import { AppStore } from '@/store/pullstate';
 
 type TPostElement = {
   post: TPost;
@@ -17,13 +19,12 @@ const Image = ({ src }) => (
 );
 
 export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
+  const { selectedFeed } = AppStore.useState((store) => store);
   const [active, setActive] = useState(false);
   const { text, createTime, messageId, chatId, media } = post;
   const { postId } = useActivePostSelector();
-
-  useEffect(() => {
-    setActive(String(messageId) === String(postId));
-  }, [postId]);
+  const { chatId: routeChatId = -1001051305909, feedId: routeFeedId } =
+    useParams<TUseParams>();
 
   const mediaComponent = () => {
     if (media.length > 0) {
@@ -40,8 +41,12 @@ export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
   };
 
   return (
-    <div
-      className={cn(styles.post, active ? styles.active : '')}
+    <Link
+      to={`/${routeChatId}/${post.id}`}
+      className={cn(
+        styles.post,
+        selectedFeed?.messageId === post.messageId ? styles.active : '',
+      )}
       data-post-id={messageId}
       data-group-id={chatId}
       onClick={(e) => {
@@ -58,6 +63,6 @@ export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
           <span className={styles.post__data}>{toDateFormat(createTime)}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 });

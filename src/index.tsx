@@ -29,6 +29,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/:chatId" element={<HomePage />} />
+                <Route path="/:chatId/:feedId" element={<HomePage />} />
               </Routes>
             </div>
           </div>

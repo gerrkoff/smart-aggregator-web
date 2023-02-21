@@ -7,18 +7,14 @@ import { useQuery } from 'react-query';
 import { withComments } from '@/hoc-helpers';
 import styles from './Main.module.scss';
 import { baseAPI } from '@/api/baseAPI';
-import { ReactQueryKey, TGroup, TPost } from '@/types';
+import { ReactQueryKey, TGroup, TPost, TUseParams } from '@/types';
 import { AppStore } from '@/store/pullstate';
 
 const CommentsContainer = ({ data }) => withComments(Comments)(data);
 
-type TUseParams = {
-  chatId: string | undefined;
-};
-
 export const Main = ({ feed }) => {
-  const { chatId } = useParams<TUseParams>();
-  const { filter, selectedFeed, selectedChat } = AppStore.useState(
+  const { chatId, feedId: routeFeedId } = useParams<TUseParams>();
+  const { filter, selectedFeed, selectedChat, allFeeds } = AppStore.useState(
     (store) => store,
   );
 
@@ -58,6 +54,9 @@ export const Main = ({ feed }) => {
     queryFn: () => baseAPI.getFeed(),
     onSuccess(data) {
       setFeeds(data);
+      AppStore.update((state) => {
+        state.allFeeds = data;
+      });
     },
     enabled: filter.length === 0,
   });
@@ -113,6 +112,21 @@ export const Main = ({ feed }) => {
       }
     }
   }, [chats, chatId]);
+
+  useEffect(() => {
+    if (allFeeds.length > 0 && !!routeFeedId) {
+      const matchFeed = feeds.find(
+        (findFeed) => findFeed.id === parseInt(routeFeedId, 10),
+      );
+      if (matchFeed) {
+        AppStore.update((state) => {
+          state.selectedFeed = matchFeed;
+        });
+      } else {
+        console.log('not match');
+      }
+    }
+  }, [allFeeds, routeFeedId]);
 
   return (
     <div className={cn(styles.main, { [styles.wide]: wideWindow })}>

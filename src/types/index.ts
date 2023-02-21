@@ -28,6 +28,11 @@ type TMedia = {
   videoThumbUrl: string | null;
 };
 
+export type TUseParams = {
+  chatId: string | undefined;
+  feedId: string | undefined;
+};
+
 export type TGroup = {
   id: number;
   username: string;
