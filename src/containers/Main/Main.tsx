@@ -18,7 +18,9 @@ type TUseParams = {
 
 export const Main = ({ feed }) => {
   const { chatId } = useParams<TUseParams>();
-  const { filter, selectedFeed } = AppStore.useState((store) => store);
+  const { filter, selectedFeed, selectedChat } = AppStore.useState(
+    (store) => store,
+  );
 
   const [wideWindow, setWideWindow] = useState<boolean>(false);
 
@@ -105,6 +107,17 @@ export const Main = ({ feed }) => {
       refetchGetPostsQuery();
     }
   }, [filter]);
+
+  useEffect(() => {
+    if (chats.length > 0 && !!chatId && !selectedChat) {
+      const matchChat = chats.find((chat) => chat.id === parseInt(chatId, 10));
+      if (matchChat) {
+        AppStore.update((state) => {
+          state.selectedChat = matchChat;
+        });
+      }
+    }
+  }, [chats, chatId]);
 
   return (
     <div className={cn(styles.main, { [styles.wide]: wideWindow })}>
