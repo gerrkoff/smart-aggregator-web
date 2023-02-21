@@ -14,18 +14,16 @@ export const Search = () => {
   const dispatch = useAppDispatch();
 
   const debouncedDispatchInput = useDebouncedCallback((valueInput) => {
-    dispatch(
-      searchSlice.actions.setSearch({ search: valueInput.toLowerCase() }),
-    );
+    AppStore.update((s) => {
+      s.filter = valueInput;
+    });
+    dispatch(searchSlice.actions.setSearch({ search: valueInput }));
   }, 300);
 
   const handleSearch = (e) => {
-    const val = e.target.value.trim().toLowerCase();
-    AppStore.update((s) => {
-      s.filter = val;
-    });
-    setValue(e.target.value);
-    debouncedDispatchInput(e.target.value);
+    const val = e.target.value.toLowerCase();
+    setValue(val);
+    debouncedDispatchInput(val);
   };
 
   const clearSearch = () => {
