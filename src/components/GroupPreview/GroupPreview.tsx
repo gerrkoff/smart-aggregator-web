@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useActiveGroupSelector } from '@store/activeGroup';
 import { Group } from '@components';
-import { TGroup } from '@types';
+import { TChat } from '@types';
 import { AppStore } from '@/store/pullstate';
 
 type GroupPreview = {
-  chats: TGroup[];
+  chats: TChat[];
 };
 
 export const GroupPreview = ({ chats }) => {
@@ -14,7 +14,7 @@ export const GroupPreview = ({ chats }) => {
   const { groupId } = useActiveGroupSelector();
 
   useEffect(() => {
-    const group = chats.find((x: TGroup) => String(x.id) === String(groupId));
+    const group = chats.find((x: TChat) => String(x.id) === String(groupId));
     setActiveGroup(group);
   }, [groupId]);
 

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus, TGroup } from '@types';
+import { RequestStatus, TChat } from '@types';
 import { fetchGroups } from './thunks';
 
 export type TChatsState = {
-  groups?: TGroup[];
+  groups?: TChat[];
   requestStatus: RequestStatus;
 };
 

@@ -2,15 +2,15 @@ import { Link, useParams } from 'react-router-dom';
 import React, { FC, memo, useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { toDateFormat } from '@utils/utils';
-import { TPost, TUseParams } from '@types';
+import { TFeed, TUseParams } from '@types';
 import cn from 'classnames';
 
 import styles from './Post.module.scss';
 import { THandlePostClick } from '@/containers/Main/Posts/Posts';
 import { AppStore } from '@/store/pullstate';
 
-type TPostElement = {
-  post: TPost;
+type TFeedElement = {
+  post: TFeed;
   handleClick: ({ e, post }: THandlePostClick) => void;
 };
 
@@ -18,7 +18,7 @@ const Image = ({ src }) => (
   <img src={src} width={100} height={100} loading="lazy" />
 );
 
-export const Post: FC<TPostElement> = memo(({ post, handleClick }) => {
+export const Post: FC<TFeedElement> = memo(({ post, handleClick }) => {
   const { selectedFeed } = AppStore.useState((store) => store);
   const [active, setActive] = useState(false);
   const { text, createTime, messageId, chatId, media } = post;

@@ -33,7 +33,7 @@ export type TUseParams = {
   feedId: string | undefined;
 };
 
-export type TGroup = {
+export type TChat = {
   id: number;
   username: string;
   title: string;
@@ -44,7 +44,7 @@ export type TGroup = {
   lastActivityTime?: string;
 };
 
-export type TPost = {
+export type TFeed = {
   id: number;
   messageId: number;
   chatId: number;

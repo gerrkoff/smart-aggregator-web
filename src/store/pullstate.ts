@@ -1,14 +1,14 @@
 import { registerInDevtools, Store } from 'pullstate';
-import { TGroup, TPost } from '@/types';
+import { TChat, TFeed } from '@/types';
 
 export interface AppProps {
-  allChats: TGroup[];
-  queryChats: TGroup[];
-  selectedChat: TGroup | null;
+  allChats: TChat[];
+  queryChats: TChat[];
+  selectedChat: TChat | null;
 
-  allFeeds: TPost[];
-  queryFeeds: TPost[];
-  selectedFeed: TPost | null;
+  allFeeds: TFeed[];
+  queryFeeds: TFeed[];
+  selectedFeed: TFeed | null;
 
   filter: string;
 }

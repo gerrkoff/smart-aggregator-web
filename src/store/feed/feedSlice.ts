@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus, TPost } from '@types';
+import { RequestStatus, TFeed } from '@types';
 import { fetchFeed } from './thunks';
 
 export type TFeedState = {
-  feed?: TPost[];
+  feed?: TFeed[];
   requestStatus: RequestStatus;
 };
 

@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 import { useActiveGroupSelector } from '@store/activeGroup';
 import Avatar from '@assets/avatar.jpg';
-import { TGroup } from '@types';
+import { TChat } from '@types';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
@@ -9,13 +9,13 @@ import styles from './Group.module.scss';
 import { THandleGroupClick } from '@/containers/Main/Groups/Groups';
 import { AppStore } from '@/store/pullstate';
 
-type TGroupElement = {
-  group: TGroup;
+type TChatElement = {
+  group: TChat;
   handleClick?: ({ e, group }: THandleGroupClick) => void;
 };
 
 type TBodyElement = {
-  group: TGroup;
+  group: TChat;
   active: boolean;
   handleClick?: (e: any) => any;
 };
@@ -51,7 +51,7 @@ const Body: FC<TBodyElement> = memo(({ group, active }) => {
   );
 });
 
-export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
+export const Group: FC<TChatElement> = ({ group, handleClick }) => {
   const { selectedChat } = AppStore.useState((store) => store);
   const { id } = group;
   const { groupId } = useActiveGroupSelector();

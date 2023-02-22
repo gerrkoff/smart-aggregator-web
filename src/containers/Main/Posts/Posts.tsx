@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Post } from '@components';
 import { activePostSlice } from '@store/activePost';
 import { useAppDispatch } from '@store/hooks';
-import { RequestStatus, TPost } from '@types';
+import { RequestStatus, TFeed } from '@types';
 import { usePostsSelector } from '@store/posts';
 import { activeGroupSlice } from '@store/activeGroup';
 
@@ -11,7 +11,7 @@ import { AppStore } from '@/store/pullstate';
 import { LoadingItem } from '@/components/Loading';
 
 type PostsProps = {
-  feeds: TPost[];
+  feeds: TFeed[];
   isLoadingFeeds: boolean;
   isFetchingFeeds: boolean;
   isLoadingGetPostsByChatId: boolean;
@@ -21,7 +21,7 @@ type PostsProps = {
 // TODO: Replace to type declaration
 export type THandlePostClick = {
   e: React.MouseEvent<HTMLElement>;
-  post: TPost;
+  post: TFeed;
 };
 
 export const Posts = ({
@@ -43,7 +43,7 @@ export const Posts = ({
 
   const sortPosts = (array) => {
     return array.sort(
-      (a: TPost, b: TPost) =>
+      (a: TFeed, b: TFeed) =>
         Date.parse(b.createTime) - Date.parse(a.createTime),
     );
   };

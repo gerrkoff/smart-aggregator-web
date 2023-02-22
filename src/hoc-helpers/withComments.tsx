@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { usePostsSelector } from '@store/posts';
-import { RequestStatus, TPost } from '@types';
+import { RequestStatus, TFeed } from '@types';
 
 export const withComments = (Component) => {
   return function WithComments(dataApi) {
-    const [data, setData] = useState<TPost | null>(null);
+    const [data, setData] = useState<TFeed | null>(null);
     const { postId } = useActivePostSelector();
     const { posts, requestStatus } = usePostsSelector();
 

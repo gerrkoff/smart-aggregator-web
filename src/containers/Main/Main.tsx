@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import { withComments } from '@/hoc-helpers';
 import styles from './Main.module.scss';
 import { baseAPI } from '@/api/baseAPI';
-import { ReactQueryKey, TGroup, TPost, TUseParams } from '@/types';
+import { ReactQueryKey, TChat, TFeed, TUseParams } from '@/types';
 import { AppStore } from '@/store/pullstate';
 
 const CommentsContainer = ({ data }) => withComments(Comments)(data);
@@ -20,8 +20,8 @@ export const Main = ({ feed }) => {
 
   const [wideWindow, setWideWindow] = useState<boolean>(false);
 
-  const [chats, setChats] = useState<TGroup[]>([]);
-  const [feeds, setFeeds] = useState<TPost[]>([]);
+  const [chats, setChats] = useState<TChat[]>([]);
+  const [feeds, setFeeds] = useState<TFeed[]>([]);
 
   const {
     isLoading: isLoadingChats,

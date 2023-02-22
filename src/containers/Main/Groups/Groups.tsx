@@ -4,7 +4,7 @@ import { getGroupLastTime } from '@utils/utils';
 import { activeGroupSlice } from '@store/activeGroup';
 import { postsSlice, usePostsSelector } from '@store/posts';
 import { useAppDispatch } from '@store/hooks';
-import { RequestStatus, TGroup } from '@types';
+import { RequestStatus, TChat } from '@types';
 import { activePostSlice, useActivePostSelector } from '@store/activePost';
 import { AppStore } from '@/store/pullstate';
 
@@ -12,14 +12,14 @@ import styles from './Groups.module.scss';
 import { LoadingItem } from '@/components/Loading';
 
 type GroupsProps = {
-  chats: TGroup[];
+  chats: TChat[];
   isLoadingChats: boolean;
   isLoadingChatsQuery: boolean;
 };
 
 export type THandleGroupClick = {
   e: React.MouseEvent<HTMLElement>;
-  group: TGroup;
+  group: TChat;
 };
 
 export const Groups = ({
@@ -33,7 +33,7 @@ export const Groups = ({
 
   const sortGroups = (array) => {
     return array.sort(
-      (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
+      (a: TChat, b: TChat) => getGroupLastTime(b) - getGroupLastTime(a),
     );
   };
 
@@ -65,7 +65,7 @@ export const Groups = ({
             ))
           : chats
               .sort(
-                (a: TGroup, b: TGroup) =>
+                (a: TChat, b: TChat) =>
                   getGroupLastTime(b) - getGroupLastTime(a),
               )
               .map((group) => {

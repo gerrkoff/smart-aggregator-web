@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus, TPost } from '@types';
+import { RequestStatus, TFeed } from '@types';
 
-export type TPostsState = {
-  posts: TPost[];
+export type TFeedsState = {
+  posts: TFeed[];
   requestStatus: RequestStatus;
 };
 
-const initialState: TPostsState = {
+const initialState: TFeedsState = {
   posts: [],
   requestStatus: RequestStatus.INIT,
 };
@@ -15,7 +15,7 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    setState: (state, action: PayloadAction<Partial<TPostsState>>) => {
+    setState: (state, action: PayloadAction<Partial<TFeedsState>>) => {
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });

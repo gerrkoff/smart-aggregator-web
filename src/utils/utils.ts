@@ -1,6 +1,6 @@
-import { TGroup } from '@/types';
+import { TChat } from '@/types';
 
-export function getGroupLastTime(chat: TGroup) {
+export function getGroupLastTime(chat: TChat) {
   return (
     Date.parse(chat?.lastActivityTime ?? '') ||
     Date.parse(chat?.createTime ?? '')
