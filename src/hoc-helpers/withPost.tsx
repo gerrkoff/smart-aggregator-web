@@ -13,7 +13,7 @@ export const withPost = (Component) => {
     const dispatch = useAppDispatch();
 
     const loadPosts = async () => {
-      await baseAPI.getPosts(groupId).then((res) => {
+      await baseAPI.getFeedsByChatId(groupId).then((res) => {
         dispatch(
           postsSlice.actions.setPosts({
             posts: res,

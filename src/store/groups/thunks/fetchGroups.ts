@@ -5,7 +5,7 @@ export const fetchGroups = createAsyncThunk(
   'chats/fetchChats',
   (_, { rejectWithValue }) => {
     return baseAPI
-      .getGroups()
+      .getChats()
       .then((data: []) => {
         return data;
       })

@@ -29,7 +29,7 @@ export const Main = ({ feed }) => {
     status: statusGetGroups,
   } = useQuery({
     queryKey: [ReactQueryKey.chats],
-    queryFn: () => baseAPI.getGroups(),
+    queryFn: () => baseAPI.getChats(),
     onSuccess(data) {
       setChats(data);
     },
@@ -42,7 +42,7 @@ export const Main = ({ feed }) => {
     status: statusGetGroupsByQuery,
   } = useQuery({
     queryKey: [ReactQueryKey.chatsQuery],
-    queryFn: () => baseAPI.getGroupsByQuery(`${filter}`),
+    queryFn: () => baseAPI.getChatsByQuery(`${filter}`),
     onSuccess(data) {
       setChats(data);
     },
@@ -51,7 +51,7 @@ export const Main = ({ feed }) => {
 
   const { isLoading: isLoadingFeeds, isFetching: isFetchingFeeds } = useQuery({
     queryKey: [ReactQueryKey.feedsQuery],
-    queryFn: () => baseAPI.getFeed(),
+    queryFn: () => baseAPI.getFeeds(),
     onSuccess(data) {
       setFeeds(data);
       AppStore.update((state) => {
@@ -64,7 +64,7 @@ export const Main = ({ feed }) => {
   const { refetch: refetchGetPostsQuery, isLoading: isLoadingFeedsQuery } =
     useQuery({
       queryKey: [ReactQueryKey.feedsQuery],
-      queryFn: () => baseAPI.getPostsQuery(`${filter}`),
+      queryFn: () => baseAPI.getFeedsByQuery(`${filter}`),
       onSuccess(data) {
         setFeeds(data);
       },
@@ -78,7 +78,7 @@ export const Main = ({ feed }) => {
   } = useQuery({
     queryKey: [ReactQueryKey.feedsByChatId],
     queryFn: () =>
-      baseAPI.getPosts(chatId ? parseInt(chatId, 10) : -1001051305909),
+      baseAPI.getFeedsByChatId(chatId ? parseInt(chatId, 10) : -1001051305909),
     onSuccess(data) {
       setFeeds(data);
     },
