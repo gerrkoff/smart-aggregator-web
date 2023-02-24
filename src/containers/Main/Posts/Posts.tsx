@@ -31,41 +31,12 @@ export const Posts = ({
   isLoadingGetPostsByChatId,
   isFetchingGetPostsByChatId,
 }: PostsProps) => {
-  const [posts, setPosts] = useState(feeds);
-  const [loading, setLoading] = useState(false);
-  const { requestStatus } = usePostsSelector();
   const dispatch = useAppDispatch();
   const isLoading =
     isLoadingFeeds ||
     isFetchingFeeds ||
     isLoadingGetPostsByChatId ||
     isFetchingGetPostsByChatId;
-
-  const sortPosts = (array) => {
-    return array.sort(
-      (a: TFeed, b: TFeed) =>
-        Date.parse(b.createTime) - Date.parse(a.createTime),
-    );
-  };
-
-  useEffect(() => {
-    const sortedData = sortPosts([...feeds]);
-    setPosts(sortedData);
-  }, [feeds]);
-
-  useEffect(() => {
-    if (
-      requestStatus === RequestStatus.SUCCESS ||
-      requestStatus === RequestStatus.INIT
-    ) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-    return () => {
-      setPosts([]);
-    };
-  }, [requestStatus]);
 
   const handlePostClick = ({ e, post }: THandlePostClick) => {
     AppStore.update((store) => {
@@ -90,7 +61,7 @@ export const Posts = ({
               // eslint-disable-next-line
               <LoadingItem key={indx} type="feed" />
             ))
-          : posts.map((post) => {
+          : feeds.map((post) => {
               return (
                 <Post post={post} handleClick={handlePostClick} key={post.id} />
               );

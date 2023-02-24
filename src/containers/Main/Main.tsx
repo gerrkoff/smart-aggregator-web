@@ -45,6 +45,9 @@ export const Main = ({ feed }) => {
     queryFn: () => baseAPI.getChatsByQuery(`${filter}`),
     onSuccess(data) {
       setChats(data);
+      AppStore.update((state) => {
+        state.allChats = data;
+      });
     },
     enabled: filter.length > 0,
   });
@@ -53,12 +56,13 @@ export const Main = ({ feed }) => {
     queryKey: [ReactQueryKey.feedsQuery],
     queryFn: () => baseAPI.getFeeds(),
     onSuccess(data) {
+      console.log('loading all feeds');
       setFeeds(data);
       AppStore.update((state) => {
         state.allFeeds = data;
       });
     },
-    enabled: filter.length === 0,
+    enabled: filter.length === 0 && !chatId,
   });
 
   const { refetch: refetchGetPostsQuery, isLoading: isLoadingFeedsQuery } =
@@ -67,6 +71,9 @@ export const Main = ({ feed }) => {
       queryFn: () => baseAPI.getFeedsByQuery(`${filter}`),
       onSuccess(data) {
         setFeeds(data);
+        AppStore.update((state) => {
+          state.allFeeds = data;
+        });
       },
       enabled: filter.length > 0,
     });
@@ -81,6 +88,9 @@ export const Main = ({ feed }) => {
       baseAPI.getFeedsByChatId(chatId ? parseInt(chatId, 10) : -1001051305909),
     onSuccess(data) {
       setFeeds(data);
+      AppStore.update((state) => {
+        state.allFeeds = data;
+      });
     },
     enabled: !!chatId,
   });

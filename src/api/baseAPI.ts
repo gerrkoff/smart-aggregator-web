@@ -1,4 +1,5 @@
 import { TBuild, TChat, TFeed } from '@/types';
+import { sortChats, sortFeeds } from '@/utils/utils';
 
 const url =
   window.location.host === 'echochat.press'
@@ -14,31 +15,36 @@ class BaseAPI {
   /** Get all recent chats */
   getChats = async (): Promise<TChat[]> => {
     const response = await fetch(`${url}/chat`);
-    return response.json();
+    const chats = await response.json();
+    return sortChats(chats);
   };
 
   /** Get chats by query */
   getChatsByQuery = async (query: string | number): Promise<TChat[]> => {
     const response = await fetch(`${url}/search/chat?query=${query}`);
-    return response.json();
+    const chats = await response.json();
+    return sortChats(chats);
   };
 
   /** Get all recent feeds */
   getFeeds = async (): Promise<TFeed[]> => {
     const response = await fetch(`${url}/message/feed`);
-    return response.json();
+    const feeds = await response.json();
+    return sortFeeds(feeds);
   };
 
   /** Get feeds by chatId */
   getFeedsByChatId = async (chatId: number): Promise<TFeed[]> => {
     const response = await fetch(`${url}/message?chatId=${chatId}`);
-    return response.json();
+    const feeds = await response.json();
+    return sortFeeds(feeds);
   };
 
   /** Get feeds by query */
   getFeedsByQuery = async (query: string | number): Promise<TFeed[]> => {
     const response = await fetch(`${url}/search/message?query=${query}`);
-    return response.json();
+    const feeds = await response.json();
+    return sortFeeds(feeds);
   };
 }
 

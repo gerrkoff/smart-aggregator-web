@@ -31,12 +31,6 @@ export const Groups = ({
   const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
 
-  const sortGroups = (array) => {
-    return array.sort(
-      (a: TChat, b: TChat) => getGroupLastTime(b) - getGroupLastTime(a),
-    );
-  };
-
   const handleGroupClick = ({ e, group }: THandleGroupClick) => {
     AppStore.update((s) => {
       s.selectedFeed = null;
@@ -63,20 +57,15 @@ export const Groups = ({
               // eslint-disable-next-line
               <LoadingItem key={indx} type="chat" />
             ))
-          : chats
-              .sort(
-                (a: TChat, b: TChat) =>
-                  getGroupLastTime(b) - getGroupLastTime(a),
-              )
-              .map((group) => {
-                return (
-                  <Group
-                    group={group}
-                    handleClick={handleGroupClick}
-                    key={group.id}
-                  />
-                );
-              })}
+          : chats.map((group) => {
+              return (
+                <Group
+                  group={group}
+                  handleClick={handleGroupClick}
+                  key={group.id}
+                />
+              );
+            })}
       </div>
       {isVisible ? (
         <div className={styles.info__wrapper}>
