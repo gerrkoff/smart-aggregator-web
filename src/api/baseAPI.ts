@@ -11,7 +11,7 @@ class BaseAPI {
     return response.json();
   };
 
-  /** Get All chats */
+  /** Get all recent chats */
   getChats = async (): Promise<TChat[]> => {
     const response = await fetch(`${url}/chat`);
     return response.json();
@@ -23,7 +23,7 @@ class BaseAPI {
     return response.json();
   };
 
-  /** Get All feeds */
+  /** Get all recent feeds */
   getFeeds = async (): Promise<TFeed[]> => {
     const response = await fetch(`${url}/message/feed`);
     return response.json();
