@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@store/hooks';
 import { Input } from '@components';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -10,6 +11,7 @@ import styles from './Search.module.scss';
 import { AppStore } from '@/store/pullstate';
 
 export const Search = () => {
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
 
@@ -27,16 +29,16 @@ export const Search = () => {
   };
 
   const clearSearch = () => {
-    if (value !== '') {
-      setValue('');
-      AppStore.update((s) => {
-        s.filter = '';
-      });
-      dispatch(searchSlice.actions.setSearch({ search: '' }));
-      dispatch(
-        searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.default }),
-      );
-    }
+    setValue('');
+    AppStore.update((s) => {
+      s.filter = '';
+      s.selectedChat = null;
+    });
+    navigate('/');
+    dispatch(searchSlice.actions.setSearch({ search: '' }));
+    dispatch(
+      searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.default }),
+    );
   };
 
   return (

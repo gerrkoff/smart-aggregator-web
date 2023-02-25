@@ -14,11 +14,9 @@ const CommentsContainer = ({ data }) => withComments(Comments)(data);
 
 export const Main = ({ feed }) => {
   const { chatId, feedId: routeFeedId } = useParams<TUseParams>();
-  const { filter, selectedFeed, selectedChat, allFeeds } = AppStore.useState(
+  const { filter, selectedChat, selectedFeed, allFeeds } = AppStore.useState(
     (store) => store,
   );
-
-  const [wideWindow, setWideWindow] = useState<boolean>(false);
 
   const [chats, setChats] = useState<TChat[]>([]);
   const [feeds, setFeeds] = useState<TFeed[]>([]);
@@ -96,10 +94,6 @@ export const Main = ({ feed }) => {
   });
 
   useEffect(() => {
-    setWideWindow(!!selectedFeed);
-  }, [selectedFeed]);
-
-  useEffect(() => {
     if (chatId) {
       refetchGetPostsByChatId();
     }
@@ -139,7 +133,7 @@ export const Main = ({ feed }) => {
   }, [allFeeds, routeFeedId]);
 
   return (
-    <div className={cn(styles.main, { [styles.wide]: wideWindow })}>
+    <div className={cn(styles.main, { [styles.wide]: selectedChat })}>
       {/* TODO: Rename to chats */}
       <Groups
         chats={chats}
