@@ -33,6 +33,7 @@ export const Search = () => {
     AppStore.update((s) => {
       s.filter = '';
       s.selectedChat = null;
+      s.filterClearTrigger = Date.now();
     });
     navigate('/');
     dispatch(searchSlice.actions.setSearch({ search: '' }));

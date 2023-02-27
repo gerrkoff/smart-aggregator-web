@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { useActivePostSelector } from '@store/activePost';
 import { toDateFormat } from '@utils/utils';
 import { TFeed, TUseParams } from '@types';
@@ -19,12 +19,11 @@ const Image = ({ src }) => (
 );
 
 export const Post: FC<TFeedElement> = memo(({ post, handleClick }) => {
-  const { selectedFeed } = AppStore.useState((store) => store);
+  const { allChats, selectedFeed } = AppStore.useState((store) => store);
   const [active, setActive] = useState(false);
   const { text, createTime, messageId, chatId, media } = post;
   const { postId } = useActivePostSelector();
-  const { chatId: routeChatId = -1001051305909, feedId: routeFeedId } =
-    useParams<TUseParams>();
+  const { chatId: routeChatId, feedId: routeFeedId } = useParams<TUseParams>();
 
   const mediaComponent = () => {
     if (media.length > 0) {
@@ -42,7 +41,7 @@ export const Post: FC<TFeedElement> = memo(({ post, handleClick }) => {
 
   return (
     <Link
-      to={`/${routeChatId}/${post.id}`}
+      to={`/${post.chatId}/${post.id}`}
       className={cn(
         styles.post,
         selectedFeed?.messageId === post.messageId ? styles.active : '',
@@ -50,6 +49,7 @@ export const Post: FC<TFeedElement> = memo(({ post, handleClick }) => {
       data-post-id={messageId}
       data-group-id={chatId}
       onClick={(e) => {
+        const matchChat = allChats.find((chat) => chat.id === post.chatId);
         handleClick({ e, post });
       }}
     >

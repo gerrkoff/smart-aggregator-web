@@ -37,6 +37,7 @@ export const PostFull = ({ post, handleCopy }) => {
       const videoContainer: JSX.Element[] = [];
       const mediaElements = media?.map((item) => {
         const { photoUrl, videoThumbUrl } = item;
+        // FIXME: Add more unique ids
         const image = photoUrl ? <Image src={photoUrl} key={photoUrl} /> : null;
         const video = videoThumbUrl ? (
           <Video href={link} src={videoThumbUrl} key={videoThumbUrl} />

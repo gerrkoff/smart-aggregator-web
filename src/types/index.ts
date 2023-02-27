@@ -29,8 +29,8 @@ type TMedia = {
 };
 
 export type TUseParams = {
-  chatId: string | undefined;
-  feedId: string | undefined;
+  chatId: string;
+  feedId: string;
 };
 
 export type TChat = {

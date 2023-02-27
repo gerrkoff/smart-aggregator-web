@@ -14,9 +14,8 @@ const CommentsContainer = ({ data }) => withComments(Comments)(data);
 
 export const Main = ({ feed }) => {
   const { chatId, feedId: routeFeedId } = useParams<TUseParams>();
-  const { filter, selectedChat, selectedFeed, allFeeds } = AppStore.useState(
-    (store) => store,
-  );
+  const { filter, selectedChat, selectedFeed, allFeeds, filterClearTrigger } =
+    AppStore.useState((store) => store);
 
   const [chats, setChats] = useState<TChat[]>([]);
   const [feeds, setFeeds] = useState<TFeed[]>([]);
@@ -30,6 +29,9 @@ export const Main = ({ feed }) => {
     queryFn: () => baseAPI.getChats(),
     onSuccess(data) {
       setChats(data);
+      AppStore.update((state) => {
+        state.allChats = data;
+      });
     },
     enabled: filter.length === 0,
   });
@@ -54,7 +56,6 @@ export const Main = ({ feed }) => {
     queryKey: [ReactQueryKey.feedsQuery],
     queryFn: () => baseAPI.getFeeds(),
     onSuccess(data) {
-      console.log('loading all feeds');
       setFeeds(data);
       AppStore.update((state) => {
         state.allFeeds = data;
@@ -118,7 +119,7 @@ export const Main = ({ feed }) => {
   }, [chats, chatId]);
 
   useEffect(() => {
-    if (allFeeds.length > 0 && !!routeFeedId) {
+    if (allFeeds.length && !!routeFeedId) {
       const matchFeed = feeds.find(
         (findFeed) => findFeed.id === parseInt(routeFeedId, 10),
       );
@@ -131,6 +132,20 @@ export const Main = ({ feed }) => {
       }
     }
   }, [allFeeds, routeFeedId]);
+
+  // If search, then click on post, then show content of post, then clear search
+  useEffect(() => {
+    if (!filter.length && selectedFeed && filterClearTrigger > 0) {
+      const matchFeed = allFeeds.find(
+        (feedItem) => feedItem.id === selectedFeed.id,
+      );
+      if (!matchFeed) {
+        AppStore.update((state) => {
+          state.selectedFeed = null;
+        });
+      }
+    }
+  }, [filter, selectedFeed, filterClearTrigger]);
 
   return (
     <div className={cn(styles.main, { [styles.wide]: selectedChat })}>

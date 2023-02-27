@@ -9,6 +9,7 @@ export interface AppProps {
   selectedFeed: TFeed | null;
 
   filter: string;
+  filterClearTrigger: number;
 }
 
 export const AppStore = new Store<AppProps>({
@@ -19,6 +20,7 @@ export const AppStore = new Store<AppProps>({
   selectedFeed: null,
 
   filter: '',
+  filterClearTrigger: 0,
 });
 
 registerInDevtools({
