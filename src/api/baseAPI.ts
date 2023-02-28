@@ -1,7 +1,7 @@
 const url =
   window.location.host === 'echochat.press'
-    ? 'https://grkf.ru/tlgm/prod/api'
-    : 'https://grkf.ru/tlgm/stage/api';
+    ? 'https://tlgm.grkf.ru/prod-echochat/api'
+    : 'https://tlgm.grkf.ru/stage/api';
 
 class BaseAPI {
   getBuildInfo = async (): Promise<unknown> => {
