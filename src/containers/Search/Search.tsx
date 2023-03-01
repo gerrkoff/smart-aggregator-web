@@ -22,8 +22,16 @@ export const Search = () => {
     dispatch(searchSlice.actions.setSearch({ search: valueInput }));
   }, 300);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.toLowerCase();
+    if (!val.trim().length) {
+      AppStore.update((s) => {
+        s.filter = '';
+        s.selectedChat = null;
+        s.filterClearTrigger = Date.now();
+      });
+      navigate('/');
+    }
     setValue(val);
     debouncedDispatchInput(val);
   };
