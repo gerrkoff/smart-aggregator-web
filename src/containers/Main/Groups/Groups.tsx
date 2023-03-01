@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Group, GroupPreview } from '@components';
-import { getGroupLastTime } from '@utils/utils';
 import { activeGroupSlice } from '@store/activeGroup';
-import { postsSlice, usePostsSelector } from '@store/posts';
+import { postsSlice } from '@store/posts';
 import { useAppDispatch } from '@store/hooks';
 import { RequestStatus, TChat } from '@types';
-import { activePostSlice, useActivePostSelector } from '@store/activePost';
+import { activePostSlice } from '@store/activePost';
 import { AppStore } from '@/store/pullstate';
 
 import styles from './Groups.module.scss';
@@ -27,7 +26,7 @@ export const Groups = ({
   isLoadingChats,
   isLoadingChatsQuery,
 }: GroupsProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const { selectedChat, selectedFeed } = AppStore.useState((store) => store);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -67,10 +66,10 @@ export const Groups = ({
               );
             })}
       </div>
-      {isVisible ? (
+      {selectedChat && !selectedFeed ? (
         <div className={styles.info__wrapper}>
           <div className={styles.groups__preview}>
-            <GroupPreview chats={chats} />
+            <GroupPreview chat={selectedChat} />
           </div>
         </div>
       ) : null}

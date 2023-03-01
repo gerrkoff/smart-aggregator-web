@@ -148,7 +148,11 @@ export const Main = ({ feed }) => {
   }, [filter, selectedFeed, filterClearTrigger]);
 
   return (
-    <div className={cn(styles.main, { [styles.wide]: selectedChat })}>
+    <div
+      className={cn(styles.main, {
+        [styles.wide]: selectedChat && selectedFeed,
+      })}
+    >
       {/* TODO: Rename to chats */}
       <Groups
         chats={chats}
