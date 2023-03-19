@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "webpack",
-    "serve": "serve ./build",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint-ci": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "pre-commit": "lint-staged",
+    "serve": "serve ./build",
     "swagger": "npm run swagger:clean && npm run swagger:get && npm run swagger:patch && npm run swagger:process && npm run swagger:clean",
     "swagger:get": "wget https://tlgm.grkf.ru/stage/swag/v1/swagger.json",
     "swagger:patch": "node patch-swagger.js",
@@ -56,6 +57,8 @@
     "file-loader": "6.2.0",
     "firebase-tools": "^11.0.1",
     "html-webpack-plugin": "5.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "loader": "2.1.1",
     "mini-css-extract-plugin": "2.6.0",
     "postcss": "8.4.14",
@@ -94,5 +97,11 @@
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.6",
     "use-debounce": "8.0.1"
+  },
+  "lint-staged": {
+    "*.(js|jsx|ts|tsx)": [
+      "eslint --max-warnings=0 --fix",
+      "git add"
+    ]
   }
 }
