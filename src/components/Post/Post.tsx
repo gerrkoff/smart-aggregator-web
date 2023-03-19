@@ -20,8 +20,8 @@ export const Post = memo<PostProps>(function Post({ isFeed, post }) {
 
   return (
     <Link
-      to={`/${isFeed ? 'feed' : chatId}/${messageId}`}
       className={cn(styles.post, post.messageId.toString() === urlMessageId && styles.active)}
+      to={`/${isFeed ? 'feed' : chatId}/${messageId}`}
     >
       <div className={styles.post__info}>
         <PostMedia media={media} />

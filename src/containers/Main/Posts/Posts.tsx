@@ -21,7 +21,7 @@ export const Posts: FC = () => {
       <div className={styles.posts__layout}>
         {posts ? (
           posts.map((post) =>
-            post.media?.length || post.text ? <Post isFeed={isFeed} post={post} key={post.id} /> : undefined,
+            post.media?.length || post.text ? <Post key={post.id} isFeed={isFeed} post={post} /> : undefined,
           )
         ) : (
           <Loading />

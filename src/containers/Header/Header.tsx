@@ -24,12 +24,12 @@ export const Header = () => {
     <div className={styles.header}>
       <div className={styles.header_wrapper}>
         <a className={styles.header_logo} href={LOGO_HREF}>
-          <img src={Logo} alt="Logo" />
+          <img alt="Logo" src={Logo} />
         </a>
 
         <div className={styles.header_links}>
           {HEADER_LINKS.map((link) => (
-            <a className={styles.link} href={link.href} target="_blank" key={link.name} rel="noreferrer">
+            <a key={link.name} className={styles.link} href={link.href} rel="noreferrer" target="_blank">
               {link.name}
             </a>
           ))}

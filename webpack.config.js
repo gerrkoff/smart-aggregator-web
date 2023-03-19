@@ -1,3 +1,4 @@
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const dotenv = require('dotenv');
 const path = require('path');
 const { DefinePlugin } = require('webpack');
@@ -9,26 +10,40 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const DEV_ENV = 'development';
 const PROD_ENV = 'production';
 const TEST_ENV = 'test';
-const nodeEnv = process.env.NODE_ENV ?? DEV_ENV;
-const isProd = nodeEnv === PROD_ENV;
-const isTest = nodeEnv === TEST_ENV;
-const isDev = !isProd && !isTest;
+const mode = process.env.NODE_ENV ?? PROD_ENV;
+const isTest = mode === TEST_ENV;
+const isDev = mode === DEV_ENV;
+const isProd = !isTest && !isDev;
 
-const env = {
-  NODE_ENV: nodeEnv,
-  ...process.env,
-  ...dotenv.config({ path: './.env' }).parsed,
-  ...dotenv.config({ path: './.env.local' }).parsed,
-  ...dotenv.config({ path: `./.env.${nodeEnv}` }).parsed,
-  ...dotenv.config({ path: `./.env.${nodeEnv}.local` }).parsed,
-};
+dotenv.config({ path: './.env' });
+dotenv.config({ path: './.env.local' });
+dotenv.config({ path: `./.env.${mode}` });
+dotenv.config({ path: `./.env.${mode}.local` });
 
-const envPluginParams = Object.keys(env)
+const envPluginParams = Object.keys(process.env)
   .filter((key) => key.startsWith('REACT_APP_') || key === 'PORT' || key === 'HOST' || key === 'NODE_ENV')
   .reduce((acc, key) => {
-    acc[`process.env.${key}`] = `"${env[key]}"`;
+    acc[`process.env.${key}`] = JSON.stringify(process.env[key]);
     return acc;
   }, {});
+
+const plugins = [
+  new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin({
+    filename: 'styles.[hash:5].css',
+  }),
+  new HtmlWebpackPlugin({
+    favicon: './static/favicon.ico',
+    inject: 'body',
+    template: isProd ? './static/index.production.html' : './static/index.html',
+    title: 'Smart Aggregator',
+  }),
+  new DefinePlugin(envPluginParams),
+];
+
+if (process.env.BUNDLE_ANALYZER) {
+  plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = {
   devServer: {
@@ -42,7 +57,7 @@ module.exports = {
     },
   },
   entry: './src/index.tsx',
-  mode: 'development',
+  mode,
   module: {
     rules: [
       {
@@ -64,10 +79,12 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentContext: isDev ? path.resolve(__dirname, 'src') : undefined,
-                localIdentName: isProd ? '[hash:base64:5]' : '[path][name]__[local]',
-              },
+              modules: isProd
+                ? true
+                : {
+                    localIdentContext: path.resolve(__dirname, 'src'),
+                    localIdentName: '[path][name]__[local]',
+                  },
             },
           },
           'sass-loader',
@@ -94,19 +111,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'styles.[hash:5].css',
-    }),
-    new HtmlWebpackPlugin({
-      favicon: './static/favicon.ico',
-      inject: 'body',
-      template: isProd ? './static/index.production.html' : './static/index.html',
-      title: 'Smart Aggregator',
-    }),
-    new DefinePlugin(envPluginParams),
-  ],
+  plugins,
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss'],
     plugins: [

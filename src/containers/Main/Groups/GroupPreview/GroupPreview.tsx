@@ -7,5 +7,5 @@ import { useSelected } from './useSelected';
 export const GroupPreview = memo(function GroupPreview() {
   const selected = useSelected();
 
-  return selected ? <Group showExternalLink group={selected} /> : null;
+  return selected ? <Group group={selected} showExternalLink /> : null;
 });

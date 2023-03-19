@@ -19,14 +19,14 @@ export const Group = memo<GroupProps>(function Group({ group, selected, showExte
   const body = (
     <>
       <div className={styles.logo}>
-        <img src={logoUrl || Avatar} alt="placeholder" loading="lazy" />
+        <img alt="placeholder" loading="lazy" src={logoUrl || Avatar} />
       </div>
 
       <div className={styles.wrapper}>
         <span className={styles.title}>{title}</span>
 
         {link && showExternalLink ? (
-          <a href={link} className={styles.href} target="_blank" rel="noreferrer">
+          <a className={styles.href} href={link} rel="noreferrer" target="_blank">
             Ссылка на канал
           </a>
         ) : null}
@@ -46,7 +46,6 @@ export const Group = memo<GroupProps>(function Group({ group, selected, showExte
 
   return (
     <NavLink
-      to={`/${id}`}
       className={({ isActive }) =>
         cn({
           [styles.group]: true,
@@ -54,6 +53,7 @@ export const Group = memo<GroupProps>(function Group({ group, selected, showExte
           [styles.active]: selected || isActive,
         })
       }
+      to={`/${id}`}
     >
       {body}
     </NavLink>

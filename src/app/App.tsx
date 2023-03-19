@@ -2,25 +2,25 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Header, Main, Search } from '@/containers';
 
-import css from './App.module.css';
+import styles from './App.module.css';
 
 export const App = () => (
   <Routes>
     <Route
-      path="*"
       element={
-        <div className={css.container}>
-          <div className={css.wrapper}>
+        <div className={styles.container}>
+          <div className={styles.wrapper}>
             <Header />
             <Search />
             <Routes>
-              <Route index element={<Main />} />
-              <Route path="/:chatId" element={<Main />} />
-              <Route path="/:chatId/:messageId" element={<Main />} />
+              <Route element={<Main />} index />
+              <Route element={<Main />} path="/:chatId" />
+              <Route element={<Main />} path="/:chatId/:messageId" />
             </Routes>
           </div>
         </div>
       }
+      path="*"
     />
   </Routes>
 );

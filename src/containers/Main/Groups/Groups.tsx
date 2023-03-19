@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-import { ChatDto, useChats } from '@/api';
+import { ChatDto, useChats, useSearchChart } from '@/api';
 import { Group } from '@/components';
 import { useSelectedMessage } from '@/hooks';
 import { getGroupLastTime } from '@/utils/utils';
@@ -17,8 +17,11 @@ export type GroupsProps = { noPreview?: boolean };
 
 export const Groups: FC<GroupsProps> = ({ noPreview }) => {
   const { chatId } = useParams();
-  const { data: groups } = useChats();
-  const sorted = useMemo(() => sortGroups(groups), [groups]);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('search');
+  const { data: founded } = useSearchChart(query ?? undefined, { enabled: !!query });
+  const { data: chats } = useChats();
+  const sorted = useMemo(() => sortGroups(query ? founded : chats), [chats, query, founded]);
   const selectedMessage = useSelectedMessage();
   const selectedChatId = selectedMessage?.chatId;
 
@@ -26,7 +29,7 @@ export const Groups: FC<GroupsProps> = ({ noPreview }) => {
     <div className={styles.groups}>
       <div className={styles.groups__layout}>
         {sorted?.map((group) => (
-          <Group group={group} key={group.id} selected={selectedChatId === group.id} />
+          <Group key={group.id} group={group} selected={selectedChatId === group.id} />
         ))}
       </div>
 

@@ -1,39 +1,22 @@
-import { FormEventHandler, useState } from 'react';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useDebouncedCallback } from 'use-debounce';
+import { AiOutlineCloseCircle } from '@react-icons/all-files/ai/AiOutlineCloseCircle';
+import { useRef } from 'react';
 
 import { Input } from '@/components';
-import { useAppDispatch } from '@/store/hooks';
-import { searchSlice } from '@/store/search';
-import { SEARCH_STATUS } from '@/types';
+
+import { useClear } from './useClear';
+import { useInput } from './useInput';
 
 import styles from './Search.module.scss';
 
 export const Search = () => {
-  const [value, setValue] = useState('');
-  const dispatch = useAppDispatch();
-
-  const debouncedDispatchInput = useDebouncedCallback((valueInput: string) => {
-    dispatch(searchSlice.actions.setSearch({ search: valueInput.toLowerCase() }));
-  }, 300);
-
-  const handleSearch: FormEventHandler<HTMLInputElement> = (e) => {
-    setValue(e.currentTarget.value);
-    debouncedDispatchInput(e.currentTarget.value);
-  };
-
-  const clearSearch = () => {
-    if (value !== '') {
-      setValue('');
-      dispatch(searchSlice.actions.setSearch({ search: '' }));
-      dispatch(searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.default }));
-    }
-  };
+  const ref = useRef<HTMLInputElement>(null);
+  const [defaultValue, changeHandler] = useInput();
+  const clearHandler = useClear(ref);
 
   return (
     <div className={styles.search}>
-      <Input placeholder="Поиск" id="input" value={value} onChange={handleSearch} />
-      <AiOutlineCloseCircle className={styles.close} onClick={clearSearch} />
+      <Input ref={ref} defaultValue={defaultValue} onChange={changeHandler} placeholder="Поиск" />
+      <AiOutlineCloseCircle className={styles.close} onClick={clearHandler} />
     </div>
   );
 };

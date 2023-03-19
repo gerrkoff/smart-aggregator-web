@@ -1,1 +1,0 @@
-export { withSearch } from './withSearch';

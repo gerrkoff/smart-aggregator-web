@@ -20,5 +20,5 @@ export const PostMedia = memo<PostMediaProps>(function PostMedia({ media }) {
     return null;
   }
 
-  return <PostImage src={(photoUrl || videoThumbUrl) ?? undefined} key={photoUrl || videoThumbUrl} />;
+  return <PostImage key={photoUrl || videoThumbUrl} src={(photoUrl || videoThumbUrl) ?? undefined} />;
 });

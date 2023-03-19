@@ -7,3 +7,6 @@ dist
 .next
 x.data())
 .firebase
+
+.env.local
+.env.*.local
