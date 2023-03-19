@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus } from '@types';
+
+import { RequestStatus } from '@/types';
 
 export type TActivePost = {
   postId: number | string;
@@ -12,16 +13,16 @@ const initialState: TActivePost = {
 };
 
 export const activePostSlice = createSlice({
-  name: 'activePost',
   initialState,
+  name: 'activePost',
   reducers: {
+    setPostId: (state, action) => {
+      state.postId = action.payload.postId;
+    },
     setState: (state, action: PayloadAction<Partial<TActivePost>>) => {
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
-    },
-    setPostId: (state, action) => {
-      state.postId = action.payload.postId;
     },
     setStatus: (state, action) => {
       state.requestStatus = action.payload.requestStatus;

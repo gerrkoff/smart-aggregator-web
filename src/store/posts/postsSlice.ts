@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus, TPost } from '@types';
+
+import { MessageDto } from '@/api';
+import { RequestStatus } from '@/types';
 
 export type TPostsState = {
-  posts: TPost[];
+  posts: MessageDto[];
   requestStatus: RequestStatus;
 };
 
@@ -12,15 +14,15 @@ const initialState: TPostsState = {
 };
 
 export const postsSlice = createSlice({
-  name: 'posts',
   initialState,
+  name: 'posts',
   reducers: {
-    setState: (state, action: PayloadAction<Partial<TPostsState>>) => {
+    setPosts: (state, action) => {
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
     },
-    setPosts: (state, action) => {
+    setState: (state, action: PayloadAction<Partial<TPostsState>>) => {
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });

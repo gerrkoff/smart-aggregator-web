@@ -9,16 +9,16 @@ const initialState: TActiveGroupState = {
 };
 
 export const activeGroupSlice = createSlice({
-  name: 'activeGroup',
   initialState,
+  name: 'activeGroup',
   reducers: {
+    setGroupId: (state, action) => {
+      state.groupId = action.payload.groupId;
+    },
     setState: (state, action: PayloadAction<Partial<TActiveGroupState>>) => {
       Object.keys(action.payload).forEach((key) => {
         state[key] = action.payload[key];
       });
-    },
-    setGroupId: (state, action) => {
-      state.groupId = action.payload.groupId;
     },
   },
 });

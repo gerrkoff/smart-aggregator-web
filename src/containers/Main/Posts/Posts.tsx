@@ -1,72 +1,31 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Loading, Post } from '@components';
-import { activePostSlice } from '@store/activePost';
-import { useAppDispatch } from '@store/hooks';
-import { RequestStatus, TPost } from '@types';
-import { usePostsSelector } from '@store/posts';
-import { activeGroupSlice } from '@store/activeGroup';
+import { FC, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { MessageDto, useChat, useFeed } from '@/api';
+import { Loading, Post } from '@/components';
 
 import styles from './Posts.module.scss';
 
-export const Posts = ({ data }) => {
-  const [posts, setPosts] = useState(data);
-  const [loading, setLoading] = useState(false);
-  const { requestStatus } = usePostsSelector();
-  const dispatch = useAppDispatch();
+const sortMessages = (arr: MessageDto[] = []): MessageDto[] =>
+  arr.sort((a, b) => Date.parse(b.createTime) - Date.parse(a.createTime));
 
-  const sortPosts = (array) => {
-    return array.sort(
-      (a: TPost, b: TPost) =>
-        Date.parse(b.createTime) - Date.parse(a.createTime),
-    );
-  };
-
-  useEffect(() => {
-    const sortedData = sortPosts([...data]);
-    setPosts(sortedData);
-  }, [data]);
-
-  useEffect(() => {
-    if (
-      requestStatus === RequestStatus.SUCCESS ||
-      requestStatus === RequestStatus.INIT
-    ) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-    return () => {
-      setPosts([]);
-    };
-  }, [requestStatus]);
-
-  const handlePostClick = (e) => {
-    const { postId } = e.currentTarget.dataset;
-    const { groupId } = e.currentTarget.dataset;
-    dispatch(activePostSlice.actions.setPostId({ postId }));
-    dispatch(
-      activePostSlice.actions.setStatus({
-        requestStatus: RequestStatus.REQUEST,
-      }),
-    );
-    dispatch(activeGroupSlice.actions.setGroupId({ groupId }));
-  };
-
-  const postsToComponents = (array) => {
-    return array.map((post) => {
-      if (post.media.length > 0 || post.text) {
-        return <Post post={post} handleClick={handlePostClick} key={post.id} />;
-      }
-      return undefined;
-    });
-  };
-
-  const postsComponents = useCallback(() => postsToComponents(posts), [posts]);
+export const Posts: FC = () => {
+  const { chatId } = useParams();
+  const isFeed = !chatId || chatId === 'feed';
+  const { data: chatPosts } = useChat(Number(chatId), { enabled: Boolean(chatId && !isFeed) });
+  const { data: feedPosts } = useFeed({ enabled: isFeed });
+  const posts = useMemo(() => sortMessages(isFeed ? feedPosts : chatPosts), [isFeed, chatPosts, feedPosts]);
 
   return (
     <div className={styles.posts}>
-      <div className={styles.posts__layout} id="posts">
-        {loading ? <Loading /> : postsComponents()}
+      <div className={styles.posts__layout}>
+        {posts ? (
+          posts.map((post) =>
+            post.media?.length || post.text ? <Post isFeed={isFeed} post={post} key={post.id} /> : undefined,
+          )
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );

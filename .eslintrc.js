@@ -3,40 +3,54 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['airbnb', 'plugin:prettier/recommended'],
-  plugins: ['prettier', '@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 6,
-  },
+  extends: [
+    'eslint:recommended',
+    'airbnb',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+  ],
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
       ],
+      files: ['*.ts', '*.tsx'],
       parserOptions: {
         project: ['./tsconfig.json'],
       },
       rules: {
+        '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/no-floating-promises': 'off',
-        // TODO: change to 'error' and fix
-        '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/no-shadow': 'warn',
         '@typescript-eslint/no-unsafe-argument': 'warn',
-        '@typescript-eslint/no-unsafe-member-access': 'warn',
-        '@typescript-eslint/no-unsafe-call': 'warn',
         '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-call': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
         '@typescript-eslint/no-unsafe-return': 'warn',
+        '@typescript-eslint/no-unused-vars': 'error',
+        'no-shadow': 'off',
+        'no-unused-vars': 'off',
       },
     },
   ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 6,
+  },
+  plugins: [
+    'prettier',
+    '@typescript-eslint',
+    'sort-keys-fix',
+    'simple-import-sort',
+    'sort-destructure-keys',
+    'typescript-sort-keys',
+  ],
   rules: {
-    'prettier/prettier': 'error',
-    'max-len': ['error', { code: 125 }],
-    'import/prefer-default-export': 'off',
-    'import/no-cycle': 'off',
-    'no-underscore-dangle': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-use-before-define': 'error',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -47,27 +61,63 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-cycle': 'off',
+    'import/prefer-default-export': 'off',
+    'jsx-a11y/alt-text': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'jsx-a11y/no-static-element-interactions': 'warn',
+    'max-len': ['error', { code: 125 }],
+    'no-param-reassign': 'error',
+    'no-shadow': 'error',
+    'no-underscore-dangle': 'warn',
+    'no-unused-vars': 'error',
+    'no-use-before-define': 'error',
+    'prettier/prettier': 'error',
+    'react/destructuring-assignment': 'off',
+    'react/function-component-definition': 'off',
     'react/jsx-filename-extension': [
       1,
       {
         extensions: ['.jsx', '.tsx'],
       },
     ],
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 'error',
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
-    'react/destructuring-assignment': 'off',
-    'react/function-component-definition': 'off',
-    'jsx-a11y/alt-text': 'warn',
-    'jsx-a11y/click-events-have-key-events': 'warn',
-    'no-param-reassign': 'off',
-    'jsx-a11y/no-static-element-interactions': 'warn',
+
+    'react/jsx-props-no-spreading': ['error', { html: 'ignore' }],
+
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
-    // TODO: change to 'error' and fix
-    'react/prop-types': 'warn',
+
+    'simple-import-sort/exports': 'warn',
+
+    'simple-import-sort/imports': [
+      'warn',
+      {
+        groups: [
+          ['^\\u0000'],
+          ['^(@(?!(/)))?\\w'],
+          ['^'],
+          ['^@/\\w'],
+          ['^\\.'],
+          ['\\.css$', '\\.scss$'],
+          ['\\.png$', '\\.svg$'],
+        ],
+      },
+    ],
+
+    'sort-destructure-keys/sort-destructure-keys': ['error', { caseSensitive: false }],
+
+    'sort-keys-fix/sort-keys-fix': [
+      'error',
+      'asc',
+      {
+        caseSensitive: false,
+        natural: false,
+      },
+    ],
+
+    'typescript-sort-keys/interface': 'error',
+    'typescript-sort-keys/string-enum': 'error',
   },
   settings: {
     'import/resolver': {

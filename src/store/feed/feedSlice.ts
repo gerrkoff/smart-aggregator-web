@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RequestStatus, TPost } from '@types';
+
+import { MessageDto } from '@/api';
+import { RequestStatus } from '@/types';
+
 import { fetchFeed } from './thunks';
 
 export type TFeedState = {
-  feed?: TPost[];
+  feed?: MessageDto[];
   requestStatus: RequestStatus;
 };
 
@@ -13,20 +16,6 @@ const initialState: TFeedState = {
 };
 
 export const feedSlice = createSlice({
-  name: 'feed',
-  initialState,
-  reducers: {
-    setState: (state, action: PayloadAction<Partial<TFeedState>>) => {
-      Object.keys(action.payload).forEach((key) => {
-        state[key] = action.payload[key];
-      });
-    },
-    setFeed: (state, action) => {
-      Object.keys(action.payload).forEach((key) => {
-        state[key] = action.payload[key];
-      });
-    },
-  },
   extraReducers: (builder) => {
     builder.addCase(fetchFeed.pending, (state) => {
       state.requestStatus = RequestStatus.REQUEST;
@@ -40,5 +29,19 @@ export const feedSlice = createSlice({
       state.requestStatus = RequestStatus.SUCCESS;
       state.feed = payload;
     });
+  },
+  initialState,
+  name: 'feed',
+  reducers: {
+    setFeed: (state, action) => {
+      Object.keys(action.payload).forEach((key) => {
+        state[key] = action.payload[key];
+      });
+    },
+    setState: (state, action: PayloadAction<Partial<TFeedState>>) => {
+      Object.keys(action.payload).forEach((key) => {
+        state[key] = action.payload[key];
+      });
+    },
   },
 });

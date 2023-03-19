@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SEARCH_STATUS } from '@types';
+
+import { SEARCH_STATUS } from '@/types';
 
 export type TInputState = {
   search: string;
@@ -12,19 +13,19 @@ const initialState: TInputState = {
 };
 
 export const searchSlice = createSlice({
-  name: 'search',
   initialState,
+  name: 'search',
   reducers: {
-    setState: (state, action: PayloadAction<Partial<TInputState>>) => {
-      Object.keys(action.payload).forEach((key) => {
-        state[key] = action.payload[key];
-      });
+    setInputStatus: (state, action) => {
+      state.status = action.payload.status;
     },
     setSearch: (state, action) => {
       state.search = action.payload.search;
     },
-    setInputStatus: (state, action) => {
-      state.status = action.payload.status;
+    setState: (state, action: PayloadAction<Partial<TInputState>>) => {
+      Object.keys(action.payload).forEach((key) => {
+        state[key] = action.payload[key];
+      });
     },
   },
 });

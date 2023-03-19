@@ -1,41 +1,16 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Header, Search, Main } from '@containers';
-import { store } from '@store/store';
-import { useApi } from '@hooks/useApi';
-import { useFeedSelector } from '@store/feed';
-import { useGroupsSelector } from '@store/groups';
+import './styles';
 
-import 'styles/styles.scss';
+import { createRoot } from 'react-dom/client';
 
-const AppWrapper = () => {
-  const { dispatchGroups, dispatchFeed } = useApi();
-  const { feed } = useFeedSelector();
-  const { groups } = useGroupsSelector();
+import { App } from './app';
+import { Providers } from './providers';
 
-  useEffect(() => {
-    dispatchGroups();
-    dispatchFeed();
-  }, []);
+const roorElement = document.getElementById('root');
 
-  return (
-    <div className="container">
-      <div className="wrapper">
-        <Header />
-        <Search />
-        <Main groups={groups} feed={feed} />
-      </div>
-    </div>
+if (roorElement) {
+  createRoot(roorElement).render(
+    <Providers>
+      <App />
+    </Providers>,
   );
-};
-
-const App = () => {
-  return (
-    <Provider store={store}>
-      <AppWrapper />
-    </Provider>
-  );
-};
-
-ReactDOM.render(<App />, document.getElementById('root'));
+}

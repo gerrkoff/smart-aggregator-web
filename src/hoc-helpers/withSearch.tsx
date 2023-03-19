@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { searchSlice, useSearchSelector } from '@store/search';
-import { useAppDispatch } from '@store/hooks';
-import { activeGroupSlice } from '@store/activeGroup';
-import { SEARCH_STATUS } from '@types';
+import { useEffect, useState } from 'react';
+
+import { ChatDto } from '@/api';
+import { activeGroupSlice } from '@/store/activeGroup';
+import { useAppDispatch } from '@/store/hooks';
+import { searchSlice, useSearchSelector } from '@/store/search';
+import { SEARCH_STATUS } from '@/types';
 
 export const withSearch = (Component) => {
-  return function WithSearch(dataApi) {
+  return function WithSearch(dataApi?: ChatDto[]) {
     const [data, setData] = useState(dataApi);
     const { search } = useSearchSelector();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
       if (search) {
-        const dataWithSearch = data?.filter((chat) =>
-          chat.description.toLowerCase().includes(search),
-        );
+        const dataWithSearch = data?.filter((chat) => chat.description?.toLowerCase().includes(search));
 
-        if (dataWithSearch.length > 0) {
+        if (dataWithSearch?.length) {
           setData(dataWithSearch);
           dispatch(activeGroupSlice.actions.setGroupId({ chatId: 0 }));
         } else {
-          dispatch(
-            searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.error }),
-          );
+          dispatch(searchSlice.actions.setInputStatus({ status: SEARCH_STATUS.error }));
           dispatch(activeGroupSlice.actions.setGroupId({ chatId: 0 }));
           setData([]);
         }

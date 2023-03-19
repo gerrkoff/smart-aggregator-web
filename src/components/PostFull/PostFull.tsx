@@ -1,34 +1,36 @@
-import React from 'react';
-import { AiOutlineSmile, AiOutlineSend } from 'react-icons/ai';
-import { toDateFormat } from '@utils/utils';
+import { FC, MouseEventHandler } from 'react';
+import { AiOutlineSend, AiOutlineSmile } from 'react-icons/ai';
 
-import styles from './PostFull.module.scss';
+import { MessageDto } from '@/api';
+import { toDateFormat } from '@/utils/utils';
 
-const Image = ({ src }) => (
+import styles from './PostFull.module.css';
+
+// TODO - вынести компоненты в отдельные файлы
+
+const Image: FC<{ src?: string }> = ({ src }) => (
   <div className={styles.post__img}>
-    <img src={src} />
+    <img src={src} alt="" />
   </div>
 );
 
-const Video = ({ href, src }) => (
-  <a
-    href={href}
-    target="_blank"
-    className={styles.post__video}
-    rel="noreferrer"
-  >
+const Video: FC<{ href?: string; src?: string }> = ({ href, src }) => (
+  <a href={href} target="_blank" className={styles.post__video} rel="noreferrer">
     <img src={src} alt="video" />
   </a>
 );
 
-const LinkElement = ({ link }) => (
+const LinkElement: FC<{ link?: string }> = ({ link }) => (
   <a href={link} className={styles.link} target="_blank" rel="noreferrer">
     Ссылка на источник
   </a>
 );
 
-export const PostFull = ({ post, handleCopy }) => {
-  const { text, link, createTime, media } = post;
+export const PostFull: FC<{
+  handleCopy: MouseEventHandler;
+  post: MessageDto;
+}> = ({ handleCopy, post }) => {
+  const { createTime, link, media, text } = post;
 
   const linkComponent = link ? <LinkElement link={link} /> : null;
 
@@ -38,9 +40,7 @@ export const PostFull = ({ post, handleCopy }) => {
       const mediaElements = media?.map((item) => {
         const { photoUrl, videoThumbUrl } = item;
         const image = photoUrl ? <Image src={photoUrl} key={photoUrl} /> : null;
-        const video = videoThumbUrl ? (
-          <Video href={link} src={videoThumbUrl} key={videoThumbUrl} />
-        ) : null;
+        const video = videoThumbUrl ? <Video href={link ?? undefined} src={videoThumbUrl} key={videoThumbUrl} /> : null;
 
         if (video) {
           videoContainer.push(video);
@@ -61,7 +61,7 @@ export const PostFull = ({ post, handleCopy }) => {
       <div className={styles.post__info}>
         <p
           className={styles.post__text}
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: text ?? '' }} // eslint-disable-line react/no-danger
         />
         <div className={styles.post__reactions}>
           <AiOutlineSmile />

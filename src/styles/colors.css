@@ -1,0 +1,32 @@
+:root {
+  --color_white: #ffffff;
+  --color_black: #000000;
+
+  --color_main-text: #222;
+  --color_secondary-text: #999;
+  --color_accent-blue: #419fd9;
+  --color_green-background: linear-gradient(270deg, #ACE1C5 0%, #A1CD86 100%);
+
+  /* ------ Chat Colors Starts ------ */
+
+  --color_chats-active: #bcccdc;
+  --color_chats-hover: #f4f4f5;
+
+  /* ------ Chat Colors Ends ------ */
+
+
+  /* ------ Message Colors Starts ------ */
+
+  --color_message: #FFF;
+  --color_message-hover: #EEE;
+
+  --color_message-active: #effdde;
+  --color_message-active-hover: #d6eabd;
+
+  --color_message-date: #4fae4e;
+
+  /* ------ Message Colors Ends ------ */
+
+  --color_input-border: #dfe1e5;
+  --color_input-hover: #c4c9cc;
+}

@@ -1,15 +1,11 @@
-import React from 'react';
-import styles from './Input.module.scss';
+import { FC, HTMLAttributes } from 'react';
 
-export const Input = ({ placeholder, id, value, onChange }) => {
-  return (
-    <input
-      type="text"
-      className={styles.input}
-      placeholder={placeholder}
-      id={id}
-      value={value}
-      onChange={onChange}
-    />
-  );
+import styles from './Input.module.css';
+
+export type InputProps = Omit<HTMLAttributes<HTMLInputElement>, 'className' | 'type' | 'value'> & {
+  value: string;
+};
+
+export const Input: FC<InputProps> = ({ value, ...props }) => {
+  return <input {...props} type="text" className={styles.input} value={value} />;
 };

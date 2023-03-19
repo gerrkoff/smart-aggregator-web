@@ -1,4 +1,3 @@
-import { useAppSelector } from '@store/hooks';
+import { useAppSelector } from '@/store/hooks';
 
-export const useActiveGroupSelector = () =>
-  useAppSelector((store) => store.activeGroup);
+export const useActiveGroupSelector = () => useAppSelector((store) => store.activeGroup);

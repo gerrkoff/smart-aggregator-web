@@ -1,22 +1,22 @@
-import { TGroup } from '@/types';
+import { ChatDto } from '@/api';
 
-export function getGroupLastTime(chat: TGroup) {
-  return (
-    Date.parse(chat?.lastActivityTime ?? '') ||
-    Date.parse(chat?.createTime ?? '')
-  );
+export function getGroupLastTime(chat: ChatDto) {
+  return Date.parse(chat?.lastActivityTime ?? '') || Date.parse(chat?.createTime ?? '');
 }
 
-export const toDateFormat = (data) => {
+export const toDateFormat = (data: number | string | Date) => {
   const time = new Date(data).toLocaleTimeString();
   const day = new Date(data).toLocaleDateString();
   return `${time} ${day}`;
 };
 
-export const debounce = (callback, ms) => {
+// type DebounceCallback<R> = (...params: unknown[]) => R;
+type DebounceCallback<R> = () => R;
+
+export const debounce = <R>(callback: DebounceCallback<R>, ms: number) => {
   let isCooldown = false;
 
-  return (...rest) => {
+  return (...rest: unknown[]) => {
     if (isCooldown) {
       return;
     }
