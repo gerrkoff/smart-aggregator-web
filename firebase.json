@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "target": "smart-aggregator-350521",
       "public": "build",
       "ignore": [
         "firebase.json",
