@@ -3,10 +3,13 @@ function getUrl(host: string): string {
     case 'echochat.press':
       return 'https://tlgm.grkf.ru/prod-echochat/api';
     case 'sa-echomem.web.app':
+    case 'memecho.press':
       return 'https://tlgm.grkf.ru/prod-echomem/api';
     case 'sa-echofan.web.app':
+    case 'fanecho.press':
       return 'https://tlgm.grkf.ru/prod-echofan/api';
     case 'sa-echofin.web.app':
+    case 'finecho.press':
       return 'https://tlgm.grkf.ru/prod-echofin/api';
     default:
       return 'https://tlgm.grkf.ru/stage/api';
