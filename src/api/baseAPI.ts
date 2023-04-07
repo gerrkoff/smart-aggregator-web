@@ -1,7 +1,19 @@
-const url =
-  window.location.host === 'echochat.press'
-    ? 'https://tlgm.grkf.ru/prod-echochat/api'
-    : 'https://tlgm.grkf.ru/stage/api';
+function getUrl(host: string): string {
+  switch (host) {
+    case 'echochat.press':
+      return 'https://tlgm.grkf.ru/prod-echochat/api';
+    case 'sa-echomem.web.app':
+      return 'https://tlgm.grkf.ru/prod-echomem/api';
+    case 'sa-echofan.web.app':
+      return 'https://tlgm.grkf.ru/prod-echofan/api';
+    case 'sa-echofin.web.app':
+      return 'https://tlgm.grkf.ru/prod-echofin/api';
+    default:
+      return 'https://tlgm.grkf.ru/stage/api';
+  }
+}
+
+const url = getUrl(window.location.host);
 
 class BaseAPI {
   getBuildInfo = async (): Promise<unknown> => {

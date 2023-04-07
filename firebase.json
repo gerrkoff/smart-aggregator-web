@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "smart-aggregator-350521",
+      "target": "sa-echochat",
       "public": "build",
       "ignore": [
         "firebase.json",
