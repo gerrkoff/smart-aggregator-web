@@ -18,7 +18,7 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SMART_AGGREGATOR_350521 }}'
           projectId: smart-aggregator-350521
           channelId: live
-          target: smart-aggregator-350521
+          target: sa-echochat
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
