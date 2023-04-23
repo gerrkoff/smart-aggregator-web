@@ -1,9 +1,3 @@
-import { ChatDto } from '@/api';
-
-export function getGroupLastTime(chat: ChatDto) {
-  return Date.parse(chat?.lastActivityTime ?? '') || Date.parse(chat?.createTime ?? '');
-}
-
 export const toDateFormat = (data: number | string | Date) => {
   const time = new Date(data).toLocaleTimeString();
   const day = new Date(data).toLocaleDateString();

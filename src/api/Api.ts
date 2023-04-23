@@ -97,6 +97,20 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   /**
    * No description
    *
+   * @tags Message
+   * @name MessageDetail
+   * @request GET:/api/Message/{id}
+   */
+  messageDetail = (id: number, params: RequestParams = {}) =>
+    this.request<MessageDto, any>({
+      path: `/api/Message/${id}`,
+      method: 'GET',
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags Misc
    * @name MiscBuildInfoList
    * @request GET:/api/Misc/BuildInfo

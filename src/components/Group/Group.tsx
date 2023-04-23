@@ -11,10 +11,11 @@ type GroupProps = {
   group: ChatDto;
   selected?: boolean;
   showExternalLink?: boolean;
+  url: string;
 };
 
-export const Group = memo<GroupProps>(function Group({ group, selected, showExternalLink }) {
-  const { description, id, link, logoUrl, title } = group;
+export const Group = memo<GroupProps>(function Group({ group, selected, showExternalLink, url }) {
+  const { description, link, logoUrl, title } = group;
 
   const body = (
     <>
@@ -53,7 +54,7 @@ export const Group = memo<GroupProps>(function Group({ group, selected, showExte
           [styles.active]: selected || isActive,
         })
       }
-      to={`/${id}`}
+      to={url}
     >
       {body}
     </NavLink>

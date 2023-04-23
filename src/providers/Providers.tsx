@@ -1,10 +1,10 @@
 import { FC, PropsWithChildren } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { QueryProvider } from './QueryProvider';
 
 export const Providers: FC<PropsWithChildren> = ({ children }) => (
-  <HashRouter>
+  <HelmetProvider>
     <QueryProvider>{children}</QueryProvider>
-  </HashRouter>
+  </HelmetProvider>
 );

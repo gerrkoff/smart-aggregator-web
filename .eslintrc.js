@@ -82,7 +82,7 @@ module.exports = {
       },
     ],
 
-    'react/jsx-props-no-spreading': ['error', { html: 'ignore' }],
+    'react/jsx-props-no-spreading': 'off',
 
     'react/jsx-sort-props': 'error',
     'react/prop-types': 'off',

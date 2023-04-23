@@ -10,16 +10,16 @@
  */
 
 export interface BuildInfo {
-  appVersion?: string | null;
+  appVersion: string;
 }
 
 export interface ChatCreateDto {
   /** @format int64 */
   chatId: number;
-  username?: string | null;
-  title?: string | null;
-  description?: string | null;
-  logoUrl?: string | null;
+  username: string;
+  title: string;
+  description: string;
+  logoUrl: string;
   /** @format date-time */
   createTime: string;
 }
@@ -27,11 +27,11 @@ export interface ChatCreateDto {
 export interface ChatDto {
   /** @format int64 */
   id: number;
-  username?: string | null;
-  title?: string | null;
-  description?: string | null;
-  link?: string | null;
-  logoUrl?: string | null;
+  username: string;
+  title: string;
+  description: string;
+  link: string;
+  logoUrl: string;
   /** @format date-time */
   createTime: string;
   /** @format date-time */
@@ -57,7 +57,7 @@ export interface MessageCreateDto {
   messageId: number;
   /** @format int64 */
   chatId: number;
-  text?: string | null;
+  text: string;
   /** @format date-time */
   createTime: string;
   photoUrl?: string | null;
@@ -67,7 +67,7 @@ export interface MessageCreateDto {
 }
 
 export interface MessageDeleteDto {
-  messageId?: number[] | null;
+  messageId: number[];
   /** @format int64 */
   chatId: number;
 }
@@ -79,13 +79,13 @@ export interface MessageDto {
   messageId: number;
   /** @format int64 */
   chatId: number;
-  text?: string | null;
-  link?: string | null;
+  text: string;
+  link: string;
   /** @format date-time */
   createTime: string;
   /** @format date-time */
   editTime?: string | null;
-  media?: MediaDto[] | null;
+  media: MediaDto[];
 }
 
 export interface MessageUpdateDto {
@@ -107,7 +107,7 @@ export interface MessageUpdateDto {
 export interface ProviderChatDto {
   /** @format int64 */
   id: number;
-  username?: string | null;
-  title?: string | null;
-  description?: string | null;
+  username: string;
+  title: string;
+  description: string;
 }

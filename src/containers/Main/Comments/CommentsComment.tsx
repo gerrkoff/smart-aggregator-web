@@ -1,19 +1,20 @@
-import { memo, MouseEventHandler, useEffect, useState } from 'react';
+import { memo } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { PostFull } from '@/components';
-import { useSelectedMessage } from '@/hooks';
+import { Post, PostProps } from '../Post';
 
-export type CommentsCommentProps = { onClickCopy: MouseEventHandler };
+export type CommentsCommentProps = Pick<PostProps, 'onClickCopy'>;
 
 export const CommentsComment = memo<CommentsCommentProps>(function CommentsComment({ onClickCopy }) {
-  const selected = useSelectedMessage();
-  const [message, setMessage] = useState(selected);
+  const { messageId } = useParams();
+  if (!messageId) {
+    return null;
+  }
 
-  useEffect(() => {
-    if (selected) {
-      setMessage(selected);
-    }
-  }, [selected]);
+  const id = Number(messageId);
+  if (Number.isNaN(id)) {
+    return null;
+  }
 
-  return message ? <PostFull handleCopy={onClickCopy} post={message} /> : null;
+  return <Post messageId={id} onClickCopy={onClickCopy} />;
 });

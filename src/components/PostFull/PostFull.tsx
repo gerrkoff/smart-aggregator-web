@@ -3,7 +3,7 @@ import { AiOutlineSmile } from '@react-icons/all-files/ai/AiOutlineSmile';
 import { FC, MouseEventHandler } from 'react';
 
 import { MessageDto } from '@/api';
-import { toDateFormat } from '@/utils/utils';
+import { toDateFormat } from '@/utils';
 
 import styles from './PostFull.module.css';
 
@@ -27,10 +27,12 @@ const LinkElement: FC<{ link?: string }> = ({ link }) => (
   </a>
 );
 
-export const PostFull: FC<{
+export type PostFullProps = {
   handleCopy: MouseEventHandler;
   post: MessageDto;
-}> = ({ handleCopy, post }) => {
+};
+
+export const PostFull: FC<PostFullProps> = ({ handleCopy, post }) => {
   const { createTime, link, media, text } = post;
 
   const linkComponent = link ? <LinkElement link={link} /> : null;

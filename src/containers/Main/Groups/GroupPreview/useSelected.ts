@@ -9,5 +9,5 @@ export const useSelected: UseSelected = () => {
   const { chatId } = useParams();
   const { data } = useChats();
 
-  return useMemo(() => data?.find((group) => group.id.toString() === chatId), [data, chatId]);
+  return useMemo(() => data?.find(({ id }) => id.toString() === chatId), [data, chatId]);
 };

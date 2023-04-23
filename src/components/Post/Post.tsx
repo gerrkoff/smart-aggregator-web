@@ -3,26 +3,19 @@ import { memo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { MessageDto } from '@/api';
-import { toDateFormat } from '@/utils/utils';
+import { toDateFormat } from '@/utils';
 
 import { PostMedia } from './PostMedia';
 
 import styles from './Post.module.scss';
 
-export type PostProps = {
-  isFeed?: boolean;
-  post: MessageDto;
-};
+export type PostProps = MessageDto & { url: string };
 
-export const Post = memo<PostProps>(function Post({ isFeed, post }) {
+export const Post = memo<PostProps>(function Post({ createTime, id, media, text, url }) {
   const { messageId: urlMessageId } = useParams();
-  const { chatId, createTime, media, messageId, text } = post;
 
   return (
-    <Link
-      className={cn(styles.post, post.messageId.toString() === urlMessageId && styles.active)}
-      to={`/${isFeed ? 'feed' : chatId}/${messageId}`}
-    >
+    <Link className={cn(styles.post, id.toString() === urlMessageId && styles.active)} to={url}>
       <div className={styles.post__info}>
         <PostMedia media={media} />
 

@@ -6,5 +6,6 @@ export * from './data-contracts';
 export * from './useChat';
 export * from './useChats';
 export * from './useFeed';
+export * from './useMessage';
 export * from './useSearchChart';
 export * from './useSearchMessage';

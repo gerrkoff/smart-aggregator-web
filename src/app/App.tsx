@@ -1,26 +1,57 @@
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { Header, Main, Search } from '@/containers';
 
 import styles from './App.module.css';
 
-export const App = () => (
-  <Routes>
-    <Route
-      element={
-        <div className={styles.container}>
-          <div className={styles.wrapper}>
-            <Header />
-            <Search />
-            <Routes>
-              <Route element={<Main />} index />
-              <Route element={<Main />} path="/:chatId" />
-              <Route element={<Main />} path="/:chatId/:messageId" />
-            </Routes>
-          </div>
+const router = createBrowserRouter([
+  {
+    children: [
+      {
+        element: <Main />,
+        index: true,
+      },
+      {
+        element: <Main />,
+        path: '/message/:messageId',
+      },
+      {
+        element: <Main />,
+        path: '/chat/:chatId',
+      },
+      {
+        element: <Main />,
+        path: '/chat/:chatId/message/:messageId',
+      },
+      {
+        element: <Main />,
+        path: '/search/:search',
+      },
+      {
+        element: <Main />,
+        path: '/search/:search/chat/:chatId',
+      },
+      {
+        element: <Main />,
+        path: '/search/:search/chat/:chatId/message/:messageId',
+      },
+      {
+        element: <Main />,
+        path: '/search/:search/message/:messageId',
+      },
+    ],
+
+    element: (
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <Header />
+          <Search />
+          <Outlet />
         </div>
-      }
-      path="*"
-    />
-  </Routes>
-);
+      </div>
+    ),
+    path: '/',
+  },
+]);
+
+export const App = () => <RouterProvider router={router} />;

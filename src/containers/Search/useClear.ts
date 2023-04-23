@@ -1,9 +1,9 @@
-import { useSearchParams } from 'react-router-dom';
+import { useGo } from './useGo';
 
 type useClear = (ref: React.RefObject<HTMLInputElement>) => VoidFunction;
 
 export const useClear: useClear = (ref) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const go = useGo();
 
   return () => {
     if (ref.current) {
@@ -12,10 +12,6 @@ export const useClear: useClear = (ref) => {
       ref.current.value = '';
     }
 
-    if (searchParams.get('search')) {
-      const updated = new URLSearchParams(searchParams);
-      updated.delete('search');
-      setSearchParams(updated);
-    }
+    go();
   };
 };
