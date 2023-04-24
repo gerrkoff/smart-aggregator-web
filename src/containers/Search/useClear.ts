@@ -6,7 +6,7 @@ export const useClear: useClear = (ref) => {
   const go = useGo();
 
   return () => {
-    if (ref.current) {
+    if (ref.current?.value) {
       // меняем значение value неконтролируемого компонента
       // eslint-disable-next-line no-param-reassign
       ref.current.value = '';

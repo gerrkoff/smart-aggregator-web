@@ -12,11 +12,11 @@
 .close {
   position: absolute;
   right: 20px;
-  cursor: pointer;
   transition: all .3s ease-in-out;
   color: var(--color_input-border);
+  cursor: pointer;
+}
 
-  &:hover {
-    color: red;
-  }
+.close:hover {
+  color: red;
 }

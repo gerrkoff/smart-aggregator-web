@@ -10,13 +10,13 @@ import styles from './Search.module.scss';
 
 export const Search = () => {
   const ref = useRef<HTMLInputElement>(null);
-  const [defaultValue, changeHandler] = useInput();
+  const [value, changeHandler] = useInput();
   const clearHandler = useClear(ref);
 
   return (
     <div className={styles.search}>
-      <Input ref={ref} defaultValue={defaultValue} onChange={changeHandler} placeholder="Поиск" />
-      <AiOutlineCloseCircle className={styles.close} onClick={clearHandler} />
+      <Input ref={ref} defaultValue={value} onChange={changeHandler} placeholder="Поиск" />
+      {value && <AiOutlineCloseCircle className={styles.close} onClick={clearHandler} />}
     </div>
   );
 };
