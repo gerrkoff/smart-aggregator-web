@@ -1,5 +1,26 @@
 {
   "projects": {
     "default": "smart-aggregator-350521"
+  },
+  "targets": {
+    "smart-aggregator-350521": {
+      "hosting": {
+        "sa-stage": [
+          "sa-stage"
+        ],
+        "sa-echofin": [
+          "sa-echofin"
+        ],
+        "sa-echofan": [
+          "sa-echofan"
+        ],
+        "sa-echomem": [
+          "sa-echomem"
+        ],
+        "sa-echochat": [
+          "smart-aggregator-350521"
+        ]
+      }
+    }
   }
 }
