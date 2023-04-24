@@ -1,1 +1,0 @@
-export { fetchFeed } from './fetchFeed';

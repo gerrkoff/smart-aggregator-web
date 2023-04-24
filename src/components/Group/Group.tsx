@@ -1,68 +1,62 @@
-import React, { FC, memo, useEffect, useState } from 'react';
-import { useActiveGroupSelector } from '@store/activeGroup';
-import Avatar from '@assets/avatar.jpg';
-import { TGroup } from '@types';
-import cn from 'classnames';
+import cn from 'clsx';
+import { memo } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import styles from './Group.module.scss';
+import { ChatDto } from '@/api';
+import Avatar from '@/assets/avatar.jpg';
 
-type TGroupElement = {
-  group: TGroup;
-  handleClick?: (e: any) => any;
+import styles from './Group.module.css';
+
+type GroupProps = {
+  group: ChatDto;
+  selected?: boolean;
+  showExternalLink?: boolean;
+  url: string;
 };
 
-type TBodyElement = {
-  group: TGroup;
-  active: boolean;
-  handleClick?: (e: any) => any;
-};
+export const Group = memo<GroupProps>(function Group({ group, selected, showExternalLink, url }) {
+  const { description, link, logoUrl, title } = group;
 
-const Body: FC<TBodyElement> = memo(({ group, active }) => {
-  const { title, description, logoUrl, link } = group;
-
-  return (
+  const body = (
     <>
-      <div className={styles.group__logo}>
-        <img src={logoUrl || Avatar} alt="placeholder" loading="lazy" />
+      <div className={styles.logo}>
+        <img alt="placeholder" loading="lazy" src={logoUrl || Avatar} />
       </div>
-      <div className={styles.group__text_wrapper}>
-        <span className={styles.group__title}>{title}</span>
-        {active && link ? (
-          <a
-            href={link}
-            className={styles.group__link}
-            target="_blank"
-            rel="noreferrer"
-          >
+
+      <div className={styles.wrapper}>
+        <span className={styles.title}>{title}</span>
+
+        {link && showExternalLink ? (
+          <a className={styles.href} href={link} rel="noreferrer" target="_blank">
             Ссылка на канал
           </a>
         ) : null}
+
         <p
-          className={cn(styles.group__description)}
-          dangerouslySetInnerHTML={{ __html: description }}
+          className={cn(styles.description)}
+          dangerouslySetInnerHTML={{ __html: description ?? '' }} // eslint-disable-line react/no-danger
         />
-        {/* <p className={cn(styles.group__description)}>{description}</p> */}
+        {/* <p className={cn(styles.description)}>{description}</p> */}
       </div>
     </>
   );
-});
 
-export const Group: FC<TGroupElement> = ({ group, handleClick }) => {
-  const [active, setActive] = useState(false);
-  const { id } = group;
-  const { groupId } = useActiveGroupSelector();
-
-  useEffect(() => {
-    setActive(String(groupId) === String(id));
-  }, [groupId]);
+  if (showExternalLink) {
+    return <div className={cn(styles.group, styles.info)}>{body}</div>;
+  }
 
   return (
-    <div
-      className={cn(styles.group, active ? styles.active : '')}
-      data-group-id={id}
-      onClick={handleClick}
+    <NavLink
+      className={({ isActive }) =>
+        cn({
+          [styles.group]: true,
+          [styles.link]: true,
+          [styles.active]: selected || isActive,
+        })
+      }
+      to={url}
     >
-      <Body group={group} active={active} />
-    </div>
+      {body}
+    </NavLink>
   );
-};
+});

@@ -1,75 +1,38 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Group, GroupPreview } from '@components';
-import { getGroupLastTime } from '@utils/utils';
-import { activeGroupSlice } from '@store/activeGroup';
-import { postsSlice, usePostsSelector } from '@store/posts';
-import { useAppDispatch } from '@store/hooks';
-import { RequestStatus, TGroup } from '@types';
-import { activePostSlice, useActivePostSelector } from '@store/activePost';
+import { FC, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { ChatDto, useChats, useSearchChart } from '@/api';
+import { Group } from '@/components';
+import { getGroupLastTime } from '@/utils';
+
+import { GroupPreview, useGroupUrl } from './GroupPreview';
 
 import styles from './Groups.module.scss';
 
-export const Groups = ({ data }) => {
-  const [groups, setGroups] = useState(data);
-  const [isVisible, setIsVisible] = useState(true);
-  const [disabled, setDisabled] = useState(false);
-  const { postId } = useActivePostSelector();
-  const { requestStatus } = usePostsSelector();
-  const dispatch = useAppDispatch();
+const sortGroups = (arr: ChatDto[] = []) =>
+  arr.sort((a: ChatDto, b: ChatDto) => getGroupLastTime(b) - getGroupLastTime(a));
 
-  const sortGroups = (array) => {
-    return array.sort(
-      (a: TGroup, b: TGroup) => getGroupLastTime(b) - getGroupLastTime(a),
-    );
-  };
+export type GroupsProps = { noPreview?: boolean };
 
-  useEffect(() => {
-    const sortedGroups = sortGroups([...data]);
-    setGroups(sortedGroups);
-  }, [data]);
-
-  useEffect(() => {
-    if (requestStatus === RequestStatus.SUCCESS) {
-      setDisabled(false);
-    }
-  }, [requestStatus]);
-
-  useEffect(() => {
-    setIsVisible(!postId);
-  }, [postId]);
-
-  const handleGroupClick = (e) => {
-    if (!disabled) {
-      const id = e.currentTarget.dataset.groupId;
-      dispatch(activeGroupSlice.actions.setGroupId({ groupId: id }));
-      dispatch(
-        postsSlice.actions.setStatus({ requestStatus: RequestStatus.REQUEST }),
-      );
-      dispatch(activePostSlice.actions.setPostId({ postId: 0 }));
-      setDisabled(true);
-    }
-  };
-
-  const groupsToComponents = useCallback(
-    (array) => {
-      return array.map((group) => (
-        <Group group={group} handleClick={handleGroupClick} key={group.id} />
-      ));
-    },
-    [groups],
-  );
-
-  const groupsComponents = () => {
-    return groupsToComponents(groups);
-  };
+export const Groups: FC<GroupsProps> = ({ noPreview }) => {
+  const { chatId, search: query } = useParams();
+  const { data: founded } = useSearchChart(query ?? undefined, { enabled: !!query });
+  const { data: chats } = useChats({ enabled: !query });
+  const sorted = useMemo(() => sortGroups(query ? founded : chats), [chats, query, founded]);
+  const url = useGroupUrl();
 
   return (
     <div className={styles.groups}>
-      <div className={styles.groups__layout}>{groupsComponents()}</div>
-      {isVisible ? (
+      <div className={styles.groups__layout}>
+        {sorted?.map((group) => (
+          <Group key={group.id} group={group} selected={!!chatId && Number(chatId) === group.id} url={url(group.id)} />
+        ))}
+      </div>
+
+      {chatId && !noPreview ? (
         <div className={styles.info__wrapper}>
           <div className={styles.groups__preview}>
-            <GroupPreview data={groups} />
+            <GroupPreview />
           </div>
         </div>
       ) : null}

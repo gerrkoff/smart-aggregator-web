@@ -1,5 +1,3 @@
-@import '../../styles/colors';
-
 .search {
   position: relative;
   display: flex;
@@ -14,11 +12,11 @@
 .close {
   position: absolute;
   right: 20px;
-  cursor: pointer;
   transition: all .3s ease-in-out;
-  color: $input-border;
+  color: var(--color_input-border);
+  cursor: pointer;
+}
 
-  &:hover {
-    color: red;
-  }
+.close:hover {
+  color: red;
 }

@@ -1,1 +1,0 @@
-export { GroupPreview } from './GroupPreview';
