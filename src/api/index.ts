@@ -3,18 +3,18 @@ import { Api } from './Api';
 function getUrl(host: string): string {
   switch (host) {
     case 'echochat.press':
-      return 'https://tlgm.grkf.ru/prod-echochat/api';
+      return 'https://tlgm.grkf.ru/prod-echochat';
     case 'sa-echomem.web.app':
     case 'memecho.press':
-      return 'https://tlgm.grkf.ru/prod-echomem/api';
+      return 'https://tlgm.grkf.ru/prod-echomem';
     case 'sa-echofan.web.app':
     case 'fanecho.press':
-      return 'https://tlgm.grkf.ru/prod-echofan/api';
+      return 'https://tlgm.grkf.ru/prod-echofan';
     case 'sa-echofin.web.app':
     case 'finecho.press':
-      return 'https://tlgm.grkf.ru/prod-echofin/api';
+      return 'https://tlgm.grkf.ru/prod-echofin';
     default:
-      return 'https://tlgm.grkf.ru/stage/api';
+      return 'https://tlgm.grkf.ru/stage';
   }
 }
 
