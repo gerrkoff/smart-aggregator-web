@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const DEV_ENV = 'development';
 const PROD_ENV = 'production';
@@ -39,6 +40,9 @@ const plugins = [
     title: 'Smart Aggregator',
   }),
   new DefinePlugin(envPluginParams),
+  new CopyPlugin({
+    patterns: ['static/robots.txt'],
+  }),
 ];
 
 if (process.env.BUNDLE_ANALYZER) {
