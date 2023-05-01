@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { Group } from '@/components';
 
@@ -13,5 +14,13 @@ export const GroupPreview = memo(function GroupPreview() {
     return null;
   }
 
-  return <Group group={selected} showExternalLink url={url(selected.id)} />;
+  return (
+    <>
+      <Helmet>
+        <title>{selected.title}</title>
+      </Helmet>
+
+      <Group group={selected} showExternalLink url={url(selected.id)} />
+    </>
+  );
 });
