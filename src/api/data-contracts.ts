@@ -58,6 +58,7 @@ export interface MessageCreateDto {
   /** @format int64 */
   chatId: number;
   text: string;
+  textRaw: string;
   /** @format date-time */
   createTime: string;
   photoUrl?: string | null;
@@ -80,6 +81,7 @@ export interface MessageDto {
   /** @format int64 */
   chatId: number;
   text: string;
+  title: string;
   link: string;
   /** @format date-time */
   createTime: string;
@@ -98,6 +100,7 @@ export interface MessageUpdateDto {
   /** @format date-time */
   editTime: string;
   text?: string | null;
+  textRaw?: string | null;
   photoUrl?: string | null;
   videoFileName?: string | null;
   videoThumbUrl?: string | null;
