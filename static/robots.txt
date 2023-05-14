@@ -2,3 +2,5 @@ User-agent: *
 Crawl-delay: 1
 Host: https://echochat.press/
 Disallow: /api/
+Disallow: /search
+Disallow: /chat
