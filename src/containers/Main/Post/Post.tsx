@@ -1,5 +1,6 @@
 import { memo, MouseEventHandler } from 'react';
-import { Helmet } from 'react-helmet-async';
+// import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 
 import { useMessage } from '@/api';
 import { PostFull } from '@/components';
