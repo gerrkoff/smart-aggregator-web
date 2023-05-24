@@ -24,7 +24,7 @@ export const Groups: FC<GroupsProps> = ({ noPreview }) => {
 
   return (
     <div className={styles.groups}>
-      <div className={styles.groups__layout}>
+      <nav className={styles.groups__layout}>
         {sorted?.map((group) => (
           <Group
             key={group.id}
@@ -33,7 +33,7 @@ export const Groups: FC<GroupsProps> = ({ noPreview }) => {
             url={url(group.id)}
           />
         ))}
-      </div>
+      </nav>
 
       {chatId && !noPreview ? (
         <div className={styles.info__wrapper}>

@@ -59,7 +59,7 @@ export const PostFull: FC<PostFullProps> = ({ handleCopy, post }) => {
   };
 
   return (
-    <div className={styles.post}>
+    <article className={styles.post}>
       <div className={styles.post__media}>{mediaComponents()}</div>
       <div className={styles.post__info}>
         <p
@@ -75,6 +75,6 @@ export const PostFull: FC<PostFullProps> = ({ handleCopy, post }) => {
           {toDateFormat(createTime)}
         </span>
       </div>
-    </div>
+    </article>
   );
 };
