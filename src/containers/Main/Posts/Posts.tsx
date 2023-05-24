@@ -20,7 +20,7 @@ export const Posts: FC = () => {
 
   return (
     <div className={styles.posts}>
-      <div className={styles.posts__layout}>
+      <nav className={styles.posts__layout}>
         {posts ? (
           posts.map((post) => {
             const { id, media, text } = post;
@@ -34,7 +34,7 @@ export const Posts: FC = () => {
         ) : (
           <Loading />
         )}
-      </div>
+      </nav>
     </div>
   );
 };
