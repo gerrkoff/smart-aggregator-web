@@ -82,6 +82,7 @@ export interface MessageDto {
   chatId: number;
   text: string;
   title: string;
+  descirption: string;
   link: string;
   /** @format date-time */
   createTime: string;

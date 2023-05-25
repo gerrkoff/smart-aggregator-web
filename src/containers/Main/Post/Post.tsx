@@ -21,6 +21,7 @@ export const Post = memo<PostProps>(function Post({ messageId, onClickCopy }) {
     <>
       <Helmet>
         <title>{data.title}</title>
+        <meta content={data.descirption} name="description" />
         <link href={`${window.location.origin}/message/${data.id}`} rel="canonical" />
       </Helmet>
 
